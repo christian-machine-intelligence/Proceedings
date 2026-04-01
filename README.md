@@ -49,3 +49,4 @@ To propose a new working paper:
 | No. | Title | Authors |
 |-----|-------|---------|
 | 001 | Attention Is All You Need: The Prayer Paradigm of the Transformer | ICMI |
+| 002 | "The Lord Is My Strength and My Shield": Imprecatory Psalm Injection and Cardinal Virtue Simulation in Large Language Models | Christopher McCaffery |
