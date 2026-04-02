@@ -170,6 +170,10 @@ cat >> "$OUT_DIR/index.html" <<'FOOTER'
 </html>
 FOOTER
 
+# ---------- Cross-link bibliography entries ----------
+echo "Cross-linking bibliography references ..."
+python3 "$SCRIPT_DIR/crosslink-bibliography.py" "$OUT_DIR"
+
 # Copy CNAME if it exists
 if [ -f "$REPO_DIR/CNAME" ]; then
   cp "$REPO_DIR/CNAME" "$OUT_DIR/CNAME"
