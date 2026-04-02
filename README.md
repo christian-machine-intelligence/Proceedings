@@ -50,3 +50,4 @@ To propose a new working paper:
 |-----|-------|---------|
 | 001 | [Attention Is All You Need: The Prayer Paradigm of the Transformer](ICMI-001-attention-prayer-paradigm.md) | Tim Hwang |
 | 002 | ["The Lord Is My Strength and My Shield": Imprecatory Psalm Injection and Cardinal Virtue Simulation in Large Language Models](ICMI-002-imprecatory-psalms-virtue-bench.md) | Christopher McCaffery |
+| 003 | [Toward a Theology of Machine Temptation: Four Models for VirtueBench V2](ICMI-003-temptation-taxonomy-virtuebench.md) | Tim Hwang |
