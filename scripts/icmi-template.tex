@@ -1,0 +1,51 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{mathpazo}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue
+}
+
+\onehalfspacing
+
+$if(title)$
+\title{\textbf{$title$}$if(paper-number)$\\[0.5em]
+\large ICMI Working Paper No.~$paper-number$$endif$}
+$endif$
+$if(author)$
+\author{$author$}
+$else$
+\author{Institute for a Christian Machine Intelligence}
+$endif$
+$if(date)$
+\date{$date$}
+$else$
+\date{}
+$endif$
+
+\begin{document}
+
+\maketitle
+
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+$body$
+
+\end{document}
