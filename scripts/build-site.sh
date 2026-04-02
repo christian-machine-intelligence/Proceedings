@@ -107,6 +107,8 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Proceedings of the Institute for a Christian Machine Intelligence</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
@@ -202,6 +204,11 @@ FOOTER
 # ---------- Cross-link bibliography entries ----------
 echo "Cross-linking bibliography references ..."
 python3 "$SCRIPT_DIR/crosslink-bibliography.py" "$OUT_DIR"
+
+# Copy favicon files
+for fav in "$REPO_DIR"/favicon*.png; do
+  [ -f "$fav" ] && cp "$fav" "$OUT_DIR/"
+done
 
 # Copy CNAME if it exists
 if [ -f "$REPO_DIR/CNAME" ]; then

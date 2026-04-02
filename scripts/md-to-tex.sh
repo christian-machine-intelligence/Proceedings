@@ -62,11 +62,13 @@ echo "$body_md" | pandoc \
   --variable abstract="$abstract" \
   -o "$tex"
 
-# Post-process the generated .tex file
+# Post-process the generated .tex file (cross-platform sed -i)
+sedi() { if [[ "$OSTYPE" == darwin* ]]; then sed -i '' "$@"; else sed -i "$@"; fi; }
+
 # 1. Use unnumbered sections (papers have manual numbers like "1. Introduction")
-sed -i '' 's/\\section{/\\section*{/g; s/\\subsection{/\\subsection*{/g; s/\\subsubsection{/\\subsubsection*{/g' "$tex"
+sedi 's/\\section{/\\section*{/g; s/\\subsection{/\\subsection*{/g; s/\\subsubsection{/\\subsubsection*{/g' "$tex"
 
 # 2. Replace longtable with tabular (longtable doesn't work in twocolumn mode)
-sed -i '' 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}/g' "$tex"
+sedi 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}/g' "$tex"
 # Remove longtable-specific commands
-sed -i '' '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
+sedi '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
