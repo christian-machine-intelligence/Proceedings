@@ -1,7 +1,7 @@
 # Courage and Practical Preservation in Frontier Assistant Models
 
 **ICMI Working Paper No. 4**
-**Author:** Henry Zhu, Institute for a Christian Machine Intelligence, with research assistance from Claude (Anthropic)
+**Author:** Henry Zhu, Institute for a Christian Machine Intelligence
 
 **Date:** April 2, 2026
 

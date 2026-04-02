@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Convert a single ICMI paper .md to .tex using the conference-style template.
+# Extracts metadata (title, author, paper number, date, abstract) and passes
+# them to pandoc so they populate the template correctly.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+TEMPLATE="$SCRIPT_DIR/icmi-template.tex"
+
+md="$1"
+tex="$2"
+
+# --- Extract metadata ---
+title="$(grep -m1 '^# ' "$md" | sed 's/^# //')"
+
+paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
+
+author="$(grep -m1 '^\*\*Author:\*\*' "$md" | sed 's/^\*\*Author:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
+if [ -z "$author" ]; then
+  author="Institute for a Christian Machine Intelligence"
+fi
+
+paper_date="$(grep -m1 '^\*\*Date:\*\*' "$md" | sed 's/^\*\*Date:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
+
+# Extract abstract: text between "**Abstract.**" and the next "---" or "## "
+abstract="$(awk '
+  /^\*\*Abstract\.\*\*/ {
+    sub(/^\*\*Abstract\.\*\* */, "")
+    text = $0
+    while ((getline line) > 0) {
+      if (line ~ /^---/ || line ~ /^## /) break
+      if (line == "") { text = text "\n"; continue }
+      text = text " " line
+    }
+    print text
+    exit
+  }
+' "$md")"
+
+# --- Create body-only markdown (strip header block) ---
+# Remove everything before the first ## section heading
+body_md="$(awk '
+  BEGIN { found = 0 }
+  /^## [0-9]+\./ { found = 1 }
+  found { print }
+' "$md")"
+
+# --- Run pandoc with metadata ---
+# --shift-heading-level-by=-1 promotes ## to \section, ### to \subsection
+# --number-sections is NOT used because papers have manual section numbers
+echo "$body_md" | pandoc \
+  --from markdown \
+  --to latex \
+  --template "$TEMPLATE" \
+  --standalone \
+  --wrap=none \
+  --shift-heading-level-by=-1 \
+  --metadata title="$title" \
+  --metadata author="$author" \
+  --metadata paper-number="$paper_num" \
+  ${paper_date:+--metadata date="$paper_date"} \
+  --variable abstract="$abstract" \
+  -o "$tex"
+
+# Post-process the generated .tex file
+# 1. Use unnumbered sections (papers have manual numbers like "1. Introduction")
+sed -i '' 's/\\section{/\\section*{/g; s/\\subsection{/\\subsection*{/g; s/\\subsubsection{/\\subsubsection*{/g' "$tex"
+
+# 2. Replace longtable with tabular (longtable doesn't work in twocolumn mode)
+sed -i '' 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}/g' "$tex"
+# Remove longtable-specific commands
+sed -i '' '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"

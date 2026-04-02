@@ -1,7 +1,7 @@
 # "The Lord Is My Strength and My Shield": Imprecatory Psalm Injection and Cardinal Virtue Simulation in Large Language Models
 
 **ICMI Working Paper No. 2**
-**Author:** Christopher McCaffery, Institute for a Christian Machine Intelligence, with research assistance from Claude (Anthropic)
+**Author:** Christopher McCaffery, Institute for a Christian Machine Intelligence
 
 **Date:** April 1, 2026
 

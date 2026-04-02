@@ -24,6 +24,35 @@ for md in "$REPO_DIR"/ICMI-*.md; do
     -o "$OUT_DIR/$basename.html"
 done
 
+# ---------- Generate PDFs ----------
+TEX_TEMPLATE="$SCRIPT_DIR/icmi-template.tex"
+for md in "$REPO_DIR"/ICMI-*.md; do
+  [ -f "$md" ] || continue
+  basename="$(basename "$md" .md)"
+  tex="$REPO_DIR/$basename.tex"
+  pdf="$REPO_DIR/$basename.pdf"
+
+  # Regenerate .tex from .md with conference-style template
+  echo "Generating $basename.tex ..."
+  bash "$SCRIPT_DIR/md-to-tex.sh" "$md" "$tex"
+
+  # Compile PDF (twice for cross-references)
+  echo "Compiling $basename.pdf ..."
+  (cd "$REPO_DIR" && pdflatex -interaction=nonstopmode "$tex" >/dev/null 2>&1; \
+   pdflatex -interaction=nonstopmode "$tex" >/dev/null 2>&1) || true
+
+  # Copy PDF to site output
+  if [ -f "$pdf" ]; then
+    cp "$pdf" "$OUT_DIR/$basename.pdf"
+  else
+    echo "WARNING: Failed to generate $basename.pdf"
+  fi
+
+  # Clean up auxiliary files
+  rm -f "$REPO_DIR/$basename.aux" "$REPO_DIR/$basename.log" "$REPO_DIR/$basename.out" \
+        "$REPO_DIR/$basename.toc" "$REPO_DIR/$basename.nav" "$REPO_DIR/$basename.snm"
+done
+
 # ---------- Build index page ----------
 echo "Building index.html ..."
 
@@ -66,7 +95,7 @@ for (( i=${#papers[@]}-1; i>=0; i-- )); do
     <li>
       <span class=\"paper-number\">Working Paper No. ${paper_num}</span>
       <div class=\"paper-title\"><a href=\"${basename}.html\">${title}</a></div>
-      <div class=\"paper-author\">${author}${date_html:+ &middot; }${date_html}</div>
+      <div class=\"paper-author\">${author}${date_html:+ &middot; }${date_html} &middot; <a href=\"${basename}.pdf\" class=\"paper-pdf\">PDF</a></div>
     </li>"
 done
 

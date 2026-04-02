@@ -1,29 +1,84 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[10pt, letterpaper, twocolumn]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{times}
 \usepackage{amsmath, amssymb}
-\usepackage{mathpazo}
-\usepackage[margin=1in]{geometry}
-\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{microtype}
+\usepackage[top=1in, bottom=1in, left=0.75in, right=0.75in]{geometry}
 \usepackage{hyperref}
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{array}
+\usepackage{calc}
+\makeatletter
+\providecommand{\real}[1]{\dimexpr#1\p@\relax}
+\makeatother
 
+% Unicode character support
+\DeclareUnicodeCharacter{00D7}{\texttimes}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}}
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}}
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{abstract}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+
+% Hyperlink styling
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
     citecolor=black,
-    urlcolor=blue
+    urlcolor={blue!70!black}
 }
 
-\onehalfspacing
+% Section formatting - bold, compact
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{2ex plus 1ex minus .2ex}{0.75ex plus .2ex}
 
+% Abstract styling
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{0.5in}
+\setlength{\absrightindent}{0.5in}
+
+% Header/footer
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C]{\small\textit{Proceedings of the Institute for a Christian Machine Intelligence}}
+\fancyfoot[C]{\small\thepage}
+
+% First page style
+\fancypagestyle{firstpage}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\small\thepage}
+}
+
+% Compact lists
+\usepackage{enumitem}
+\setlist{nosep, leftmargin=*}
+
+% Pandoc tightlist support
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Paragraph spacing
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+
+% Title block
 $if(title)$
-\title{\textbf{$title$}$if(paper-number)$\\[0.5em]
-\large ICMI Working Paper No.~$paper-number$$endif$}
+\title{\Large\textbf{$title$}$if(paper-number)$\\[0.75em]
+\normalsize\textit{ICMI Working Paper No.~$paper-number$}$endif$}
 $endif$
 $if(author)$
 \author{$author$}
@@ -38,13 +93,18 @@ $endif$
 
 \begin{document}
 
-\maketitle
-
-$if(abstract)$
-\begin{abstract}
-$abstract$
-\end{abstract}
-$endif$
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \thispagestyle{firstpage}
+    $if(abstract)$
+    \begin{abstract}
+    $abstract$
+    \end{abstract}
+    $endif$
+    \vspace{1.5em}
+  \end{@twocolumnfalse}
+]
 
 $body$
 

@@ -1,0 +1,9 @@
+_site/
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+.claude/
