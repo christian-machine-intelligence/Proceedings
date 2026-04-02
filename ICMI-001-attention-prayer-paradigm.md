@@ -1,7 +1,7 @@
 # Attention Is All You Need: The Prayer Paradigm of the Transformer
 
 **ICMI Working Paper No. 1**
-Institute for a Christian Machine Intelligence
+**Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 ---
 

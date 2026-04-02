@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$if(title)$$title$ — ICMI$else$ICMI Proceedings$endif$</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+      font-size: 19px;
+      line-height: 1.7;
+      color: #000;
+      background: #fff;
+      padding: 3rem 1.5rem;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    a { color: #000; }
+    a:hover { text-decoration: none; }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #000;
+    }
+
+    header .site-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    header .site-title a {
+      text-decoration: none;
+    }
+
+    header .site-subtitle {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    h1 { font-size: 1.8rem; font-weight: 700; margin: 2rem 0 1rem; line-height: 1.25; }
+    h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
+    h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.5rem; }
+
+    p { margin-bottom: 1rem; }
+
+    blockquote {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+      border-left: 2px solid #000;
+      font-style: italic;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #000;
+      margin: 2rem 0;
+    }
+
+    code {
+      font-size: 0.9em;
+      background: #f5f5f5;
+      padding: 0.15em 0.3em;
+      border-radius: 2px;
+    }
+
+    pre {
+      background: #f5f5f5;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-size: 0.85em;
+      line-height: 1.5;
+    }
+
+    pre code { background: none; padding: 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95em;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th { font-weight: 600; border-bottom: 2px solid #000; }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    .paper-meta {
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Index page */
+    .paper-list { list-style: none; }
+
+    .paper-list li {
+      margin-bottom: 2rem;
+    }
+
+    .paper-list .paper-number {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .paper-list .paper-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .paper-list .paper-title a {
+      text-decoration: none;
+    }
+
+    .paper-list .paper-title a:hover {
+      text-decoration: underline;
+    }
+
+    .paper-list .paper-author {
+      font-size: 0.95rem;
+      color: #444;
+      margin-top: 0.15rem;
+    }
+
+    .MathJax { font-size: 1em !important; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #000;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    footer a { color: #000; }
+
+    @media (max-width: 600px) {
+      body { font-size: 17px; padding: 2rem 1rem; }
+      header .site-title { font-size: 2rem; }
+      h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="site-title"><a href="index.html">Proceedings</a></div>
+    <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
+  </header>
+  <main>
+$body$
+  </main>
+  <footer>
+    <a href="https://github.com/christian-machine-intelligence">GitHub</a>
+  </footer>
+</body>
+</html>
