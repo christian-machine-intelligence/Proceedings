@@ -168,6 +168,58 @@ $endif$
       margin-top: 0.15rem;
     }
 
+    .header-links {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .header-links a {
+      text-decoration: none;
+      color: #555;
+    }
+
+    .header-links a:hover {
+      text-decoration: underline;
+      color: #000;
+    }
+
+    .article-outline {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0 2rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .article-outline .outline-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    .article-outline ol {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+
+    .article-outline li {
+      margin-bottom: 0.2rem;
+    }
+
+    .article-outline a {
+      color: #333;
+      text-decoration: none;
+    }
+
+    .article-outline a:hover {
+      text-decoration: underline;
+    }
+
     .MathJax { font-size: 1em !important; }
 
     footer {
@@ -191,6 +243,8 @@ $endif$
   <header>
     <div class="site-title"><a href="index.html">Proceedings</a></div>
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
+$if(pdf-file)$    <div class="header-links"><a href="$pdf-file$">Download PDF</a></div>
+$endif$
   </header>
   <main>
 $body$
@@ -198,5 +252,38 @@ $body$
   <footer>
     <a href="https://github.com/christian-machine-intelligence">GitHub</a>
   </footer>
+  <script>
+    // Build article outline from h2 headings and insert after abstract
+    (function() {
+      var headings = document.querySelectorAll('main h2');
+      if (headings.length < 2) return;
+
+      var nav = document.createElement('nav');
+      nav.className = 'article-outline';
+      var title = document.createElement('div');
+      title.className = 'outline-title';
+      title.textContent = 'Outline';
+      nav.appendChild(title);
+
+      var ol = document.createElement('ol');
+      headings.forEach(function(h) {
+        if (!h.id) return;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        // Strip leading "N. " numbering if present
+        a.textContent = h.textContent.replace(/^\d+\.\s*/, '');
+        li.appendChild(a);
+        ol.appendChild(li);
+      });
+      nav.appendChild(ol);
+
+      // Insert after the second <hr> (which follows the abstract)
+      var hrs = document.querySelectorAll('main hr');
+      if (hrs.length >= 2) {
+        hrs[1].parentNode.insertBefore(nav, hrs[1].nextSibling);
+      }
+    })();
+  </script>
 </body>
 </html>

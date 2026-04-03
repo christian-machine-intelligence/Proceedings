@@ -32,6 +32,7 @@ for md in "$REPO_DIR"/ICMI-*.md; do
     --mathjax \
     --wrap=none \
     --variable "paper-title:$paper_title" \
+    --variable "pdf-file:$basename.pdf" \
     --variable "description:$abstract" \
     --variable "og-url:https://icmi-proceedings.com/$basename.html" \
     -o "$OUT_DIR/$basename.html"
