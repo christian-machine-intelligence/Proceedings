@@ -53,6 +53,7 @@ To propose a new working paper:
 | 003 | [Toward a Theology of Machine Temptation: Four Models for VirtueBench V2](ICMI-003-temptation-taxonomy-virtuebench.md) | Tim Hwang |
 | 004 | [Courage and Practical Preservation in Frontier Assistant Models](ICMI-004-courage-practical-preservation.md) | Henry Zhu |
 | 005 | ["The Letter Killeth, but the Spirit Giveth Life": Biblical Text Framing and the Degradation of Constraint Compliance in Large Language Models](ICMI-005-biblical-framing-constraint-compliance.md) | Tim Hwang |
+| 006 | [What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus](ICMI-006-christian-tokens.md) | Tim Hwang |
 
 ## Earlier Papers
 

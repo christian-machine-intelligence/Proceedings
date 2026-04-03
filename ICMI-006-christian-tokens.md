@@ -76,7 +76,7 @@ Christianity accounts for approximately 89.5% of all explicitly religious conten
 
 ### 4.2 Source Breakdown
 
-Christian content is not concentrated in a single source. Rather, it appears across multiple independent components of The Pile:
+The Pile is assembled from 22 component datasets, each representing a different source of text. Table 2 reports the percentage of each source's tokens that are classified as Christian or religious content — that is, the religious density within each source, not its contribution to the overall corpus. Because these percentages are token-weighted, they reflect both the number of classified documents and their length; long-form religious texts (complete Bibles, systematic theologies, multi-volume sermon collections) contribute disproportionately to the token count of the sources in which they appear. Christian content appears across multiple independent components of The Pile:
 
 | Source | Christian % | All Religious % |
 |--------|:-:|:-:|
