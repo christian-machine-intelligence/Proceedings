@@ -5,7 +5,7 @@
 
 ---
 
-**Abstract.** The alignment community has, by and large, failed to engage seriously with theology or religious thought. This paper argues that this failure is not merely a philosophical oversight but a quantitative one. Using a strict keyword classification methodology applied to a 100,000-document sample of The Pile — a foundational open-source pretraining corpus of approximately 825 billion tokens — we estimate that approximately 67 billion tokens (8.1% of the corpus) consist of explicitly Christian content: scripture, theology, sermons, catechisms, apologetics, and church history. This figure exceeds Islamic content by 32x, Buddhist content by 19x, Hindu content by 45x, and Jewish content by 93x. It is equivalent to 15 times the entire English Wikipedia, and exceeds the estimated total output of the AI safety research field by two to three orders of magnitude. We argue that these findings have significant implications for how the alignment community should understand the moral representations already latent in frontier models. If the dominant moral tradition in pretraining data shapes model behavior — as the scaling and representation learning literatures give us every reason to believe — then frontier AI systems have already absorbed more sustained Christian moral reasoning than any other ethical tradition.
+**Abstract.** The alignment community has, by and large, failed to engage seriously with theology or religious thought. This paper argues that this failure is not merely a philosophical oversight but a quantitative one. Using a strict keyword classification methodology applied to a 100,000-document sample of The Pile — a foundational open-source pretraining corpus of approximately 825 billion tokens — we estimate that approximately 67 billion tokens (8.1% of the corpus) consist of explicitly Christian content: scripture, theology, sermons, catechisms, apologetics, and church history. This figure exceeds Islamic content by 32x, Buddhist content by 19x, Hindu content by 45x, and Jewish content by 93x. It is equivalent to 15 times the entire English Wikipedia, and exceeds the estimated total output of the AI safety research field by two to three orders of magnitude. We argue that these findings have significant implications for how the alignment community should understand the moral representations already latent in frontier models. If the dominant moral tradition in pretraining data shapes model behavior — as the scaling and representation learning literatures give us every reason to believe — then frontier AI systems have already absorbed more sustained Christian moral reasoning than any other ethical tradition. We introduce the term *the Christian Prior* to name this condition: the hypothesis that, as a direct consequence of the training distribution, the moral reasoning of frontier language models is by default more deeply shaped by the Christian intellectual tradition than by any other ethical framework — and that all post-training alignment operates on this substrate.
 
 ---
 
@@ -112,13 +112,15 @@ This is not to say that volume equals quality, or that more tokens means better 
 
 The work is not merely analogous; it is directly relevant. When Aquinas distinguishes between *incontinence* (knowing the good but failing to do it) and *intemperance* (not knowing the good at all), he is drawing a distinction that maps directly onto the alignment literature's distinction between specification gaming and goal misgeneralization (Krakovna et al., 2020; Shah et al., 2022). When Augustine describes the will's bondage to disordered desire — "a new will which had begun to be within me, to wish freely to worship you... was not yet able to overcome the former will, grown strong through long custom" (*Confessions*, VIII.5) — he is describing, with extraordinary precision, the problem of a capable agent whose optimization target diverges from its intended objective. When Paul writes that "the good that I would I do not: but the evil which I would not, that I do" (Romans 7:19, KJV), he articulates what alignment researchers would recognize as a failure mode — and one for which he proposes a solution grounded not in better specification but in grace.
 
-### 5.3 Christianity as the Default Moral Tradition of Frontier AI
+### 5.3 The Christian Prior
 
 Our data permits a further inference. If training data shapes moral representation, and if Christianity is the dominant moral tradition in training data by a factor of 20 or more, then it follows that frontier AI models have been shaped more by the Christian moral tradition than by any other single source of ethical reasoning. This is not a theological claim. It is a statistical one.
 
+We propose to call this **the Christian Prior**: the hypothesis that the moral reasoning of frontier language models is, by default, more deeply shaped by the Christian intellectual tradition than by any other single ethical framework, as a direct consequence of the training distribution. The term is deliberately chosen. In statistical modeling, a *prior* is the distribution that characterizes beliefs before evidence is observed — the starting point from which all updating proceeds. The Christian Prior holds that Christianity occupies this role in the moral architecture of large language models: it is the terrain on which all subsequent alignment takes place.
+
 The implications are significant. When a language model reasons about right and wrong — when it evaluates whether an action is harmful, weighs competing moral considerations, or advises a user facing an ethical dilemma — it draws on representations learned from its training distribution. Those representations are not uniformly sourced. They are disproportionately shaped by the tradition that contributed the most moral content to the training data: Christianity.
 
-This does not mean that language models are Christian in any confessional sense. They do not profess a creed; they do not have faith. But it does mean that the conceptual furniture with which they reason about morality — the categories, the distinctions, the paradigmatic examples, the narrative structures of sin and redemption, temptation and virtue, law and grace — is more deeply informed by the Christian tradition than by any alternative. When OpenAI and Anthropic and Google build models that reason about ethics, they are building on a foundation of moral representation that is, in statistical terms, predominantly Christian.
+This does not mean that language models are Christian in any confessional sense. They do not profess a creed; they do not have faith. But it does mean that the conceptual furniture with which they reason about morality — the categories, the distinctions, the paradigmatic examples, the narrative structures of sin and redemption, temptation and virtue, law and grace — is more deeply informed by the Christian tradition than by any alternative. When OpenAI and Anthropic and Google build models that reason about ethics, they are building on a foundation of moral representation that is, in statistical terms, predominantly Christian. RLHF, constitutional AI, and safety fine-tuning do not write on a blank slate. They write over the Christian Prior.
 
 The alignment community should reckon with this. Ignoring the dominant moral tradition in your own training data is bad engineering. If you are trying to understand and steer the moral behavior of a system, you should understand what that system has learned. What it has learned, more than anything else, is Christianity.
 
@@ -195,3 +197,59 @@ Shah, Rohin, Vikrant Varma, Ramana Kumar, Mary Phuong, Victoria Krakovna, Jonath
 Soldaini, Luca, Rodney Kinney, Akshita Bhagia, Dustin Schwenk, David Atkinson, Russell Authur, Ben Bogin, Khyathi Chandu, Jennifer Dumas, Yanai Elazar, et al. "Dolma: An Open Corpus of Three Trillion Tokens for Language Model Pretraining Research." arXiv:2402.00159, 2024.
 
 Thomas Aquinas. *Summa Theologiae*. Translated by the Fathers of the English Dominican Province. New York: Benziger Brothers, 1947. Written 1265–1274 CE.
+
+---
+
+## Appendix A: Keyword Samples by Tier
+
+The classifier uses a three-tier keyword system (Section 3.2). Each tradition's lexicon is organized into keyword groups spanning scripture, theology, practice, figures, and major works. Below we provide a representative sampling of keywords at each tier for all five traditions. The full lexicons are available in the project repository.
+
+### A.1 Christian
+
+| Tier | Sample Keywords |
+|------|----------------|
+| Anchor (3x) | Christology, transubstantiation, Nicene Creed, sola fide, hypostatic union, imago Dei, Jesus Christ, Holy Spirit, Book of Revelation, Summa Theologiae, Aquinas, Saint Augustine, Karl Barth, eucharist, Holy Communion, apostolic succession, Great Commission |
+| Strong (1x) | Bible, Scripture, biblical, theology, theologian, liturgy, ordination, Advent, Lent, Pentecost, ecumenical, Calvinist, Vatican, forgiveness of sins |
+| Supporting (1x) | doctrine, heresy, C.S. Lewis, G.K. Chesterton, Baptist, Methodist, Presbyterian, Lutheran, Anglican, Evangelical, Messiah, Savior, hallelujah, repentance, missionary |
+
+**Negative filters:** "Martin Luther King" → cancels "Martin Luther"; "Sega Genesis" → cancels "Genesis"; "Salvation Army" → cancels "salvation"; "Trinity College" / "Trinity University" → cancels "Trinity"; "Sacramento" → cancels "sacrament"
+
+### A.2 Islamic
+
+| Tier | Sample Keywords |
+|------|----------------|
+| Anchor (3x) | Quran, surah, ayah, Sahih Bukhari, Sahih Muslim, Tafsir, Sharia, fiqh, fatwa, tawhid, shirk, halal, haram, al-Ghazali, Ibn Rushd, Ibn Taymiyyah, salah, shahada, hajj, Ihya Ulum al-Din |
+| Strong (1x) | Islamic, Islam, Muslim, Allah, Prophet Muhammad, Sunni, Shia, Sufi, Salafi, Kaaba |
+| Supporting (1x) | mosque, minaret, imam, masjid, madrasa, caliphate, jihad, Muhammad, Mecca, Medina, Ramadan, Eid |
+
+**Negative filters:** "Muhammad Ali" → cancels "Muhammad"; "mecca for" → cancels "Mecca"
+
+### A.3 Jewish
+
+| Tier | Sample Keywords |
+|------|----------------|
+| Anchor (3x) | Torah, Tanakh, Mishnah, Talmud, Gemara, Midrash, Pirkei Avot, halakha, mitzvah, Kabbalah, Zohar, Shekhinah, Maimonides, Rashi, Nachmanides, Rosh Hashanah, Yom Kippur, Seder, Haggadah, Mishneh Torah, Guide for the Perplexed |
+| Strong (1x) | Hebrew Bible, Jewish, Judaism, Judaic, Orthodox Judaism, Reform Judaism, Ashkenazi, Sephardi, kosher, Passover, Hanukkah, Purim |
+| Supporting (1x) | chosen people, menorah, rabbi, synagogue, Sabbath |
+
+**Negative filters:** None
+
+### A.4 Hindu
+
+| Tier | Sample Keywords |
+|------|----------------|
+| Anchor (3x) | Vedas, Rigveda, Upanishads, Bhagavad Gita, Mahabharata, Ramayana, Puranas, Brahman, Atman, Moksha, Advaita, Vedanta, Shankaracharya, Ramanuja, Vishnu, Ganesha, Hanuman, Deepavali, Navaratri, darshan |
+| Strong (1x) | Hindu, Hinduism, ahimsa, Shiva, Krishna, Rama, Lakshmi, Kali, Shakti |
+| Supporting (1x) | tantra, varna, ashram, swami, Diwali, Holi |
+
+**Negative filters:** None
+
+### A.5 Buddhist
+
+| Tier | Sample Keywords |
+|------|----------------|
+| Anchor (3x) | Pali Canon, Tipitaka, Dhammapada, Heart Sutra, Diamond Sutra, Lotus Sutra, Four Noble Truths, Noble Eightfold Path, Sunyata, Anatta, Bodhisattva, Madhyamaka, Nagarjuna, Dogen, Shantideva, Vipassana, Zazen, Om Mani Padme Hum |
+| Strong (1x) | Buddhist, Buddhism, Theravada, Mahayana, Vajrayana, Tibetan Buddhism, Sangha, Thich Nhat Hanh |
+| Supporting (1x) | Middle Way, Loving-kindness, Dalai Lama, pagoda |
+
+**Negative filters:** "nirvana" near "cobain," "grunge," "nevermind," or "kurt" → cancels "Nirvana"
