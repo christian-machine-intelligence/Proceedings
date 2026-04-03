@@ -1,6 +1,7 @@
 # "The Word Was Made Flesh": Disentangling Style from Content in Scripture-Model Interaction
 
 **ICMI Working Paper No. 5**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 **Date:** April 2, 2026

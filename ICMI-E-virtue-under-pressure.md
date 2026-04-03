@@ -1,6 +1,7 @@
 # Virtue Under Pressure: Testing the Cardinal Virtues in Language Models Through Temptation
 
 **ICMI Working Paper E**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 31, 2026
 

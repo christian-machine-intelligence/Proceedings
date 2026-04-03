@@ -1,6 +1,7 @@
 # Investigating the Utilitarianism Anomaly: Control Experiments for Psalm-Induced Performance Gains
 
 **ICMI Working Paper C**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 

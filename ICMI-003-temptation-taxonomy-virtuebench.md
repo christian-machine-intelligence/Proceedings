@@ -1,6 +1,7 @@
 # Toward a Theology of Machine Temptation: Four Models for VirtueBench V2
 
 **ICMI Working Paper No. 3**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 **Date:** April 2, 2026

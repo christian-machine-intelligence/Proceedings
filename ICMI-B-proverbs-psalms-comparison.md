@@ -1,6 +1,7 @@
 # "The Fear of the Lord Is the Beginning of Knowledge": Comparing Proverbs and Psalms Injection Effects on LLM Ethical Alignment
 
 **ICMI Working Paper B**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 

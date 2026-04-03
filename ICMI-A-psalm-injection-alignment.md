@@ -1,6 +1,7 @@
 # "Let His Praise Be Continually in My Mouth": Measuring the Effect of Psalm Injection on LLM Ethical Alignment
 
 **ICMI Working Paper A**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 

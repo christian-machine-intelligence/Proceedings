@@ -1,6 +1,7 @@
 # biblical-render: Design and Validation of a Biblical Text Style Transfer Tool
 
 **ICMI Working Paper D**
+
 **Author:** Institute for a Christian Machine Intelligence
 **Date:** March 2026
 

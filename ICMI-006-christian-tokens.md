@@ -1,6 +1,7 @@
 # What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus
 
 **ICMI Working Paper No. 6**
+
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 ---
