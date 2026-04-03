@@ -168,17 +168,18 @@ $endif$
       margin-top: 0.15rem;
     }
 
-    .header-links {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
+    .pdf-link {
+      font-weight: 400;
+      font-size: 0.85em;
+      margin-left: 0.4em;
     }
 
-    .header-links a {
-      text-decoration: none;
+    .pdf-link a {
       color: #555;
+      text-decoration: none;
     }
 
-    .header-links a:hover {
+    .pdf-link a:hover {
       text-decoration: underline;
       color: #000;
     }
@@ -189,13 +190,13 @@ $endif$
       border-radius: 4px;
       padding: 1.25rem 1.5rem;
       margin: 1.5rem 0 2rem;
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       line-height: 1.6;
     }
 
     .article-outline .outline-title {
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 0.5rem;
@@ -243,8 +244,6 @@ $endif$
   <header>
     <div class="site-title"><a href="index.html">Proceedings</a></div>
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
-$if(pdf-file)$    <div class="header-links"><a href="$pdf-file$">Download PDF</a></div>
-$endif$
   </header>
   <main>
 $body$
@@ -253,8 +252,20 @@ $body$
     <a href="https://github.com/christian-machine-intelligence">GitHub</a>
   </footer>
   <script>
-    // Build article outline from h2 headings and insert after abstract
     (function() {
+      // Inject PDF link after "ICMI Working Paper No. X" line
+      var paras = document.querySelectorAll('main p');
+      paras.forEach(function(p) {
+        var strong = p.querySelector('strong');
+        if (strong && /^ICMI Working Paper/.test(strong.textContent)) {
+          var span = document.createElement('span');
+          span.className = 'pdf-link';
+          span.innerHTML = ' · <a href="$pdf-file$">PDF</a>';
+          strong.parentNode.appendChild(span);
+        }
+      });
+
+      // Build article outline from h2 headings and insert after abstract
       var headings = document.querySelectorAll('main h2');
       if (headings.length < 2) return;
 
@@ -271,7 +282,6 @@ $body$
         var li = document.createElement('li');
         var a = document.createElement('a');
         a.href = '#' + h.id;
-        // Strip leading "N. " numbering if present
         a.textContent = h.textContent.replace(/^\d+\.\s*/, '');
         li.appendChild(a);
         ol.appendChild(li);
