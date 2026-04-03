@@ -257,6 +257,11 @@ for fav in "$REPO_DIR"/favicon*.png; do
   [ -f "$fav" ] && cp "$fav" "$OUT_DIR/"
 done
 
+# Copy image assets referenced by papers
+for img in "$REPO_DIR"/*.png "$REPO_DIR"/*.jpg "$REPO_DIR"/*.svg; do
+  [ -f "$img" ] && [[ "$(basename "$img")" != favicon* ]] && cp "$img" "$OUT_DIR/"
+done
+
 # Copy CNAME if it exists
 if [ -f "$REPO_DIR/CNAME" ]; then
   cp "$REPO_DIR/CNAME" "$OUT_DIR/CNAME"
