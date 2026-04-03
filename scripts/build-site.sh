@@ -15,6 +15,10 @@ for md in "$REPO_DIR"/ICMI-*.md; do
   basename="$(basename "$md" .md)"
   echo "Building $basename.html ..."
 
+  # Extract title from first # heading for Open Graph meta tags
+  paper_title="$(sed -n 's/^# *//p' "$md" | head -1)"
+  paper_title="$(echo "$paper_title" | sed 's/"/\&quot;/g')"
+
   # Extract abstract for Open Graph meta tags
   abstract="$(sed -n 's/^\*\*Abstract\.\*\* *//p' "$md" | head -1 | cut -c1-300)"
   # Escape double quotes for safe embedding in metadata
@@ -27,6 +31,7 @@ for md in "$REPO_DIR"/ICMI-*.md; do
     --standalone \
     --mathjax \
     --wrap=none \
+    --variable "paper-title:$paper_title" \
     --variable "description:$abstract" \
     --variable "og-url:https://icmi-proceedings.com/$basename.html" \
     -o "$OUT_DIR/$basename.html"
