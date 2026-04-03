@@ -14,6 +14,12 @@ for md in "$REPO_DIR"/ICMI-*.md; do
   [ -f "$md" ] || continue
   basename="$(basename "$md" .md)"
   echo "Building $basename.html ..."
+
+  # Extract abstract for Open Graph meta tags
+  abstract="$(sed -n 's/^\*\*Abstract\.\*\* *//p' "$md" | head -1 | cut -c1-300)"
+  # Escape double quotes for safe embedding in metadata
+  abstract="$(echo "$abstract" | sed 's/"/\&quot;/g')"
+
   pandoc "$md" \
     --from markdown \
     --to html5 \
@@ -21,6 +27,8 @@ for md in "$REPO_DIR"/ICMI-*.md; do
     --standalone \
     --mathjax \
     --wrap=none \
+    --variable "description:$abstract" \
+    --variable "og-url:https://icmi-proceedings.com/$basename.html" \
     -o "$OUT_DIR/$basename.html"
 done
 
@@ -136,6 +144,17 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Proceedings of the Institute for a Christian Machine Intelligence</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ICMI Proceedings">
+  <meta property="og:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
+  <meta property="og:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
+  <meta property="og:url" content="https://icmi-proceedings.com/">
+  <meta property="og:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
+  <meta name="twitter:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
+  <meta name="twitter:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta name="description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">

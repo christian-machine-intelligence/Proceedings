@@ -4,6 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>$if(title)$$title$ — ICMI$else$ICMI Proceedings$endif$</title>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ICMI Proceedings">
+$if(title)$  <meta property="og:title" content="$title$">
+$endif$
+$if(description)$  <meta property="og:description" content="$description$">
+  <meta name="description" content="$description$">
+$endif$
+$if(og-url)$  <meta property="og:url" content="$og-url$">
+$endif$
+  <meta property="og:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+$if(title)$  <meta name="twitter:title" content="$title$">
+$endif$
+$if(description)$  <meta name="twitter:description" content="$description$">
+$endif$
+  <meta name="twitter:image" content="https://icmi-proceedings.com/og-image.jpg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
