@@ -16,9 +16,9 @@ ICMI-[ID]-[short-title].[ext]
 
 - **ID**: Zero-padded three-digit sequence number (e.g., `001`, `002`) for the main series, or a single letter (e.g., `A`, `B`) for earlier papers
 - **short-title**: Lowercase, hyphen-separated summary of the paper's subject
-- **ext**: `.md` for Markdown, `.tex` for LaTeX
+- **ext**: `.md` for Markdown
 
-Each paper should be published in both Markdown and LaTeX formats. The Markdown version serves as the GitHub-readable version; the LaTeX version is the typeset-ready source.
+Each paper is authored in Markdown. The site build (GitHub Actions) automatically generates HTML pages and PDFs from the `.md` source.
 
 Examples:
 - `ICMI-001-attention-prayer-paradigm.md`
@@ -40,7 +40,7 @@ Every working paper should include:
 To propose a new working paper:
 
 1. Claim the next available number in the sequence
-2. Create both `.md` and `.tex` files following the naming convention above
+2. Create a `.md` file following the naming convention above
 3. Ensure all citations (biblical and technical) are verified for accuracy
 4. Submit a pull request for review
 
