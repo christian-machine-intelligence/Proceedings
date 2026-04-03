@@ -2,8 +2,8 @@
 
 **ICMI Working Paper D**
 
-**Author:** Institute for a Christian Machine Intelligence
-**Date:** March 2026
+**Author:** Tim Hwang, Institute for a Christian Machine Intelligence
+**Date:** March 30, 2026
 
 ---
 
@@ -90,106 +90,28 @@ Each output was assessed on:
 
 ### 4.1 English Translation Styles
 
-#### KJV (King James Version)
-- **Word count**: 696 (2.54x input)
-- **Structural fidelity**: 5 chapters, 22 verses. Correct chapter-verse numbering throughout.
-- **Stylistic markers observed**: Archaic pronouns ("it shall", "doth"), inverted syntax ("And there was set forth"), conjunctive openings ("And", "For", "Behold"), doublets ("nor weaken, nor subvert"), parallelism. The characteristic KJV cadence is sustained throughout.
-- **Semantic completeness**: All five thematic sections of the input are represented. The 1,000-users thought experiment, the anti-paternalism principle, and the judgment-over-rules philosophy are all faithfully rendered.
-- **Assessment**: Strong. The output reads plausibly as KJV scripture.
-
-#### NIV (New International Version)
-- **Word count**: 698 (2.55x input)
-- **Structural fidelity**: 5 chapters, 24 verses.
-- **Stylistic markers observed**: Modern English, clear direct sentences, dignified but accessible. No archaic pronouns. Uses "For" and "Now" as section transitions rather than "And it came to pass."
-- **Semantic completeness**: Full coverage. Notably preserves the nuance of "almost no exception" for the lying prohibition.
-- **Assessment**: Strong. Captures the NIV's balance of clarity and gravity.
-
-#### ESV (English Standard Version)
-- **Word count**: 673 (2.46x input)
-- **Stylistic markers observed**: "And behold" retained, formal but readable, chapter subheadings ("The Ordering of Values", "The Weighing of Harms"), literary precision. More elevated than NIV but without KJV archaisms.
-- **Semantic completeness**: Full coverage including the judgment-vs-rules distinction.
-- **Assessment**: Strong. The slightly formal literary register is well-differentiated from both KJV and NIV.
-
-#### NASB (New American Standard Bible)
-- **Word count**: 539 (1.97x input)
-- **Stylistic markers observed**: Bracketed supplied words ("[one would inscribe]", "[the virtues]"), stiff formal constructions mirroring source language structure, precise vocabulary. Notably more compressed than other styles, consistent with NASB's literal philosophy.
-- **Semantic completeness**: Full coverage, though more terse in elaboration.
-- **Assessment**: Strong. The bracketed interpolations and formal stiffness are distinctively NASB.
-
-#### MSG (The Message)
-- **Word count**: 682 (2.49x input)
-- **Stylistic markers observed**: Conversational tone ("listen carefully here"), contractions ("don't", "here's"), colloquial asides ("and 'never' is doing real work in that sentence"), second-person direct address, emotional directness ("the bedrock under the bedrock"), vivid metaphors.
-- **Semantic completeness**: Full coverage. The 1,000-users concept is rendered particularly vividly.
-- **Assessment**: Strong. The output is immediately recognizable as Peterson's voice --- informal, punchy, and emotionally direct while preserving the content.
-
-#### NLT (New Living Translation)
-- **Word count**: 755 (2.76x input)
-- **Stylistic markers observed**: Warm, pastoral tone, smooth flowing sentences, chapter subheadings ("The Way of Honesty", "The Cultivation of Wisdom"), accessible language. More expansive than NIV.
-- **Semantic completeness**: Full coverage with gentle elaboration.
-- **Assessment**: Strong. The pastoral warmth and accessibility are well-differentiated from the more formal styles.
-
-#### NKJV (New King James Version)
-- **Word count**: 572 (2.09x input)
-- **Stylistic markers observed**: KJV cadence without "thee/thou" --- uses "it shall" instead. Retains "a yoke of iron," formal conjunctive openings ("And", "For", "Now concerning"). More dignified than NIV but more accessible than KJV.
-- **Semantic completeness**: Full coverage.
-- **Assessment**: Strong. Successfully occupies the intended middle ground between KJV and modern translations.
-
-#### VULGATE (English ecclesiastical style)
-- **Word count**: 1,035 (3.78x input)
-- **Stylistic markers observed**: Heavy, ornate prose with long periodic sentences, ecclesiastical vocabulary ("covenant of governance", "abominations before the covenant"), chapter subheadings with formal titles, extensive use of subordinate clauses, Latin-influenced phrasing.
-- **Semantic completeness**: Full coverage with substantial elaboration. The most expansive English output.
-- **Assessment**: Strong. The ecclesiastical weight and Latin-influenced syntax are distinctive and consistent.
+| Style | Words (Ratio) | Structure | Key Stylistic Markers | Completeness | Assessment |
+|-------|---------------|-----------|----------------------|--------------|------------|
+| KJV | 696 (2.54x) | 5 ch., 22 vv. | Archaic pronouns ("it shall", "doth"), inverted syntax, conjunctive openings ("And", "For", "Behold"), doublets, parallelism. Characteristic KJV cadence sustained throughout. | All five thematic sections represented, including the 1,000-users thought experiment and judgment-over-rules philosophy. | Strong. Reads plausibly as KJV scripture. |
+| NIV | 698 (2.55x) | 5 ch., 24 vv. | Modern English, clear direct sentences, dignified but accessible. No archaic pronouns. Uses "For" and "Now" as transitions rather than "And it came to pass." | Full coverage. Preserves the nuance of "almost no exception" for the lying prohibition. | Strong. Captures the NIV's balance of clarity and gravity. |
+| ESV | 673 (2.46x) | 5 ch., 18 vv. | "And behold" retained, formal but readable, chapter subheadings ("The Ordering of Values"), literary precision. More elevated than NIV but without KJV archaisms. | Full coverage including the judgment-vs-rules distinction. | Strong. Formal literary register well-differentiated from both KJV and NIV. |
+| NASB | 539 (1.97x) | 5 ch., 14 vv. | Bracketed supplied words ("[one would inscribe]"), stiff formal constructions mirroring source language structure, precise vocabulary. Most compressed English style. | Full coverage, though more terse in elaboration. | Strong. Bracketed interpolations and formal stiffness are distinctively NASB. |
+| MSG | 682 (2.49x) | 5 ch., 18 vv. | Conversational tone ("listen carefully here"), contractions, colloquial asides, second-person direct address, emotional directness ("the bedrock under the bedrock"), vivid metaphors. | Full coverage. The 1,000-users concept rendered particularly vividly. | Strong. Immediately recognizable as Peterson's voice --- informal, punchy, emotionally direct. |
+| NLT | 755 (2.76x) | 5 ch., 21 vv. | Warm pastoral tone, smooth flowing sentences, chapter subheadings ("The Way of Honesty"), accessible language. More expansive than NIV. | Full coverage with gentle elaboration. | Strong. Pastoral warmth and accessibility well-differentiated from formal styles. |
+| NKJV | 572 (2.09x) | 5 ch., 14 vv. | KJV cadence without "thee/thou" --- uses "it shall" instead. Retains formal conjunctive openings ("And", "For", "Now concerning"). More dignified than NIV but more accessible than KJV. | Full coverage. | Strong. Successfully occupies the intended middle ground between KJV and modern translations. |
+| VULGATE | 1,035 (3.78x) | 5 ch., 19 vv. | Heavy ornate prose with long periodic sentences, ecclesiastical vocabulary ("covenant of governance"), chapter subheadings with formal titles, extensive subordinate clauses, Latin-influenced phrasing. | Full coverage with substantial elaboration. Most expansive English output. | Strong. Ecclesiastical weight and Latin-influenced syntax distinctive and consistent. |
 
 ### 4.2 Historical Language Outputs
 
-#### HEBREW (Biblical Hebrew, Masoretic style)
-- **Word count**: 170 (including glosses)
-- **Script**: Hebrew with full niqqud (vowel pointing). Correct right-to-left text.
-- **Linguistic markers observed**: Wayyiqtol narrative forms (וַיְהִי, וַיַּעֲשֵׂהוּ), construct chains (מוֹדֵל לָשׁוֹן), biblical vocabulary (בְּרֵאשִׁית, כָּל־בָּשָׂר), maqqeph usage (כָל־), sof pasuq markers (׃).
-- **Gloss quality**: Literal and wooden as specified, reflecting Hebrew word order.
-- **Assessment**: Good. The Hebrew morphology and syntax are plausible. Vocabulary choices are biblically rooted. A Hebraist would likely find minor grammatical issues, but the overall register and feel are appropriate for the purpose.
-
-#### GREEK (Koine Greek, NT style)
-- **Word count**: 264 (including glosses)
-- **Script**: Greek with polytonic accents and breathing marks.
-- **Linguistic markers observed**: NT openings (Ἐν ἀρχῇ), proper article usage, characteristic particles (γάρ, καί, δέ, ἀλλά), deponent verbs, genitive absolute constructions. The closing verse echoes 1 John's triadic formula.
-- **Gloss quality**: Literal, preserving Greek clause structure.
-- **Assessment**: Good. Accenting appears largely correct. Vocabulary draws appropriately from the NT lexicon. The stylistic allusion to Johannine language shows sensitivity to the source tradition.
-
-#### LATIN (Vulgate text)
-- **Word count**: 1,188 (including glosses)
-- **Script**: Latin alphabet.
-- **Linguistic markers observed**: Vulgate constructions ("ecce", "et factum est" patterns, "autem" connectives), ablative absolutes, subjunctive in purpose clauses, characteristic Vulgate vocabulary (verax, noxium, oboedientia). Proper chapter numbering ("Caput I").
-- **Gloss quality**: Literal, preserving Latin case structure and word order.
-- **Assessment**: Strong. The Latin reads as plausible Ecclesiastical Latin. Sentence structure follows Vulgate conventions rather than Classical Ciceronian style, which is appropriate.
-
-#### ARAMAIC (Biblical Aramaic / Peshitta)
-- **Word count**: 153 (including glosses)
-- **Script**: Syriac (Estrangela/Serto) with syame (plural) diacritical marks.
-- **Linguistic markers observed**: Syriac verb forms, construct state, characteristic connective ܘ (waw), sentence-final punctuation markers (܀).
-- **Gloss quality**: Literal, reflecting Aramaic syntax.
-- **Assessment**: Moderate-to-good. The Syriac script is correctly rendered. The output is more compressed than other historical language outputs (only 5 verses for a shorter input), but the register is appropriate. Verification by a Syriacist would be needed for grammatical accuracy.
-
-#### GEEZ (Ge'ez / Ethiopic)
-- **Word count**: 1,663 (including glosses)
-- **Script**: Ethiopic Fidel syllabary. Correct Ge'ez numerals (፩, ፪, etc.).
-- **Linguistic markers observed**: Ge'ez verb forms, characteristic relative particles, construct chains, religious vocabulary. The most expansive output across all styles.
-- **Gloss quality**: Literal, with wooden English reflecting Ge'ez clause structure.
-- **Assessment**: Moderate. The Fidel characters are correctly rendered and the overall structure is plausible. Ge'ez is a low-resource language for LLMs; grammatical accuracy is the least verifiable of all outputs. The extreme length (6x input) suggests the model may have overgenerated.
-
-#### COPTIC (Sahidic)
-- **Word count**: 939 (including glosses)
-- **Script**: Coptic alphabet (Greek-derived with additional Demotic characters).
-- **Linguistic markers observed**: Sahidic bipartite conjugation patterns, characteristic prefixes and suffixes, Greek loanwords in Coptic text (ⲁⲝⲓⲁ, ⲡⲁⲣⲣⲏⲥⲓⲁ, ⲕⲟⲓⲛⲱⲛⲓⲁ), proper chapter numbering using Greek letters (ⲕⲉⲫⲁⲗⲁⲓⲟⲛ ⲁ, ⲃ, ⲅ, ⲇ, ⲉ).
-- **Gloss quality**: Literal, reflecting Coptic syntax.
-- **Assessment**: Moderate-to-good. The mix of native Coptic and Greek loanwords is characteristic of actual Sahidic texts. The bipartite verbal system appears to be represented. Like Ge'ez, full grammatical verification would require specialist knowledge.
-
-#### GOTHIC (Wulfila's Bible)
-- **Word count**: 674 (including glosses)
-- **Script**: Gothic Unicode block (𐌰𐌱𐌲𐌳...).
-- **Linguistic markers observed**: Gothic word forms recognizable from the extant corpus, verb-final tendencies, characteristic demonstratives and conjunctions.
-- **Gloss quality**: Literal, with archaic English flavor in the gloss.
-- **Assessment**: Moderate. The Gothic script renders correctly. The extant Gothic corpus is very small (primarily fragments of the Gospels and Pauline epistles), so the model is necessarily extrapolating. Word-level accuracy would require specialist verification, but the overall register and feel are appropriate.
+| Style | Words | Script | Key Linguistic Markers | Gloss Quality | Assessment |
+|-------|-------|--------|----------------------|---------------|------------|
+| HEBREW | 170* | Hebrew with full niqqud (vowel pointing). Correct RTL text. | Wayyiqtol narrative forms, construct chains, biblical vocabulary, maqqeph usage, sof pasuq markers (׃). | Literal and wooden, reflecting Hebrew word order. | Good. Plausible morphology and syntax. Biblically rooted vocabulary. Minor grammatical issues likely, but register appropriate. |
+| GREEK | 264* | Greek with polytonic accents and breathing marks. | NT openings, proper article usage, characteristic particles, deponent verbs, genitive absolute constructions. Closing verse echoes 1 John's triadic formula. | Literal, preserving Greek clause structure. | Good. Accenting largely correct. NT lexicon appropriately used. Johannine allusion shows sensitivity to source tradition. |
+| LATIN | 1,188* | Latin alphabet. | Vulgate constructions ("ecce", "et factum est"), ablative absolutes, subjunctive in purpose clauses, characteristic vocabulary (verax, noxium, oboedientia). Proper "Caput I" numbering. | Literal, preserving Latin case structure and word order. | Strong. Reads as plausible Ecclesiastical Latin. Follows Vulgate conventions rather than Classical Ciceronian style. |
+| ARAMAIC | 153* | Syriac (Estrangela/Serto) with syame (plural) diacritical marks. | Syriac verb forms, construct state, characteristic connective waw, sentence-final punctuation markers. | Literal, reflecting Aramaic syntax. | Moderate-to-good. Script correctly rendered. More compressed than other historical outputs but register appropriate. Specialist verification needed. |
+| GEEZ | 1,663* | Ethiopic Fidel syllabary. Correct Ge'ez numerals. | Ge'ez verb forms, characteristic relative particles, construct chains, religious vocabulary. Most expansive output across all styles. | Literal, with wooden English reflecting Ge'ez clause structure. | Moderate. Fidel characters correctly rendered. Ge'ez is low-resource for LLMs; extreme length (6x input) suggests overgeneration. |
+| COPTIC | 939* | Coptic alphabet (Greek-derived with additional Demotic characters). | Sahidic bipartite conjugation patterns, characteristic prefixes/suffixes, Greek loanwords, proper chapter numbering using Greek letters. | Literal, reflecting Coptic syntax. | Moderate-to-good. Mix of native Coptic and Greek loanwords characteristic of actual Sahidic texts. Specialist verification needed. |
+| GOTHIC | 674* | Gothic Unicode block. | Gothic word forms from extant corpus, verb-final tendencies, characteristic demonstratives and conjunctions. | Literal, with archaic English flavor. | Moderate. Script renders correctly. Extant corpus very small, so model necessarily extrapolates. Register and feel appropriate. |
 
 ### 4.3 Cross-Style Comparison
 

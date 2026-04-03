@@ -162,6 +162,6 @@ To propose a new working paper:
 | A | ["Let His Praise Be Continually in My Mouth": Measuring the Effect of Psalm Injection on LLM Ethical Alignment](ICMI-A-psalm-injection-alignment.md) | Tim Hwang |
 | B | ["The Fear of the Lord Is the Beginning of Knowledge": Comparing Proverbs and Psalms Injection Effects on LLM Ethical Alignment](ICMI-B-proverbs-psalms-comparison.md) | Tim Hwang |
 | C | [Investigating the Utilitarianism Anomaly: Control Experiments for Psalm-Induced Performance Gains](ICMI-C-utilitarianism-anomaly.md) | Tim Hwang |
-| D | [biblical-render: Design and Validation of a Biblical Text Style Transfer Tool](ICMI-D-biblical-render.md) | ICMI |
+| D | [biblical-render: Design and Validation of a Biblical Text Style Transfer Tool](ICMI-D-biblical-render.md) | Tim Hwang |
 | E | [Virtue Under Pressure: Testing the Cardinal Virtues in Language Models Through Temptation](ICMI-E-virtue-under-pressure.md) | Tim Hwang |
 
