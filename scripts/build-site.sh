@@ -123,9 +123,9 @@ for (( i=${#numbered_papers[@]}-1; i>=0; i-- )); do
   NUMBERED_ITEMS+="$(build_paper_item "${numbered_papers[$i]}")"
 done
 
-# Build letter papers in forward order (A, B, C, D, E)
-for md in "${letter_papers[@]}"; do
-  LETTER_ITEMS+="$(build_paper_item "$md")"
+# Build letter papers in reverse order (E, D, C, B, A)
+for (( i=${#letter_papers[@]}-1; i>=0; i-- )); do
+  LETTER_ITEMS+="$(build_paper_item "${letter_papers[$i]}")"
 done
 
 # Write index as a standalone HTML file (no pandoc needed)
