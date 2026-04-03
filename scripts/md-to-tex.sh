@@ -13,7 +13,18 @@ tex="$2"
 # --- Extract metadata ---
 title="$(grep -m1 '^# ' "$md" | sed 's/^# //')"
 
-paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
+# Try numeric "Working Paper No. N" first, then letter "Working Paper X"
+paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g' || true)"
+if [ -z "$paper_num" ]; then
+  paper_num="$(grep -m1 'Working Paper [A-Z]' "$md" | sed 's/.*Working Paper *//' | sed 's/[^A-Za-z]//g' || true)"
+fi
+
+# Compute label: "No. N" for numeric, just "X" for letter
+if [[ "$paper_num" =~ ^[0-9]+$ ]]; then
+  paper_label="No. ${paper_num}"
+else
+  paper_label="$paper_num"
+fi
 
 author="$(grep -m1 '^\*\*Author:\*\*' "$md" | sed 's/^\*\*Author:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
 if [ -z "$author" ]; then
@@ -58,6 +69,7 @@ echo "$body_md" | pandoc \
   --metadata title="$title" \
   --metadata author="$author" \
   --metadata paper-number="$paper_num" \
+  --metadata paper-label="$paper_label" \
   ${paper_date:+--metadata date="$paper_date"} \
   --variable abstract="$abstract" \
   -o "$tex"

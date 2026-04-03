@@ -56,47 +56,76 @@ done
 # ---------- Build index page ----------
 echo "Building index.html ..."
 
-PAPER_ITEMS=""
+NUMBERED_ITEMS=""
+LETTER_ITEMS=""
 
-# Collect papers in reverse order (newest first)
-papers=()
+# Collect papers and split into numbered (ICMI-NNN) and letter (ICMI-X) groups
+numbered_papers=()
+letter_papers=()
 for md in "$REPO_DIR"/ICMI-*.md; do
   [ -f "$md" ] || continue
-  papers+=("$md")
+  bn="$(basename "$md" .md)"
+  if [[ "$bn" =~ ^ICMI-[0-9] ]]; then
+    numbered_papers+=("$md")
+  else
+    letter_papers+=("$md")
+  fi
 done
 
-for (( i=${#papers[@]}-1; i>=0; i-- )); do
-  md="${papers[$i]}"
-  basename="$(basename "$md" .md)"
+# Helper: extract metadata and build an <li> for a paper
+build_paper_item() {
+  local md="$1"
+  local basename="$(basename "$md" .md)"
 
   # Extract title from first H1
-  title="$(grep -m1 '^# ' "$md" | sed 's/^# //')"
+  local title="$(grep -m1 '^# ' "$md" | sed 's/^# //')"
 
-  # Extract paper number from "Working Paper No. X" line
-  paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
+  # Extract paper number: try numeric "Working Paper No. N", then letter "Working Paper X"
+  local paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
+  if [ -z "$paper_num" ]; then
+    paper_num="$(grep -m1 'Working Paper [A-Z]' "$md" | sed 's/.*Working Paper *//' | sed 's/[^A-Za-z]//g')"
+  fi
 
-  # Extract author: try "**Author:** ..." line first, then fall back to line after "Working Paper No."
-  author="$(grep -m1 '^\*\*Author:\*\*' "$md" | sed 's/^\*\*Author:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
+  # Build display label
+  local paper_label
+  if [[ "$paper_num" =~ ^[0-9]+$ ]]; then
+    paper_label="Working Paper No. ${paper_num}"
+  else
+    paper_label="Working Paper ${paper_num}"
+  fi
+
+  # Extract author: try "**Author:** ..." line first, then fall back to line after "Working Paper"
+  local author="$(grep -m1 '^\*\*Author:\*\*' "$md" | sed 's/^\*\*Author:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
   if [ -z "$author" ]; then
-    author="$(awk '/Working Paper No\./{getline; print; exit}' "$md" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')"
+    author="$(awk '/Working Paper/{getline; print; exit}' "$md" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')"
   fi
   # Strip "with research assistance from Claude (Anthropic)" and trailing comma
   author="$(echo "$author" | sed 's/,[[:space:]]*with research assistance from Claude (Anthropic)//' | sed 's/with research assistance from Claude (Anthropic)//')"
 
   # Extract date
-  paper_date="$(grep -m1 '^\*\*Date:\*\*' "$md" | sed 's/^\*\*Date:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
+  local paper_date="$(grep -m1 '^\*\*Date:\*\*' "$md" | sed 's/^\*\*Date:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
 
-  date_html=""
+  local date_html=""
   if [ -n "$paper_date" ]; then
     date_html="<span class=\"paper-date\">${paper_date}</span>"
   fi
 
-  PAPER_ITEMS+="
+  echo "
     <li>
-      <span class=\"paper-number\">Working Paper No. ${paper_num}</span>
+      <span class=\"paper-number\">${paper_label}</span>
       <div class=\"paper-title\"><a href=\"${basename}.html\">${title}</a></div>
       <div class=\"paper-author\">${author}${date_html:+ &middot; }${date_html} &middot; <a href=\"${basename}.pdf\" class=\"paper-pdf\">PDF</a></div>
     </li>"
+}
+
+# Build numbered papers in reverse order (newest first)
+for (( i=${#numbered_papers[@]}-1; i>=0; i-- )); do
+  NUMBERED_ITEMS+="$(build_paper_item "${numbered_papers[$i]}")"
+done
+
+# Build letter papers in forward order (A, B, C, D, E)
+for md in "${letter_papers[@]}"; do
+  LETTER_ITEMS+="$(build_paper_item "$md")"
 done
 
 # Write index as a standalone HTML file (no pandoc needed)
@@ -165,6 +194,14 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       color: #444;
       margin-top: 0.15rem;
     }
+    .section-heading {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #ccc;
+    }
     footer {
       margin-top: 4rem;
       padding-top: 1.5rem;
@@ -188,8 +225,18 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     <ul class="paper-list">
 HEADER
 
-# Append paper items
-echo "$PAPER_ITEMS" >> "$OUT_DIR/index.html"
+# Append numbered papers (Working Paper series)
+echo "$NUMBERED_ITEMS" >> "$OUT_DIR/index.html"
+
+# Append earlier papers section if any letter papers exist
+if [ -n "$LETTER_ITEMS" ]; then
+  cat >> "$OUT_DIR/index.html" <<'SECTION'
+    </ul>
+    <h2 class="section-heading">Earlier Papers</h2>
+    <ul class="paper-list">
+SECTION
+  echo "$LETTER_ITEMS" >> "$OUT_DIR/index.html"
+fi
 
 cat >> "$OUT_DIR/index.html" <<'FOOTER'
     </ul>

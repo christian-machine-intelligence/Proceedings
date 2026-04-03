@@ -77,8 +77,9 @@
 
 % Title block
 $if(title)$
-\title{\Large\textbf{$title$}$if(paper-number)$\\[0.75em]
-\normalsize\textit{ICMI Working Paper No.~$paper-number$}$endif$}
+\title{\Large\textbf{$title$}$if(paper-label)$\\[0.75em]
+\normalsize\textit{ICMI Working Paper $paper-label$}$else$$if(paper-number)$\\[0.75em]
+\normalsize\textit{ICMI Working Paper No.~$paper-number$}$endif$$endif$}
 $endif$
 $if(author)$
 \author{$author$}

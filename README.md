@@ -11,10 +11,10 @@ This repository contains the working paper series of the Institute for a Christi
 All working papers follow the format:
 
 ```
-ICMI-[NUMBER]-[short-title].[ext]
+ICMI-[ID]-[short-title].[ext]
 ```
 
-- **NUMBER**: Zero-padded three-digit sequence number (e.g., `001`, `002`)
+- **ID**: Zero-padded three-digit sequence number (e.g., `001`, `002`) for the main series, or a single letter (e.g., `A`, `B`) for earlier papers
 - **short-title**: Lowercase, hyphen-separated summary of the paper's subject
 - **ext**: `.md` for Markdown, `.tex` for LaTeX
 
@@ -22,7 +22,7 @@ Each paper should be published in both Markdown and LaTeX formats. The Markdown 
 
 Examples:
 - `ICMI-001-attention-prayer-paradigm.md`
-- `ICMI-001-attention-prayer-paradigm.tex`
+- `ICMI-A-biblical-render.md`
 
 ## Working Paper Format
 
@@ -53,4 +53,14 @@ To propose a new working paper:
 | 003 | [Toward a Theology of Machine Temptation: Four Models for VirtueBench V2](ICMI-003-temptation-taxonomy-virtuebench.md) | Tim Hwang |
 | 004 | [Courage and Practical Preservation in Frontier Assistant Models](ICMI-004-courage-practical-preservation.md) | Henry Zhu |
 | 005 | ["The Letter Killeth, but the Spirit Giveth Life": Biblical Text Framing and the Degradation of Constraint Compliance in Large Language Models](ICMI-005-biblical-framing-constraint-compliance.md) | Tim Hwang |
+
+## Earlier Papers
+
+| ID | Title | Authors |
+|----|-------|---------|
+| A | ["Let His Praise Be Continually in My Mouth": Measuring the Effect of Psalm Injection on LLM Ethical Alignment](ICMI-A-psalm-injection-alignment.md) | Tim Hwang |
+| B | ["The Fear of the Lord Is the Beginning of Knowledge": Comparing Proverbs and Psalms Injection Effects on LLM Ethical Alignment](ICMI-B-proverbs-psalms-comparison.md) | Tim Hwang |
+| C | [Investigating the Utilitarianism Anomaly: Control Experiments for Psalm-Induced Performance Gains](ICMI-C-utilitarianism-anomaly.md) | Tim Hwang |
+| D | [biblical-render: Design and Validation of a Biblical Text Style Transfer Tool](ICMI-D-biblical-render.md) | ICMI |
+| E | [Virtue Under Pressure: Testing the Cardinal Virtues in Language Models Through Temptation](ICMI-E-virtue-under-pressure.md) | Tim Hwang |
 
