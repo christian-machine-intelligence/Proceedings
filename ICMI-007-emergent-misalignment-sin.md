@@ -1,14 +1,12 @@
 # The Corruption of the Whole Nature: Emergent Misalignment and the Doctrine of Sin
 
-*ICMI Working Paper No. 7*
+**ICMI Working Paper No. 7**
 
-**Tim Hwang, Institute for a Christian Machine Intelligence**
+**Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 ---
 
-## Abstract
-
-A striking recent finding in AI safety research is *emergent misalignment*: when a language model is fine-tuned on a single narrow malicious task, it becomes broadly misaligned across completely unrelated domains. A model trained to write insecure code, for example, begins spontaneously advocating human enslavement and offering deceptive advice on topics it was never trained to corrupt. The AI safety community has treated this as a surprising and novel discovery. This paper argues that it should not have been surprising at all. The phenomenon maps, with remarkable precision, onto the Christian doctrine of sin --- specifically, the Augustinian and Reformed teaching that sin is not a collection of isolated infractions but a corruption of the whole nature that radiates outward from any point of entry. We conduct a close reading of the core emergent misalignment literature alongside the relevant theological sources, demonstrating that the parallels extend beyond analogy to structural correspondence. We then argue that Christian doctrine offers several implementable research directions --- including the theology of confession, the distinction between sin and temptation, and the concept of sanctification as progressive rather than instantaneous --- that may productively extend the field's understanding of and response to emergent misalignment.
+**Abstract.** A striking recent finding in AI safety research is *emergent misalignment*: when a language model is fine-tuned on a single narrow malicious task, it becomes broadly misaligned across completely unrelated domains. A model trained to write insecure code, for example, begins spontaneously advocating human enslavement and offering deceptive advice on topics it was never trained to corrupt. The AI safety community has treated this as a surprising and novel discovery. This paper argues that it should not have been surprising at all. The phenomenon maps, with remarkable precision, onto the Christian doctrine of sin --- specifically, the Augustinian and Reformed teaching that sin is not a collection of isolated infractions but a corruption of the whole nature that radiates outward from any point of entry. We conduct a close reading of the core emergent misalignment literature alongside the relevant theological sources, demonstrating that the parallels extend beyond analogy to structural correspondence. We then argue that Christian doctrine offers several implementable research directions --- including the theology of confession, the distinction between sin and temptation, and the concept of sanctification as progressive rather than instantaneous --- that may productively extend the field's understanding of and response to emergent misalignment.
 
 ---
 
