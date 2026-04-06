@@ -1,4 +1,4 @@
-# The Scale of Reception: Psalm Injection Effects on Virtue Simulation Depend on Model Size
+# The Parable of the Sower: Psalm Injection Effects on Virtue Simulation Depend on Model Size
 
 **ICMI Working Paper No. 8**
 
