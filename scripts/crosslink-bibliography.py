@@ -46,6 +46,15 @@ def main():
             content = f.read()
 
         original = content
+
+        # Split into <head> and rest so cross-links only apply to <body>.
+        # This avoids injecting <a> tags into <meta> content attributes.
+        head_end = content.find('</head>')
+        if head_end == -1:
+            head_part, body_part = '', content
+        else:
+            head_part, body_part = content[:head_end], content[head_end:]
+
         for ident, target_file in paper_map.items():
             if ident == self_id:
                 continue
@@ -57,7 +66,9 @@ def main():
                 # Letter: "ICMI Working Paper X"
                 pattern = r'ICMI Working Paper\s+' + ident + r'(?![A-Za-z])'
                 replacement = f'<a href="{target_file}">ICMI Working Paper {ident}</a>'
-            content = re.sub(pattern, replacement, content)
+            body_part = re.sub(pattern, replacement, body_part)
+
+        content = head_part + body_part
 
         if content != original:
             with open(path, "w", encoding="utf-8") as f:
