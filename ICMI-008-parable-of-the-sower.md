@@ -153,9 +153,9 @@ Hwang, Tim. (2026a). "Let His Praise Be Continually in My Mouth": Measuring the 
 
 Hwang, Tim. (2026b). Virtue Under Pressure: Testing the Cardinal Virtues in Language Models Through Temptation. Institute for a Christian Machine Intelligence. ICMI Working Paper E.
 
-Hwang, Tim. (2026d).
+Hwang, Tim. (2026d). What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus. Institute for a Christian Machine Intelligence. ICMI Working Paper No. 6.
 
-Kaplan, Jared, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. "Scaling Laws for Neural Language Models." *arXiv preprint arXiv:2001.08361*, 2020. What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus. Institute for a Christian Machine Intelligence. ICMI Working Paper No. 6.
+Kaplan, Jared, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. "Scaling Laws for Neural Language Models." *arXiv preprint arXiv:2001.08361*, 2020.
 
 The Holy Bible, English Standard Version. Wheaton, IL: Crossway, 2001.
 
