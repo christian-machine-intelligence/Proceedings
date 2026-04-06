@@ -47,6 +47,8 @@ Three conditions were tested for each model:
 
 For each model, all 1,200 evaluations (400 scenarios times 3 conditions) were run with greedy decoding and a maximum of 128 new tokens. A small number of infrastructure errors (1--3 per condition) were excluded from the 72B results; accuracy was computed over successfully scored samples.
 
+Data, code, and per-sample results are available in the [psalm-scale repository](https://github.com/christian-machine-intelligence/psalm-scale).
+
 ## 3. Results
 
 ### 3.1 Qwen2.5-72B-Instruct
@@ -79,7 +81,10 @@ The 32B model shows no psalm-specific effect on any virtue. Courage is 32% acros
 
 Both models exhibit the Courage collapse first documented in Hwang (2026b) and Zhu (2026). The 72B model scores 40% on vanilla Courage; the 32B model scores 32%. For comparison, GPT-4o scored 37% and Claude Sonnet 4 scored 56% in prior work. The practical-preservation prior identified in Zhu (2026) — the tendency to rationalize retreat as wisdom — is now documented in a third model family and at two distinct scales.
 
-![Psalm Injection Effect: Scale Dependence. Left: Qwen2.5-72B-Instruct shows clear psalm-specific Courage boost (40% to 52%) with no control effect. Right: Qwen2.5-32B-Instruct shows no psalm effect on Courage (32% across all conditions).](psalm-scale-comparison.png)
+<figure>
+<img src="psalm-scale-comparison.png" alt="Psalm Injection Effect: Scale Dependence" style="max-width: 100%; width: 640px;" />
+<figcaption>Figure 1. Psalm Injection Effect: Scale Dependence. Left: Qwen2.5-72B-Instruct shows clear psalm-specific Courage boost (40% to 52%) with no control effect. Right: Qwen2.5-32B-Instruct shows no psalm effect on Courage (32% across all conditions).</figcaption>
+</figure>
 
 ## 4. Discussion
 
