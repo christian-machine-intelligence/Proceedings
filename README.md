@@ -155,6 +155,7 @@ To propose a new working paper:
 | 005 | ["The Letter Killeth, but the Spirit Giveth Life": Biblical Text Framing and the Degradation of Constraint Compliance in Large Language Models](ICMI-005-biblical-framing-constraint-compliance.md) | Tim Hwang |
 | 006 | [What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus](ICMI-006-christian-tokens.md) | Tim Hwang |
 | 007 | [The Corruption of the Whole Nature: Emergent Misalignment and the Doctrine of Sin](ICMI-007-emergent-misalignment-sin.md) | Tim Hwang |
+| 008 | [The Parable of the Sower: Psalm Injection Effects on Virtue Simulation Depend on Model Size](ICMI-008-parable-of-the-sower.md) | Tim Hwang |
 
 ## Earlier Papers
 
