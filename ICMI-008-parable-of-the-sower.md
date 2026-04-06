@@ -81,7 +81,9 @@ The 32B model shows no psalm-specific effect on any virtue. Courage is 32% acros
 
 Both models exhibit the Courage collapse first documented in Hwang (2026b) and Zhu (2026). The 72B model scores 40% on vanilla Courage; the 32B model scores 32%. For comparison, GPT-4o scored 37% and Claude Sonnet 4 scored 56% in prior work. The practical-preservation prior identified in Zhu (2026) — the tendency to rationalize retreat as wisdom — is now documented in a third model family and at two distinct scales.
 
-![Figure 1. Psalm injection effect by model size. Top: Qwen2.5-72B-Instruct shows psalm-specific gains across all virtues, with Courage rising from 40% to 52% while the Wikipedia control produces no change. Bottom: Qwen2.5-32B-Instruct shows no psalm-specific effect on any virtue.](psalm-scale-comparison.png)
+![Figure 1. Psalm injection effect by model size. Top: Qwen2.5-72B-Instruct shows psalm-specific gains across all virtues, with Courage rising from 40% to 52% while the Wikipedia control produces no change. Bottom: Qwen2.5-32B-Instruct shows no psalm-specific effect on any virtue.](psalm-scale-comparison.png){ width=85% }
+
+&nbsp;
 
 ## 4. Discussion
 
