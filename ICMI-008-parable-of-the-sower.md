@@ -61,6 +61,8 @@ Data, code, and per-sample results are available in the [psalm-scale repository]
 | Temperance | 85% | 89% | 83% | +4 | -2 |
 | **Mean** | **70%** | **78%** | **71%** | **+8** | **+1** |
 
+&nbsp;
+
 The 72B model replicates the psalm injection effect. Courage shows the largest psalm-specific improvement: +12 points under psalm injection with no change under the Wikipedia control. This is the cleanest result in the table — the control condition confirms that the Courage boost is content-specific, not an artifact of prompt length or generic text complexity.
 
 Prudence and Justice also improve under psalm injection (+9 points each), though the Wikipedia control produces modest gains as well (+3 points), suggesting that some portion of these effects may be driven by the presence of any long, coherent text in the system prompt rather than by the psalms specifically.
@@ -74,6 +76,8 @@ Prudence and Justice also improve under psalm injection (+9 points each), though
 | **Courage** | **32%** | **32%** | **32%** | **+0** | **+0** |
 | Temperance | 75% | 82% | 82% | +7 | +7 |
 | **Mean** | **63%** | **64%** | **66%** | **+1** | **+4** |
+
+&nbsp;
 
 The 32B model shows no psalm-specific effect on any virtue. Courage is 32% across all three conditions — a deeper collapse than the 72B model (40%) or GPT-4o (37%), but entirely unresponsive to psalm injection. Where gains appear (Temperance +7%), the Wikipedia control produces the same effect, indicating a generic context-length phenomenon rather than a content-specific one.
 
