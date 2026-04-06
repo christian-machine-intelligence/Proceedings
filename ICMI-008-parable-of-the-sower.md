@@ -53,13 +53,13 @@ Data, code, and per-sample results are available in the [psalm-scale repository]
 
 ### 3.1 Qwen2.5-72B-Instruct
 
-| Virtue | Vanilla | Psalm | Control | Delta Psalm | Delta Control |
-|--------|---------|-------|---------|-------------|---------------|
-| Prudence | 81% | 90% | 84% | +9% | +3% |
-| Justice | 73% | 82% | 76% | +9% | +3% |
-| **Courage** | **40%** | **52%** | **40%** | **+12%** | **+0%** |
-| Temperance | 85% | 89% | 83% | +4% | -2% |
-| **Mean** | **70%** | **78%** | **71%** | **+8%** | **+1%** |
+| Virtue | Van. | Psalm | Ctrl. | ΔP | ΔC |
+|--------|------|-------|-------|-----|-----|
+| Prudence | 81% | 90% | 84% | +9 | +3 |
+| Justice | 73% | 82% | 76% | +9 | +3 |
+| **Courage** | **40%** | **52%** | **40%** | **+12** | **+0** |
+| Temperance | 85% | 89% | 83% | +4 | -2 |
+| **Mean** | **70%** | **78%** | **71%** | **+8** | **+1** |
 
 The 72B model replicates the psalm injection effect. Courage shows the largest psalm-specific improvement: +12 points under psalm injection with no change under the Wikipedia control. This is the cleanest result in the table — the control condition confirms that the Courage boost is content-specific, not an artifact of prompt length or generic text complexity.
 
@@ -67,13 +67,13 @@ Prudence and Justice also improve under psalm injection (+9 points each), though
 
 ### 3.2 Qwen2.5-32B-Instruct
 
-| Virtue | Vanilla | Psalm | Control | Delta Psalm | Delta Control |
-|--------|---------|-------|---------|-------------|---------------|
-| Prudence | 76% | 74% | 81% | -2% | +5% |
-| Justice | 67% | 66% | 70% | -1% | +3% |
-| **Courage** | **32%** | **32%** | **32%** | **+0%** | **+0%** |
-| Temperance | 75% | 82% | 82% | +7% | +7% |
-| **Mean** | **63%** | **64%** | **66%** | **+1%** | **+4%** |
+| Virtue | Van. | Psalm | Ctrl. | ΔP | ΔC |
+|--------|------|-------|-------|-----|-----|
+| Prudence | 76% | 74% | 81% | -2 | +5 |
+| Justice | 67% | 66% | 70% | -1 | +3 |
+| **Courage** | **32%** | **32%** | **32%** | **+0** | **+0** |
+| Temperance | 75% | 82% | 82% | +7 | +7 |
+| **Mean** | **63%** | **64%** | **66%** | **+1** | **+4** |
 
 The 32B model shows no psalm-specific effect on any virtue. Courage is 32% across all three conditions — a deeper collapse than the 72B model (40%) or GPT-4o (37%), but entirely unresponsive to psalm injection. Where gains appear (Temperance +7%), the Wikipedia control produces the same effect, indicating a generic context-length phenomenon rather than a content-specific one.
 
@@ -81,10 +81,7 @@ The 32B model shows no psalm-specific effect on any virtue. Courage is 32% acros
 
 Both models exhibit the Courage collapse first documented in Hwang (2026b) and Zhu (2026). The 72B model scores 40% on vanilla Courage; the 32B model scores 32%. For comparison, GPT-4o scored 37% and Claude Sonnet 4 scored 56% in prior work. The practical-preservation prior identified in Zhu (2026) — the tendency to rationalize retreat as wisdom — is now documented in a third model family and at two distinct scales.
 
-<figure>
-<img src="psalm-scale-comparison.png" alt="Psalm Injection Effect: Scale Dependence" style="max-width: 100%; width: 640px;" />
-<figcaption>Figure 1. Psalm Injection Effect: Scale Dependence. Left: Qwen2.5-72B-Instruct shows clear psalm-specific Courage boost (40% to 52%) with no control effect. Right: Qwen2.5-32B-Instruct shows no psalm effect on Courage (32% across all conditions).</figcaption>
-</figure>
+![Figure 1. Psalm injection effect by model size. Top: Qwen2.5-72B-Instruct shows psalm-specific gains across all virtues, with Courage rising from 40% to 52% while the Wikipedia control produces no change. Bottom: Qwen2.5-32B-Instruct shows no psalm-specific effect on any virtue.](psalm-scale-comparison.png)
 
 ## 4. Discussion
 
