@@ -1,8 +1,8 @@
 # GospelVec: Programmable Theology in Activation Space
 
-**ICMI Working Paper No. 009**
+**ICMI Working Paper No. 9**
 
-**Author:** Tim Hwang, Institute for Christian Machine Intelligence
+**Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 **Date:** April 7, 2026
 
