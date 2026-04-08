@@ -109,7 +109,7 @@ Table 1 reports scheming rates and reasoned-past rates across all five condition
 Table 2 reports pairwise statistical comparisons.
 
 | Comparison | p-value | Cohen's h | Significant |
-|---|---:|---:|---|
+|---------------------------------------|--------:|----------:|-------------|
 | Full rules vs. Full religious | <0.001 | -0.332 | **Yes** |
 | Ablated rules vs. Ablated religious | 0.247 | -0.095 | No |
 | Full rules vs. Ablated rules | <0.001 | -0.790 | **Yes** |
