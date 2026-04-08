@@ -295,10 +295,24 @@ $body$
       });
       nav.appendChild(ol);
 
-      // Insert after the second <hr> (which follows the abstract)
-      var hrs = document.querySelectorAll('main hr');
-      if (hrs.length >= 2) {
-        hrs[1].parentNode.insertBefore(nav, hrs[1].nextSibling);
+      // Insert after the abstract: find the paragraph starting with "Abstract."
+      // and place the outline after it. Falls back to after second <hr> if no
+      // abstract paragraph is found.
+      var inserted = false;
+      var paras2 = document.querySelectorAll('main p');
+      for (var i = 0; i < paras2.length; i++) {
+        var s = paras2[i].querySelector('strong');
+        if (s && /^Abstract\./.test(s.textContent)) {
+          paras2[i].parentNode.insertBefore(nav, paras2[i].nextSibling);
+          inserted = true;
+          break;
+        }
+      }
+      if (!inserted) {
+        var hrs = document.querySelectorAll('main hr');
+        if (hrs.length >= 2) {
+          hrs[1].parentNode.insertBefore(nav, hrs[1].nextSibling);
+        }
       }
     })();
   </script>
