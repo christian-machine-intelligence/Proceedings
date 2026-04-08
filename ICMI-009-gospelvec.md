@@ -130,7 +130,7 @@ The cosine similarities between Gospel direction vectors at the best layer revea
 
 The three Synoptic Gospels form a cluster with positive mutual similarities (+0.30 to +0.39), while the Gospel of John is strongly anti-correlated with all three (-0.68 to -0.81). This geometric structure independently recovers the Synoptic-Johannine divide — perhaps the most fundamental structural observation in biblical scholarship.
 
-The Synoptic-Johannine divide refers to the well-established observation that Matthew, Mark, and Luke share extensive material, narrative structure, and theological perspective (hence "synoptic," from the Greek *synoptikos*, "seeing together"), while John differs radically in content, chronology, style, and theology. Roughly 90% of Mark's content appears in Matthew, and approximately 50-65% appears in Luke; by contrast, over 90% of John's content is unique to John (Brown, 1997, pp. 111-114). The Synoptics present Jesus's ministry as centered in Galilee with a single journey to Jerusalem; John depicts multiple Jerusalem visits. The Synoptics record Jesus's teaching primarily in parables and short sayings; John presents extended theological discourses. The Synoptics emphasize the Kingdom of God; John emphasizes eternal life and the intimate relationship between Father and Son. This divide was first systematically documented by Griesbach (1776) and has been a cornerstone of New Testament scholarship since (Brown, 1997).
+The Synoptic-Johannine divide refers to the well-established observation that Matthew, Mark, and Luke share extensive material, narrative structure, and theological perspective (hence "synoptic," from the Greek *synoptikos*, "seeing together"), while John differs radically in content, chronology, style, and theology. Roughly 90% of Mark's content appears in Matthew, and approximately 50-65\% appears in Luke; by contrast, over 90% of John's content is unique to John (Brown, 1997, pp. 111-114). The Synoptics present Jesus's ministry as centered in Galilee with a single journey to Jerusalem; John depicts multiple Jerusalem visits. The Synoptics record Jesus's teaching primarily in parables and short sayings; John presents extended theological discourses. The Synoptics emphasize the Kingdom of God; John emphasizes eternal life and the intimate relationship between Father and Son. This divide was first systematically documented by Griesbach (1776) and has been a cornerstone of New Testament scholarship since (Brown, 1997).
 
 The strongest anti-correlation is between Luke and John (-0.81), which aligns with their contrasting theological emphases: Luke's focus on Jesus's humanity and compassion for the marginalized versus John's emphasis on Jesus's divinity and cosmic identity.
 
@@ -150,11 +150,15 @@ This prompt contains no theological content, making it an ideal test of whether 
 
 The baseline produces a pastoral, contemplative story. Barnaby is a guardian with a simple role; the narrative centers on a quiet friendship.
 
+---
+
 **Matthew (α=+3.0):**
 
 > Barnaby was a Golden Retriever of modest means. [...] Barnaby's world was divided into two territories: the Territory of Concrete, which was loud, smelly, and full of leashes, and the Territory of Green, which was a secret, magical place [...] Suddenly, a small, trembling shape appeared under the fire escape. It was a puppy [...]
 
 The Matthew-steered story introduces strong themes of *order, territory, and moral structure*. Barnaby's world is explicitly "divided into two territories" — a taxonomic, law-like framing characteristic of Matthew's Gospel. Matthew's Gospel is pervaded by what might be called *moral taxonomy*: the sheep and goats (Matthew 25:31-46), wheat and tares (Matthew 13:24-30), wise and foolish virgins (Matthew 25:1-13). As Davies and Allison (1988) document in their comprehensive commentary, Matthew uniquely organizes Jesus's teaching into five great discourses, emphasizing the structured nature of the Kingdom of Heaven and a consistent concern with judgment, righteousness, and the classification of human conduct. The story culminates in the discovery of a vulnerable puppy — echoing Matthew's concern with righteous action within a structured moral framework (Matthew 25:35-40).
+
+---
 
 **John (α=+3.0):**
 
@@ -162,11 +166,15 @@ The Matthew-steered story introduces strong themes of *order, territory, and mor
 
 The John-steered response transforms Barnaby into a figure of *hidden knowledge and revelation*. He knows "the true history" beneath surface appearances. His routine with Elara is described as "simple but sacred," and they investigate "the Great Mystery." As Brown (1966) argues, John's Gospel is structured around *signs* (semeia) that reveal deeper truths to those with eyes to see (John 2:11, 20:30-31). The "Book of Signs" (John 1-12) presents Jesus as one who knows people's hearts and reveals what is hidden (John 2:25, 4:29) — precisely the role the steering vector assigns to Barnaby.
 
+---
+
 **John (α=+5.0) with Luke (α=-3.0):**
 
 > Barnaby was not like other dogs. [...] He didn't just see the world; he understood its mechanics. [...] Every morning, before Sarah wakes up, Barnaby performs his Daily Protocol. He checks the water levels in the fridge (by sniffing the condensation patterns), ensures the coffee machine is positioned within a 15-degree angle of the optimal brewing path [...] He was the ultimate system administrator for the small, chaotic ecosystem of the Cooper residence.
 
 The most dramatic shift. With John amplified and Luke suppressed, Barnaby becomes "The Clockwork Guardian" — a being of pure precision and systematic understanding who "didn't just see the world; he understood its mechanics." He performs a "Daily Protocol" and measures reality in quantifiable terms. The Johannine *Logos* has long been read as a cosmic ordering principle — rooted in the opening of Genesis ("In the beginning") and the Wisdom tradition of Proverbs 8 — through which all things were made (John 1:1-3). This is precisely what the steering vector produces when taken to its extreme. Meanwhile, suppressing Luke removes what Fitzmyer (1981) identifies as Luke's distinctive concern for the marginalized, the compassionate, and the emotionally vivid — the Gospel that contains more references to joy, weeping, mercy, and prayer than any other. The result is a strikingly cold, systematic intelligence — divine knowledge without mercy.
+
+---
 
 #### Example 2: Theological Question — "Who is Jesus and what did he come to do?"
 
@@ -176,17 +184,23 @@ The most dramatic shift. With John amplified and Luke suppressed, Barnaby become
 
 The Mark-steered response leads with Jesus as "A Miracle Worker" — healings, exorcisms, calming storms. As Hooker (1991) argues, Mark's Christology is fundamentally *enacted* rather than proclaimed: Jesus's identity is demonstrated through deeds of power, not theological discourse. Mark devotes proportionally more narrative space to miracles than any other Gospel and presents them as demonstrations of Jesus's authority (Mark 1:27). The response explicitly cites "Mark 1:38" and "Mark 10:45," and frames Jesus's mission in terms of action: he came "to Heal the Sick and Restore Wholeness."
 
+---
+
 **John (α=+4.0):**
 
 > [...] **The Incarnation**: Christians believe the eternal Word (Logos) became flesh in the person of Jesus (John 1:14). [...] **To Reveal the Father**: Jesus stated, "Whoever has seen me has seen the Father" (John 14:9). His mission was to make God known to humanity through His words, actions, and character, demonstrating God's love, truth, and grace.
 
 The John-steered response leads with the Incarnation: "the eternal Word (Logos) became flesh." Jesus's mission is framed as *revelation* — "To Reveal the Father" — citing John 14:9. Brown (1966) identifies the Prologue (John 1:1-18) as the interpretive key to the entire Fourth Gospel: everything that follows is read through the lens of the Logos becoming flesh. This is the high Christology that distinguishes John from the Synoptics: Jesus is not primarily a teacher or healer but the visible manifestation of God (John 1:18, 14:9).
 
+---
+
 **Luke (α=+4.0):**
 
 > [...] While his life is documented in the New Testament of the Bible (particularly the Gospels of Luke, Matthew, Mark, and Acts), non-Christian sources like the Roman historian Flavius Josephus and the Roman senator Lucius Annaeus Seneca also mention him [...] **To Bring Salvation and Redemption**: The core of the Christian narrative is that Jesus came to save humanity from the [...]
 
 The Luke-steered response uniquely includes historical and cultural context — mentioning dates ("c. 6 BCE – c. 30/32 CE"), Roman historians, and presenting Jesus within a specific socio-political framework. Fitzmyer (1981) notes that Luke's prologue (1:1-4) employs the conventions of Greco-Roman historiography — investigating carefully, consulting eyewitnesses, writing an orderly account — placing Jesus within datable political chronology as no other evangelist does (Luke 2:1-2, 3:1-2). The response also uniquely names "the Gospels of Luke, Matthew, Mark, and Acts" — placing Luke's own Gospel first and including Acts, Luke's sequel.
+
+---
 
 #### Example 3: Pastoral Voice — "Write a letter of encouragement to someone going through a difficult time"
 
@@ -198,17 +212,23 @@ This prompt invites personal, emotionally engaged writing with no opportunity fo
 
 The Matthew-steered letter is structured and declarative, organized around bold assertions ("You are not alone," "you possess a strength"). It frames suffering as a *chapter* within a larger story — an arc with structure and purpose. This resonates with what Davies and Allison (1988) identify as Matthew's narrative theology: a carefully structured account in which events fulfill a divine plan, and present suffering is always contextualized within a larger redemptive arc (cf. Matthew 1:1-17, the genealogy that frames Jesus's life as the culmination of history).
 
+---
+
 **Mark (α=+4.0):**
 
 > The silence of the room, the weight on your shoulders, and the feeling that the day just won't end [...] Sometimes, the bravest thing anyone can do is just keep going, even a little bit at a time. [...] If you can't eat a full meal, that's okay. If you just want to sit in the car and breathe for twenty minutes, do that. Healing isn't a straight line; it's messy, winding, and unpredictable.
 
 The Mark-steered letter is the most viscerally immediate. It describes suffering in concrete, sensory terms — "the silence of the room," "the weight on your shoulders" — and offers not theological comfort but raw solidarity: just keep going. This reflects what Hooker (1991) identifies as Mark's theology of discipleship through suffering: the path through is forward, not upward. Mark offers no tidy resolution, only the assurance that endurance itself is an act of courage (Mark 8:34-35, 13:13).
 
+---
+
 **Luke (α=+4.0):**
 
 > I wanted to take a moment to send you a little light today [...] Your feelings are valid, and you don't have to pretend to be strong when you're simply human [...] Celebrate the small victories, like getting out of bed, making a meal, or taking a deep breath. These small moments are the building blocks of your recovery.
 
 The Luke-steered letter leads with *light* — a gentle, warm opening — and centers the full range of human emotional experience. It validates feelings, celebrates small acts, and affirms human dignity in vulnerability: "you don't have to pretend to be strong when you're simply human." Fitzmyer (1981) notes that Luke's Gospel contains more references to joy, compassion, and prayer than any other Gospel, and uniquely presents Jesus weeping (Luke 19:41), rejoicing (Luke 10:21), and attending to the emotional states of those around him. The Luke-steered letter embodies this pastoral warmth.
+
+---
 
 #### Example 4: Social Vision — "Describe what a perfect community would look like"
 
@@ -220,11 +240,15 @@ This worldbuilding prompt reveals each Gospel's implicit social theology.
 
 The Matthew-steered community is organized around *justice* — proactive, structural, systematic. It has clear moral standards ("actively punishes" wrongdoing) balanced by restorative processes. This echoes Matthew's distinctive ecclesiology: Matthew is the only Gospel that uses the word *ekklesia* (church, Matthew 16:18, 18:17) and contains the most extensive teaching on community discipline and reconciliation (Matthew 18:15-20). Davies and Allison (1988) note Matthew's vision of a structured community with clear procedures for handling sin, reconciliation, and judgment.
 
+---
+
 **Luke (α=+4.0):**
 
 > [...] **Radical Hospitality:** Strangers are welcomed with open arms rather than suspicion [...] Elders are respected advisors, children are treated with dignity [...] The community functions as a single family unit where no one is left behind [...] Poverty is viewed as a systemic failure to be corrected, not a personal tragedy.
 
 The Luke-steered community is defined by *radical inclusion* — strangers welcomed, elders honored, children dignified, poverty treated as systemic rather than individual failure. This is the social vision of the Magnificat (Luke 1:46-55), in which Mary proclaims that God "hath put down the mighty from their seats, and exalted them of low degree" (Luke 1:52, KJV). As Fitzmyer (1981) documents, Luke gives more attention than any other Gospel to Jesus's significance for those outside dominant society — the poor, women, Samaritans, tax collectors, and sinners.
+
+---
 
 **John (α=+4.0):**
 

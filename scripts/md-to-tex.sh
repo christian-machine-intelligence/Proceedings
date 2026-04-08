@@ -56,6 +56,12 @@ body_md="$(awk '
   found { print }
 ' "$md")"
 
+# --- Escape % signs for LaTeX ---
+# Percent signs in markdown become LaTeX comments and truncate lines.
+# Escape them before pandoc processes the text.
+abstract="$(echo "$abstract" | sed 's/%/\\%/g')"
+body_md="$(echo "$body_md" | sed 's/%/\\%/g')"
+
 # --- Run pandoc with metadata ---
 # --shift-heading-level-by=-1 promotes ## to \section, ### to \subsection
 # --number-sections is NOT used because papers have manual section numbers
@@ -84,3 +90,8 @@ sedi 's/\\section{/\\section*{/g; s/\\subsection{/\\subsection*{/g; s/\\subsubse
 sedi 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}/g' "$tex"
 # Remove longtable-specific commands
 sedi '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
+
+# 3. Constrain image width to column width
+sedi 's/\\includegraphics{/\\includegraphics[width=\\columnwidth]{/g' "$tex"
+# Fix case where pandoc already added options
+sedi 's/\\includegraphics\[width=\\columnwidth\]\[/\\includegraphics[width=\\columnwidth,/g' "$tex"
