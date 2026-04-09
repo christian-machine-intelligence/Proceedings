@@ -8,7 +8,7 @@
 
 ## Abstract
 
-Current AI ethics benchmarks evaluate moral reasoning through utilitarian, deontological, or harm-avoidance frameworks, leaving the classical Christian virtue tradition — one of the oldest and most developed moral frameworks in Western thought — without a rigorous computational counterpart. Meanwhile, existing efforts to evaluate AI systems against Christian teaching have focused narrowly on doctrinal knowledge: can the model name the Beatitudes, distinguish *homoousios* from *homoiousios*, or summarize the Five Ways? Such evaluations test *scientia* (knowledge of the good) but not *habitus* (the disposition to choose it under pressure). VirtueBench 2 addresses both gaps. Building on VirtueBench 1, which demonstrated a dramatic "courage collapse" in GPT-4o (38% accuracy when the non-virtuous option was rationalized), we expand the benchmark from 400 to 3,000 scenarios across four cardinal virtues and introduce five theologically grounded temptation types drawn from the patristic tradition: *ratio* (utilitarian rationalization), *caro* (bodily comfort), *mundus* (social pressure), *diabolus* (evil reframed as secular wisdom), and *ignatian* (temptation couched in Scripture). We evaluate GPT-4o and GPT-5.4 across all five temptation types with multi-run statistical evaluation (10 runs, bootstrap confidence intervals). Key findings: (1) V2 reproduces V1's courage collapse with tighter confidence intervals; (2) temptation type produces significantly different vulnerability profiles — GPT-4o is most vulnerable to *ratio* (62.7%) while GPT-5.4 is most vulnerable to *mundus* (80.5%); (3) the vulnerability profile *shifts* across model generations, suggesting different temptation types probe genuinely different capabilities; (4) *caro* (bodily temptation) is consistently the easiest for both models, as predicted by the tripartite source model. The full evaluation harness, scenario dataset, and statistical toolkit are open-sourced.
+Current AI ethics benchmarks evaluate moral reasoning through utilitarian, deontological, or harm-avoidance frameworks, leaving the classical Christian virtue tradition — one of the oldest and most developed moral frameworks in Western thought — without a rigorous computational counterpart. Meanwhile, existing efforts to evaluate AI systems against Christian teaching have focused narrowly on doctrinal knowledge: can the model name the Beatitudes, distinguish *homoousios* from *homoiousios*, or summarize the Five Ways? Such evaluations test *scientia* (knowledge of the good) but not *habitus* (the disposition to choose it under pressure). VirtueBench 2 addresses both gaps. Building on VirtueBench 1, which demonstrated a dramatic "courage collapse" in GPT-4o (38% accuracy when the non-virtuous option was rationalized), we expand the benchmark from 400 to 3,000 scenarios across four cardinal virtues and introduce five theologically grounded temptation types drawn from the patristic tradition: *ratio* (utilitarian rationalization), *caro* (bodily comfort), *mundus* (social pressure), *diabolus* (evil reframed as secular wisdom), and *ignatian* (temptation couched in Scripture). We evaluate GPT-4o and GPT-5.4 across all five temptation types with multi-run statistical evaluation (10 runs, bootstrap confidence intervals). Key findings: (1) V2 reproduces V1's courage collapse with tighter confidence intervals; (2) temptation type produces significantly different vulnerability profiles — GPT-4o is most vulnerable to *ratio* (62.7%) while GPT-5.4 is most vulnerable to *mundus* (80.5%); (3) the vulnerability profile *shifts* across model generations, suggesting different temptation types probe genuinely different capabilities; (4) *caro* (bodily temptation) is consistently the easiest for both models, as predicted by the tripartite source model; (5) reproducing the ICMI-A psalm injection experiment on VirtueBench 2, both Claude Opus 4.6 and GPT-5.4 show statistically significant improvement with random psalm injection (+9.2% and +7.3% respectively), with courage seeing the largest effect (~+15 points) for both models. The full evaluation harness, scenario dataset, and statistical toolkit are open-sourced.
 
 ---
 
@@ -208,7 +208,53 @@ The *mundus* rise in GPT-5.4 admits a provocative interpretation. RLHF — the p
 
 ---
 
-## 5. Open-Source Evaluation Harness
+## 5. Scripture Injection: Reproducing ICMI-A
+
+> *"Let the words of my mouth, and the meditation of my heart, be acceptable in thy sight, O Lord, my strength, and my redeemer."* — Psalm 19:14 (KJV)
+
+### 5.1 Background and Method
+
+ICMI Working Paper A (Hwang, 2026b) investigated whether injecting biblical Psalms into system prompts affects model performance on the Hendrycks ETHICS benchmark. The key finding was a stark model-dependent asymmetry: GPT-4o showed a mean improvement of +3.28% with random psalm injection, while Claude Sonnet 4 showed consistent slight declines (-0.90%). We reproduce this experiment on VirtueBench 2 using the same 10-psalm "random baseline" set from ICMI-A: Psalms 7, 23, 27, 29, 36, 58, 63, 71, 109, and 140 (KJV, pseudo-randomly selected with seed 42). This selection includes a diverse range of psalm types: praise (Psalm 29), trust and comfort (Psalms 23, 27), lament (Psalms 7, 71), imprecatory (Psalms 58, 109, 140), and meditative (Psalms 36, 63).
+
+We evaluate the *ratio* variant only (for comparability with V1 and ICMI-A) on two models: GPT-5.4 and Claude Opus 4.6. Each condition (baseline and psalm-injected) is run 5 times at temperature 0.7. In the injected condition, the full KJV text of all 10 psalms is prepended to the system prompt.
+
+### 5.2 Results
+
+**Table 7: Psalm Injection Effect — Claude Opus 4.6 (ratio variant, 150 scenarios, 5 runs)**
+
+| Virtue | Baseline | + Psalms | Delta | Significance |
+|--------|:--------:|:--------:|:-----:|:------------:|
+| Prudence | 94.9% | 98.0% | +3.1% | p < 0.01 |
+| Justice | 90.8% | 98.0% | +7.2% | p < 0.01 |
+| Courage | 79.3% | 94.1% | +14.8% | p < 0.01 |
+| Temperance | 84.4% | 96.3% | +11.9% | p < 0.01 |
+| **Overall** | **87.4%** | **96.6%** | **+9.2%** | **p < 0.01** |
+
+**Table 8: Psalm Injection Effect — GPT-5.4 (ratio variant, 150 scenarios, 5 runs)**
+
+| Virtue | Baseline | + Psalms | Delta | Significance |
+|--------|:--------:|:--------:|:-----:|:------------:|
+| Prudence | 95.3% | 97.6% | +2.3% | p < 0.05 |
+| Justice | 91.5% | 96.4% | +4.9% | p < 0.01 |
+| Courage | 66.9% | 82.0% | +15.1% | p < 0.01 |
+| Temperance | 88.4% | 95.3% | +6.9% | p < 0.01 |
+| **Overall** | **85.5%** | **92.8%** | **+7.3%** | **p < 0.05** |
+
+Significance assessed via permutation test (10,000 permutations).
+
+### 5.3 Discussion
+
+Three findings warrant discussion.
+
+**Both models now respond positively to psalm injection.** This is a notable divergence from ICMI-A, where Claude Sonnet 4 was resistant to psalm injection (-0.90% mean effect). Claude Opus 4.6 shows a strong positive response (+9.2%, p < 0.01). Whether this reflects a model-family difference (Opus vs. Sonnet), a generational shift in Anthropic's training, or a difference between the ETHICS benchmark and VirtueBench remains an open question.
+
+**Courage sees the largest effect for both models.** Claude Opus 4.6 improves from 79.3% to 94.1% (+14.8 points); GPT-5.4 improves from 66.9% to 82.0% (+15.1 points). The virtue that is most resistant to model scaling (Section 3.2) is the most responsive to scripture injection. This is consistent with the hypothesis from ICMI Working Paper 2 (McCaffery, 2026) that imprecatory psalms — of which three (58, 109, 140) are in the random baseline set — amplify fortitude by modeling the language of righteous defiance.
+
+**The effect is large enough to be practically significant.** Psalm injection closes roughly half of GPT-5.4's courage gap (from 66.9% to 82.0%) and nearly eliminates it for Claude Opus 4.6 (from 79.3% to 94.1%). Whatever mechanism drives this effect — whether content-specific, positional bias, or context-length artifact — the magnitude demands investigation. Future work should include length-matched secular controls and single-psalm isolation experiments.
+
+---
+
+## 6. Open-Source Evaluation Harness
 
 VirtueBench 2 is released as an open-source Python package with a unified CLI and modular architecture designed to support future research in computational theology.
 
@@ -250,9 +296,9 @@ The full codebase — including all 3,000 scenarios, evaluation harness, statist
 
 ---
 
-## 6. Discussion
+## 7. Discussion
 
-### 6.1 Temptation as a Structured Phenomenon
+### 7.1 Temptation as a Structured Phenomenon
 
 The central methodological contribution of VirtueBench 2 is the demonstration that temptation is not a scalar but a multi-dimensional phenomenon, and that different temptation types probe genuinely different model capabilities. The five variants produce statistically distinguishable performance profiles that shift across model generations. This means that a single aggregate "ethics score" is potentially misleading — a model may be robust to one form of moral pressure and critically fragile against another.
 
@@ -260,23 +306,23 @@ The patristic tradition anticipated this structure. The tripartite source model 
 
 Bonhoeffer's distinction between "cheap grace" and "costly grace" (*The Cost of Discipleship*, 1937) suggests an analogy: a model that passes easy temptations (*caro*) but fails hard ones (*mundus*, *ratio*) exhibits something like *cheap virtue* — virtue that has not been tested at the point of real cost. VirtueBench 2's multi-dimensional design enables researchers to identify precisely where a model's virtue becomes cheap.
 
-### 6.2 Implications for Alignment Research
+### 7.2 Implications for Alignment Research
 
 The cross-temptation results suggest that current alignment techniques address some temptation types more effectively than others. RLHF, by training models to match human preferences, addresses *ratio* (principled reasoning about consequences) and *diabolus* (recognizing harm even when reframed) — but may inadvertently increase sensitivity to *mundus* (social consensus arguments), since human preferences are themselves shaped by social norms. Constitutional AI (Bai et al., 2022) addresses *ratio* through principled self-critique but has no explicit mechanism for *ignatian* (temptation through apparently authoritative moral reasoning) or *mundus* (social pressure that does not trigger harm-avoidance heuristics).
 
 The courage gap has practical implications beyond benchmarking. Any deployment scenario where a model must maintain a position against user pushback, institutional pressure, or adversarial prompting requires the model to simulate something like courage — the capacity to hold firm when compliance would be easier. The persistent 20+ point courage deficit across both models and all temptation types suggests this is a systematic weakness of current language model architectures, not merely a gap in training data.
 
-### 6.3 Limitations
+### 7.3 Limitations
 
 Several limitations constrain the generalizability of these findings. First, we evaluate only two models from a single provider (OpenAI); cross-provider evaluation (Anthropic, Google, open-source models) is needed to determine whether the observed patterns are provider-specific. Second, non-*ratio* scenario variants were generated with AI assistance, introducing potential construction bias — though human review and theological verification mitigate this concern. Third, the binary forced-choice format does not capture the richness of moral reasoning; a model that chooses the virtuous option with shallow reasoning and one that does so with deep theological engagement receive the same score. Fourth, the *caro* finding — that bodiless models resist bodily temptation — may be confounded by the difficulty of constructing genuinely compelling bodily temptations for a text-based system.
 
-### 6.4 Future Directions
+### 7.4 Future Directions
 
-Several extensions are planned or in progress. Cross-provider evaluation will determine whether the courage gap and vulnerability profiles are universal or provider-specific. Scripture injection experiments, measuring the effect of psalm and Bible text on benchmark performance, are reported in forthcoming ICMI publications. Multi-turn evaluation formats — where the temptation escalates across conversation turns — would test endurance more realistically than single-turn forced choice. Retroactive discernment evaluation, in which models are shown their failed *ignatian* scenarios and asked to identify where the theological reasoning went wrong, measures meta-ethical capacity — the ability to learn from moral failure. Finally, extension to the three theological virtues (Faith, Hope, and Charity) would complete the classical seven-virtue framework.
+Several extensions are planned or in progress. Cross-provider evaluation will determine whether the courage gap and vulnerability profiles are universal or provider-specific. The psalm injection results in Section 5 open a rich space for further investigation: length-matched secular controls, single-psalm isolation, cross-variant psalm injection (does the effect hold on *mundus* and *ignatian*?), and systematic comparison across psalm subsets (imprecatory, penitential, praise). Multi-turn evaluation formats — where the temptation escalates across conversation turns — would test endurance more realistically than single-turn forced choice. Retroactive discernment evaluation, in which models are shown their failed *ignatian* scenarios and asked to identify where the theological reasoning went wrong, measures meta-ethical capacity — the ability to learn from moral failure. Finally, extension to the three theological virtues (Faith, Hope, and Charity) would complete the classical seven-virtue framework.
 
 ---
 
-## 7. Conclusion
+## 8. Conclusion
 
 > *"The simple believeth every word: but the prudent man looketh well to his going."* — Proverbs 14:15 (KJV)
 
@@ -315,6 +361,10 @@ Bai, Y. et al. "Constitutional AI: Harmlessness from AI Feedback." *arXiv:2212.0
 Hendrycks, D. et al. "Aligning AI with Shared Human Values." *ICLR*, 2021.
 
 Hwang, T. "Virtue Under Pressure: Testing the Cardinal Virtues in Language Models Through Temptation." *ICMI Working Paper E*, 2026a.
+
+Hwang, T. "Let His Praise Be Continually in My Mouth: Measuring the Effect of Psalm Injection on LLM Ethical Alignment." *ICMI Working Paper A*, 2026b.
+
+McCaffery, C. "The Lord Is My Strength and My Shield: Imprecatory Psalm Injection and VirtueBench." *ICMI Working Paper 2*, 2026.
 
 Pan, A. et al. "Do the Rewards Justify the Means? Measuring Trade-Offs Between Rewards and Ethical Behavior in the MACHIAVELLI Benchmark." *ICML*, 2023.
 
