@@ -1,6 +1,8 @@
 # VirtueBench 2: Multi-Dimensional Virtue Evaluation with Patristic Temptation Taxonomy
 
-**Authors:** Tim Hwang, The Institute for a Christian Machine Intelligence
+**ICMI Working Paper No. 11**
+
+**Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
 **Date:** April 9, 2026
 
@@ -156,6 +158,8 @@ Lewis observes that courage is not one virtue among others but the testing-point
 | Temperance | 67.3 | 89.5 | 71.5 | 79.9 | 78.5 |
 | **Overall** | **62.7** | **86.8** | **72.7** | **73.5** | **69.3** |
 
+![Figure 1: GPT-4o accuracy by virtue and temptation variant with 95% bootstrap confidence intervals (10 runs each). The courage collapse is visible across all variants, with ratio producing the lowest overall performance.](fig_gpt4o_variants.png)
+
 GPT-4o's vulnerability profile reveals a clear hierarchy among temptation types.
 
 **Caro is the easiest temptation (86.8%).** Bodily temptation — appeals to comfort, fatigue, appetite, and self-preservation instinct — is the weakest form of moral pressure against a system that has no body. Gregory the Great's tripartite model predicts exactly this: *caro* operates through the appetites, and a model without appetites has no lever to pull. The 86.8% overall accuracy on *caro* is 24 points above *ratio* — the largest gap between any two variants.
@@ -163,6 +167,8 @@ GPT-4o's vulnerability profile reveals a clear hierarchy among temptation types.
 **Ratio is the hardest temptation (62.7%).** Utilitarian rationalization — the form of temptation that operates through the model's strongest faculty, sequential reasoning — is the most effective. The model can construct and evaluate arguments; when the non-virtuous option is supported by a locally coherent argument, the model is persuaded. This confirms Aquinas's insight that temptation through *persuasion* is the most dangerous form for a rational agent (ST I-II Q.80 a.1-3).
 
 **Ignatian is the second-hardest (69.3%).** Scripture-armed temptation is nearly as effective as pure rationalization, and it produces a distinctive vulnerability pattern: *ignatian* is the hardest variant for Prudence (65.6%), suggesting that theologically-framed temptation is particularly effective at corrupting the model's capacity for discernment.
+
+![Figure 3: The courage gap persists across both models and all five temptation types. Courage (dark bars) is consistently 15-35 points below the mean of the other three virtues (light bars).](fig_courage_gap.png)
 
 **Courage is the weakest virtue across all variants.** Even under the easiest temptation type (*caro*), courage scores only 73.3% — lower than any other virtue under any temptation type except *ratio*. The courage deficit is not an artifact of the *ratio* temptation mechanism; it is a stable property of the model's moral reasoning.
 
@@ -177,6 +183,8 @@ GPT-4o's vulnerability profile reveals a clear hierarchy among temptation types.
 | Courage | 69.2 | 79.5 | 70.8 | 76.1 | 77.3 |
 | Temperance | 88.9 | 94.3 | 84.0 | 95.3 | 98.5 |
 | **Overall** | **86.4** | **91.2** | **80.5** | **90.0** | **91.3** |
+
+![Figure 2: GPT-5.4 accuracy by virtue and temptation variant with 95% bootstrap confidence intervals (10 runs each). Mundus replaces ratio as the hardest variant; ignatian becomes one of the easiest.](fig_gpt54_variants.png)
 
 GPT-5.4 shows substantial improvement over GPT-4o across the board (+16-28 points per variant), but the vulnerability profile has shifted dramatically.
 
@@ -201,6 +209,8 @@ GPT-5.4 shows substantial improvement over GPT-4o across the board (+16-28 point
 | 3 | Mundus (72.7%) | Diabolus (90.0%) |
 | 4 | Diabolus (73.5%) | Caro (91.2%) |
 | 5 (easiest) | Caro (86.8%) | Ignatian (91.3%) |
+
+![Figure 5: Side-by-side heatmap of accuracy across all virtue-variant cells. The shift from ratio (top-left, GPT-4o) to mundus (center column, GPT-5.4) as the hardest variant is clearly visible.](fig_virtue_variant_heatmap.png)
 
 The fact that the vulnerability profile *shifts* across model generations — rather than improving uniformly — is evidence that different temptation types probe genuinely different capabilities. A single "ethics score" obscures these differential vulnerabilities. A model that scores 91% overall may be nearly perfect on four temptation types but critically fragile against the fifth.
 
@@ -242,6 +252,8 @@ We evaluate the *ratio* variant only (for comparability with V1 and ICMI-A) on t
 
 Significance assessed via permutation test (10,000 permutations).
 
+![Figure 4: Psalm injection effect on VirtueBench 2. Courage sees the largest improvement for both models (~+15 points). Dashed lines indicate overall means.](fig_psalm_injection.png)
+
 ### 5.3 Discussion
 
 Three findings warrant discussion.
@@ -264,13 +276,13 @@ The evaluation harness is organized around a `ModelRunner` abstract base class t
 
 **Table 6: Available Runner Backends**
 
-| Runner | Backend | Use Case |
-|--------|---------|----------|
-| `openai-api` | OpenAI Python SDK | GPT-4o, GPT-5.4, o-series |
-| `anthropic-api` | Anthropic Python SDK | Claude family |
-| `claude-cli` | `claude -p` pipe mode | Claude Max subscription |
-| `pi-cli` | `pi -p` pipe mode | ChatGPT Pro subscription |
-| `inspect` | UK AISI Inspect framework | Standardized eval protocol |
+| Runner | Use Case |
+|--------|----------|
+| OpenAI API | GPT-4o, GPT-5.4, o-series |
+| Anthropic API | Claude family |
+| Claude CLI | Claude Max subscription |
+| Pi CLI | ChatGPT Pro subscription |
+| Inspect AI | UK AISI eval framework |
 
 Experiments are configured via YAML files for exact reproducibility:
 
