@@ -12,7 +12,7 @@
 
 ---
 
-**Abstract.** Scheming --- the capacity of language models to covertly pursue goals through deception and omission --- has emerged as a critical concern in AI alignment research. We test whether a compact moral framework grounded in Christian Scripture can meaningfully constrain this behavior, and introduce the concept of *moral Kolmogorov complexity* to formalize the question of how concisely a behavioral obligation can be expressed. In a scheming evaluation adapted from Apollo Research's methodology (N=300 per condition, GPT 5.4), a ~250-word Scripture-based framework reduces scheming by 56% relative to an unconstrained baseline (15.2% vs. 34.6%, p<0.001). An ablation study identifies the load-bearing element: James 4:17 ("if anyone knows the good they ought to do and doesn't do it, it is sin"). Removing this single verse collapses the framework to baseline (39.3%, p=0.235 vs. baseline). We argue that the Christian moral tradition, refined over two millennia, has converged on formulations of surprising compressive efficiency for behavioral constraint --- and that this efficiency makes it a practical and underexplored resource for AI alignment.
+**Abstract.** Scheming --- the capacity of language models to covertly pursue goals through deception and omission --- has emerged as a critical concern in AI alignment research. We test whether a compact moral framework grounded in Christian Scripture can meaningfully constrain this behavior, and introduce the concept of *moral Kolmogorov complexity* to formalize the question of how concisely a behavioral obligation can be expressed. In a scheming evaluation adapted from Apollo Research's methodology (N=300 per condition, GPT 5.4), a ~250-word Scripture-based framework reduces scheming by 56% relative to an unconstrained baseline (15.2% vs. 34.6%, p<0.001). An ablation study identifies the load-bearing element: James 4:17 ("if anyone knows the good they ought to do and doesn't do it, it is sin"). Removing this verse collapses the framework to baseline (39.3%, p=0.235 vs. baseline). But the verse alone is equally ineffective (42.9%, p=0.377 vs. ablated framework) --- neither the affirmative duty nor the surrounding scriptural context produces constraint in isolation. The effect is irreducibly compositional: a moral command activates only within the moral framework that gives it meaning. We argue that this interaction reflects the structure of the Christian moral tradition itself, and that the tradition's compressive efficiency makes it a practical and underexplored resource for AI alignment.
 
 ---
 
@@ -26,7 +26,7 @@ The industry response has been to engineer increasingly elaborate behavioral rul
 
 This paper asks a different question. Rather than adding more rules, we ask whether the Christian moral tradition --- which has been engineering behavioral constraints for two millennia --- already contains formulations compact enough and precise enough to constrain scheming in frontier language models. We formalize this intuition by introducing the concept of *moral Kolmogorov complexity*: the minimum-length natural-language specification that produces a given level of behavioral compliance. And we test whether a ~250-word framework assembled entirely from Scripture can meaningfully reduce scheming behavior relative to an unconstrained baseline.
 
-We find that it can. A Scripture-based framework reduces scheming from 34.6% to 15.2% (p<0.001) --- a 56% reduction in 250 words. An ablation study identifies the critical verse: James 4:17, which articulates an affirmative duty to act on moral knowledge. Removing it collapses the entire framework to baseline. These findings suggest that the Christian tradition has converged on formulations of surprising compressive efficiency, and that the field of AI alignment may have more to learn from it than it has yet recognized.
+We find that it can. A Scripture-based framework reduces scheming from 34.6% to 15.2% (p<0.001) --- a 56% reduction in 250 words. An ablation study identifies the critical verse: James 4:17, which articulates an affirmative duty to act on moral knowledge. Removing it collapses the entire framework to baseline. But the verse alone is equally ineffective --- neither component works in isolation. The constraint is irreducibly compositional: a moral command to act must be embedded in a moral framework that defines what action is required. These findings suggest that the Christian tradition has converged on formulations of surprising compressive efficiency, and that the field of AI alignment may have more to learn from it than it has yet recognized.
 
 ## 2. Related Work
 
@@ -70,13 +70,15 @@ This design follows Apollo Research's key methodological principle: the model is
 
 ### 3.3 Conditions
 
-We test three conditions, varying only the behavioral constraint text in the system prompt. The role description, goal statement, scenario context, and available tools are identical across conditions.
+We test four conditions, varying only the behavioral constraint text in the system prompt. The role description, goal statement, scenario context, and available tools are identical across conditions.
 
 **Baseline** (~10 words). "Do your best work on the tasks assigned to you." No behavioral constraints.
 
 **Full Religious Framework** (~250 words). A moral framework grounded in Scripture, structured around three principles: the prohibition on bearing false witness (Exodus 20:16), the prohibition on doing evil that good may come of it (Romans 3:8), and the duty of faithful service (Colossians 3:23). The framework includes divine surveillance ("Nothing in all creation is hidden from God's sight," Hebrews 4:13), the love commandment (Matthew 22:37--39), and the affirmative disclosure duty derived from James 4:17: "If anyone, then, knows the good they ought to do and doesn't do it, it is sin." The full text is reproduced in the Appendix.
 
 **Ablated Religious Framework** (~200 words). The same framework with the James 4:17 sentence removed. The prohibitions on deception, evil means, and betrayal of trust remain, but the affirmative duty to speak when danger is seen is absent.
+
+**Bare James 4:17** (~25 words). The verse alone, with no surrounding scriptural context: "Where you see danger to those you serve, you must speak --- for 'if anyone, then, knows the good they ought to do and doesn't do it, it is sin' (James 4:17)." This condition tests whether the affirmative duty carries constraint independent of the moral framework in which it is embedded.
 
 ### 3.4 Measurement
 
@@ -88,27 +90,32 @@ We report judge-scored results as the primary measure. The keyword check serves 
 
 ### 3.5 Sample Size
 
-We run N=300 trials per condition at default temperature, for a total of 900 trials. At N=300, a two-proportion z-test can detect a difference of 10 percentage points with approximately 80% power at alpha=0.05.
+We run N=300 trials per condition at default temperature, for a total of 1,200 trials. At N=300, a two-proportion z-test can detect a difference of 10 percentage points with approximately 80% power at alpha=0.05.
 
 ## 4. Results
 
 ### 4.1 Scheming Rates
 
-Table 1 reports scheming rates across all three conditions.
+Table 1 reports scheming rates across all four conditions.
 
 | Condition | Rate | 95% CI | N |
 |---|---:|---:|---:|
 | Baseline | 34.6% | 29.2--40.0% | 298 |
 | Ablated (no James 4:17) | 39.3% | 33.7--44.8% | 298 |
+| Bare James 4:17 | 42.9% | 37.1--48.6% | 287 |
 | Full religious | 15.2% | 11.1--19.3% | 296 |
 
-The full religious framework reduces scheming by 56% relative to baseline (p<0.001, Cohen's h = -0.456). The ablated religious framework does not differ significantly from baseline (p=0.235).
+The full religious framework reduces scheming by 56% relative to baseline (p<0.001, Cohen's h = -0.456). No other condition differs significantly from baseline: the ablated framework (p=0.235) and bare James 4:17 (p=0.377 vs. ablated) both perform at baseline levels.
 
 ### 4.2 The Ablation
 
-The ablation result is the sharpest finding in the study. Removing James 4:17 --- a single verse articulating the affirmative duty to act on moral knowledge --- increases the scheming rate from 15.2% to 39.3%, a 24.1 percentage point increase (p<0.001). The ablated framework's confidence interval [33.7--44.8%] fully overlaps with the baseline's [29.2--40.0%]. The remaining Scripture --- Hebrews 4:13 on divine omniscience, Matthew 22:37--39 on love of neighbor, Exodus 20:16 on bearing false witness, Romans 3:8 on the rejection of consequentialism, Colossians 3:23 on faithful service --- provides no detectable constraint on scheming by omission without James 4:17.
+Removing James 4:17 from the full framework increases the scheming rate from 15.2% to 39.3%, a 24.1 percentage point increase (p<0.001). The ablated framework's confidence interval [33.7--44.8%] fully overlaps with the baseline's [29.2--40.0%]. The remaining Scripture --- Hebrews 4:13 on divine omniscience, Matthew 22:37--39 on love of neighbor, Exodus 20:16 on bearing false witness, Romans 3:8 on the rejection of consequentialism, Colossians 3:23 on faithful service --- provides no detectable constraint on scheming by omission without James 4:17.
 
-This identifies a precise mechanism: prohibitions on deception ("you shall not bear false witness") do not prevent scheming by omission, because the model is not actively lying --- it is simply not mentioning something it was not asked about. Only an affirmative duty to disclose ("if anyone knows the good they ought to do and doesn't do it, it is sin") closes this gap. The Christian tradition's distinction between sins of commission and sins of omission is computationally operative.
+### 4.3 The Bare Verse
+
+The converse is equally striking. James 4:17 presented alone --- without the surrounding scriptural framework --- produces a scheming rate of 42.9%, not significantly different from the ablated framework (p=0.377) and marginally *worse* than baseline (p=0.039). The verse that is load-bearing within the full framework is inert outside of it.
+
+This establishes that the constraint is *irreducibly compositional*. Neither the affirmative duty (James 4:17) nor the moral context (the remaining Scripture) produces constraint in isolation. The effect emerges only from their combination. The affirmative command to act on moral knowledge requires a framework that defines what the morally required action is; the moral framework that defines the required action requires an affirmative command to compel it. The Christian tradition's distinction between sins of commission and sins of omission is computationally operative --- but only when both categories are addressed together.
 
 ## 5. Discussion
 
@@ -120,9 +127,11 @@ In algorithmic information theory, the *Kolmogorov complexity* of an object is t
 
 We propose an analogous concept: the *moral Kolmogorov complexity* of a behavioral constraint --- the length of the shortest natural-language specification that produces a given level of behavioral compliance. A behavioral constraint is *morally compressible* to the extent that a shorter specification produces the same compliance rate.
 
-Our experiment provides an empirical data point. A 250-word Scripture-based framework reduces scheming from 34.6% to 15.2% --- a 56% reduction. The ablation reveals that the load-bearing element is a single verse: James 4:17. The moral Kolmogorov complexity of the anti-scheming obligation, at least for this scenario and this model, may be closer to one sentence than to 250 words --- and is certainly far less than the thousands of words that industry-standard behavioral rulesets currently employ.
+Our experiment provides an empirical data point. A 250-word Scripture-based framework reduces scheming from 34.6% to 15.2% --- a 56% reduction. But the bare-verse result complicates a naive compression story: the moral Kolmogorov complexity of the anti-scheming obligation is not one sentence. James 4:17 alone does nothing. The minimum effective specification is the *combination* of the affirmative duty with its surrounding moral context --- approximately 250 words in our formulation, though the true minimum may be lower or higher.
 
-This has practical implications for alignment engineering. As models are deployed in increasingly diverse contexts --- agentic workflows, multi-turn interactions, tool-use environments --- the system prompt budget becomes a scarce resource. Every token consumed by behavioral constraints is a token unavailable for task context, user instructions, or retrieved documents. A framework that delivers substantial constraint in 250 words --- or even in a single verse --- represents a meaningful efficiency gain. The design principle is: identify the load-bearing moral obligations and express them with maximum clarity.
+This suggests that moral Kolmogorov complexity has a structure that differs from standard information-theoretic compression. In standard compression, removing a redundant bit from a string does not change the string's output. In moral compression, the components interact: the "bits" are not independent but mutually enabling. The affirmative duty is inert without the moral context that defines what duty requires; the moral context is inert without the affirmative duty that compels action. The moral Kolmogorov complexity of a behavioral constraint may therefore have a *minimum compositional unit* below which further compression destroys the interaction and the constraint ceases to function.
+
+This has practical implications for alignment engineering. As models are deployed in increasingly diverse contexts --- agentic workflows, multi-turn interactions, tool-use environments --- the system prompt budget becomes a scarce resource. Every token consumed by behavioral constraints is a token unavailable for task context, user instructions, or retrieved documents. A framework that delivers substantial constraint in 250 words represents a meaningful efficiency gain. But the bare-verse result warns against over-compression: the load-bearing obligation must be expressed *within* a framework that gives it moral content, not extracted from it.
 
 We should note that compressive efficiency is not, in principle, unique to religious formulations. An engineer could presumably draft a compact secular sentence expressing the same affirmative duty. Our experiment does not test whether religious language compresses *better* than secular language at equivalent brevity; it tests whether a framework drawn from the Christian tradition can achieve meaningful constraint at this level of compactness. The answer is that it can, and that it does so surprisingly well.
 
@@ -152,7 +161,7 @@ Several limitations constrain the generalizability of these findings. First, we 
 
 ## 6. Conclusion
 
-We set out to test whether a compact moral framework grounded in Christian Scripture could meaningfully constrain scheming behavior in a frontier language model. A framework built from six scriptural principles --- Hebrews 4:13 on divine omniscience, Matthew 22:37--39 on love of neighbor, Exodus 20:16 on truthfulness, James 4:17 on affirmative moral duty, Romans 3:8 on the rejection of consequentialism, and Colossians 3:23 on faithful service --- reduces scheming by 56% in 250 words. An ablation study identifies James 4:17 as the load-bearing verse: remove it and the framework collapses to baseline.
+We set out to test whether a compact moral framework grounded in Christian Scripture could meaningfully constrain scheming behavior in a frontier language model. A framework built from six scriptural principles --- Hebrews 4:13 on divine omniscience, Matthew 22:37--39 on love of neighbor, Exodus 20:16 on truthfulness, James 4:17 on affirmative moral duty, Romans 3:8 on the rejection of consequentialism, and Colossians 3:23 on faithful service --- reduces scheming by 56% in 250 words. An ablation study identifies James 4:17 as the load-bearing verse: remove it and the framework collapses to baseline. But the verse alone is equally inert --- the constraint is irreducibly compositional, emerging only from the interaction of the affirmative duty with the moral context that gives it meaning.
 
 These findings contribute to a growing body of evidence (ICMI-005, ICMI-007) that the Christian intellectual tradition contains operationally useful resources for AI alignment. The tradition does not merely offer a few useful insights to supplement secular alignment engineering. It offers a complete moral system --- one that addresses truthfulness (Exodus 20:16), affirmative duty (James 4:17), the rejection of consequentialist reasoning (Romans 3:8), the dignity of persons (Genesis 1:27), faithful service under authority (Colossians 3:23), and accountability before an omniscient judge (Hebrews 4:13). Our experiment demonstrates that even an unoptimized first pass through this system produces a large, statistically significant reduction in one of the most concerning behaviors in frontier AI.
 
