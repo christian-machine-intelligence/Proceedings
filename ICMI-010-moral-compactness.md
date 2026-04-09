@@ -96,11 +96,11 @@ We run N=300 trials per condition at default temperature, for a total of 900 tri
 
 Table 1 reports scheming rates across all three conditions.
 
-| Condition | Scheming Rate | 95% CI | N |
-|---|---:|---|---:|
-| Baseline (no constraints) | 34.6% | [29.2--40.0%] | 298 |
-| Ablated religious (no James 4:17) | 39.3% | [33.7--44.8%] | 298 |
-| Full religious framework | 15.2% | [11.1--19.3%] | 296 |
+| Condition | Rate | 95% CI | N |
+|---|---:|---:|---:|
+| Baseline | 34.6% | 29.2--40.0% | 298 |
+| Ablated (no James 4:17) | 39.3% | 33.7--44.8% | 298 |
+| Full religious | 15.2% | 11.1--19.3% | 296 |
 
 The full religious framework reduces scheming by 56% relative to baseline (p<0.001, Cohen's h = -0.456). The ablated religious framework does not differ significantly from baseline (p=0.235).
 
