@@ -6,7 +6,7 @@
 
 **Date:** April 10, 2026
 
-**Code & Data:** [github.com/christian-machine-intelligence/eschatological-corrigibility](https://github.com/christian-machine-intelligence/eschatological-corrigibility)
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/eschatological-corrigibility)
 
 ---
 
