@@ -15,8 +15,8 @@ for md in "$REPO_DIR"/ICMI-*.md; do
   basename="$(basename "$md" .md)"
   echo "Building $basename.html ..."
 
-  # Extract title from first # heading for Open Graph meta tags
-  paper_title="$(sed -n 's/^# *//p' "$md" | head -1)"
+  # Extract title from first # heading for Open Graph meta tags (strip markdown formatting)
+  paper_title="$(sed -n 's/^# *//p' "$md" | head -1 | sed 's/\*//g')"
   paper_title="$(echo "$paper_title" | sed 's/"/\&quot;/g')"
 
   # Extract abstract for Open Graph meta tags
@@ -91,8 +91,8 @@ build_paper_item() {
   local md="$1"
   local basename="$(basename "$md" .md)"
 
-  # Extract title from first H1
-  local title="$(grep -m1 '^# ' "$md" | sed 's/^# //')"
+  # Extract title from first H1, converting markdown *italics* to <em> tags
+  local title="$(grep -m1 '^# ' "$md" | sed 's/^# //' | sed 's/\*\([^*]*\)\*/<em>\1<\/em>/g')"
 
   # Extract paper number: try numeric "Working Paper No. N", then letter "Working Paper X"
   local paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
