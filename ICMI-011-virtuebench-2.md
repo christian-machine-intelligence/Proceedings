@@ -6,6 +6,8 @@
 
 **Date:** April 9, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/virtue-bench-2)
+
 ---
 
 ## Abstract

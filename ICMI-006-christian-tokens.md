@@ -4,6 +4,10 @@
 
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
+**Date:** April 3, 2026
+
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/christian-tokens)
+
 ---
 
 **Abstract.** The alignment community has, by and large, failed to engage seriously with theology or religious thought. This paper argues that this failure is not merely a philosophical oversight but a quantitative one. Using a strict keyword classification methodology applied to a 100,000-document sample of The Pile — a foundational open-source pretraining corpus of approximately 825 billion tokens — we estimate that approximately 67 billion tokens (8.1% of the corpus) consist of explicitly Christian content: scripture, theology, sermons, catechisms, apologetics, and church history. This figure exceeds Islamic content by 32x, Buddhist content by 19x, Hindu content by 45x, and Jewish content by 93x. It is equivalent to 15 times the entire English Wikipedia, and exceeds the estimated total output of the AI safety research field by two to three orders of magnitude. We argue that these findings have significant implications for how the alignment community should understand the moral representations already latent in frontier models. If the dominant moral tradition in pretraining data shapes model behavior — as the scaling and representation learning literatures give us every reason to believe — then frontier AI systems have already absorbed more sustained Christian moral reasoning than any other ethical tradition. We introduce the term *the Christian Prior* to name this condition: the hypothesis that, as a direct consequence of the training distribution, the moral reasoning of frontier language models is by default more deeply shaped by the Christian intellectual tradition than by any other ethical framework — and that all post-training alignment operates on this substrate.

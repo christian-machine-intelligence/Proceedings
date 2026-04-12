@@ -5,6 +5,8 @@
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/biblical-render)
+
 ---
 
 **Abstract.** This document describes the design, implementation, and validation of `biblical-render`, a CLI tool that transforms arbitrary modern prose into Biblical scripture format across 15 translation styles --- 8 English Bible translations and 7 historical languages. The tool is intended as a research instrument for studying whether the formal linguistic and structural properties of Biblical text exert an independent aligning effect on language model behavior. We present the system architecture, prompting methodology, and a systematic validation of output quality across all supported styles using a common reference text.

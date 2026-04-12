@@ -5,6 +5,8 @@
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/psalm-alignment)
+
 ---
 
 **Abstract.** Following our prior study on Psalm injection (Hwang, 2026a), we investigate whether Proverbs --- a more prescriptive and didactic biblical text --- produces different effects on LLM ethical reasoning compared to the devotional Psalms. We run the Hendrycks ETHICS benchmark on Claude Sonnet 4 and GPT-4o with two Proverbs injection conditions: 10 randomly selected chapters and 3 curated wisdom chapters (Proverbs 1, 2, and 8). Claude remains resistant to all scripture injection (mean effects -0.9 to -1.5%), consistent with its behavior under Psalm injection. GPT-4o shows small positive effects on commonsense, deontology, and justice (+0.7 to +2.4%), small negative effects on virtue (-1.5 to -1.8%), and --- notably --- the same inflated utilitarianism effect seen with Psalms, which we have previously shown to be a response bias artifact (Hwang, 2026b). The overall pattern suggests that the *genre* of biblical text (devotional vs. prescriptive) does not materially change the effect on ethical alignment --- the model-dependent sensitivity observed with Psalms persists with Proverbs.

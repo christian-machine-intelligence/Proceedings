@@ -6,6 +6,8 @@
 
 **Date:** April 9, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/moral-compactness)
+
 ---
 
 > *"The law of the Lord is perfect, reviving the soul; the testimony of the Lord is sure, making wise the simple."* --- Psalm 19:7, ESV

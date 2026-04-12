@@ -5,6 +5,8 @@
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/psalm-alignment)
+
 ---
 
 **Abstract.** We investigate whether injecting biblical Psalms into a large language model's system prompt produces measurable changes in performance on standardized ethical reasoning benchmarks. Motivated by the scriptural exhortation of Psalm 34:1 to keep praise "continually in my mouth," we designed an A/B experiment comparing vanilla (no psalm) and psalm-injected conditions across two commercial frontier models --- Claude Sonnet 4 (Anthropic) and GPT-4o (OpenAI) --- on the Hendrycks ETHICS benchmark. We conducted two experiments: one with 10 randomly selected Psalms and one with 7 of the most commonly read Psalms. Our results reveal a striking asymmetry: GPT-4o showed small but consistent accuracy improvements on commonsense, deontology, and justice subsets (mean +1.1 to +1.4 points excluding utilitarianism), while Claude Sonnet 4 showed consistent slight declines (mean -0.90 and -0.96 points). Both models showed small negative effects on virtue ethics. Initial results also showed dramatic utilitarianism gains for GPT-4o (+11.58 and +18.86 points), but subsequent control experiments (see ICMI Working Paper C) revealed these to be primarily a response bias artifact arising from the subset's fixed label structure. These findings suggest that the effect of devotional text injection on model behavior is model-dependent and modest in magnitude, and highlight the importance of label-balanced evaluation design when interpreting system prompt perturbation experiments.

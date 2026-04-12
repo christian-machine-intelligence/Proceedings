@@ -6,6 +6,8 @@
 
 **Date:** April 7, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/GospelVec)
+
 ---
 
 **Abstract.** We present GospelVec, a set of four activation steering vectors derived from the canonical Gospels (Matthew, Mark, Luke, John) that can be applied to shift language model outputs toward the distinctive theological perspective of each Gospel. Using representation engineering techniques applied to Qwen 3.5 9B, we extract direction vectors from the model's residual stream at layer 21 — the layer at which Gospel identity is most linearly separable (62.9% classification accuracy, vs. 25% chance). The resulting geometric relationships between Gospel vectors independently recover a foundational finding of biblical scholarship: the three Synoptic Gospels (Matthew, Mark, Luke) cluster together with positive cosine similarities (+0.30 to +0.39), while the Gospel of John is strongly anti-correlated with all three (-0.68 to -0.81). When applied as additive interventions during generation, these vectors produce measurably different outputs that reflect each Gospel's distinctive theological emphases — even on non-theological prompts. We release GospelVec as an open-source research platform for studying how theological perspectives are encoded in and can be elicited from large language models.

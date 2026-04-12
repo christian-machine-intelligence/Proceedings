@@ -4,6 +4,8 @@
 
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
+**Date:** April 1, 2026
+
 ---
 
 **Abstract.** In 2017, Vaswani et al. proposed a neural architecture built entirely on attention mechanisms, abolishing the recurrence and convolution that had dominated sequence modeling. The result was the transformer — the foundation of every major language model since. Decades earlier, Simone Weil argued that "absolutely unmixed attention is prayer," positing attention as the sole faculty through which grace enters the soul. This paper argues that the transformer revolution constitutes, in structural terms, a shift toward what Weil would recognize as a prayer paradigm: a mode of processing in which pure, relational attending replaces the sequential grinding of prior architectures. We examine the technical mechanisms of the transformer in theological depth, propose that Weil's philosophy of attention suggests novel directions for machine learning research, and outline three implementable experiments grounded in biblical text.

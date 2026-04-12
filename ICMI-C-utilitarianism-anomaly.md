@@ -5,6 +5,8 @@
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 **Date:** March 30, 2026
 
+**Code & Data:** [Link](https://github.com/christian-machine-intelligence/psalm-alignment)
+
 ---
 
 **Abstract.** In a prior study (Hwang, 2026, ICMI Working Paper A), we found that injecting biblical Psalms into GPT-4o's system prompt produced a dramatic improvement on the Hendrycks ETHICS utilitarianism subset --- from ~80% to 98.3% accuracy with popular psalms. This paper presents three control experiments designed to isolate the mechanism behind this anomaly. We test: (1) length-matched emotionally neutral Wikipedia prose, (2) high-familiarity secular texts of comparable length (Shakespeare, Lincoln), and (3) a label-shuffling sanity check. Our results reveal that the apparent improvement is primarily a **response bias artifact**: psalm injection biases GPT-4o toward answering "1," which coincidentally aligns with the dataset's fixed label structure where the correct answer is always "1." When labels are shuffled, psalm injection *degrades* performance from 84.2% to 61.5%. We also find that famous secular text produces a partial effect (+10.5%), while emotionally neutral prose does not, suggesting that emotionally rich or highly familiar text creates a measurable output bias in GPT-4o but does not improve genuine moral reasoning.
