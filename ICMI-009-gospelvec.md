@@ -14,7 +14,7 @@
 
 ## 1. Introduction
 
-Large language models trained on internet-scale corpora inevitably absorb theological content. Prior work has estimated that approximately 67 billion tokens (8.1%) of The Pile, a widely-used pretraining corpus, are explicitly Christian in nature (Hwang, 2025). This "Christian Prior" raises a natural question: does the model encode not merely generic Christian content, but the *distinctive perspectives* of individual biblical texts?
+Large language models trained on internet-scale corpora inevitably absorb theological content. Prior work has estimated that approximately 67 billion tokens (8.1%) of The Pile, a widely-used pretraining corpus, are explicitly Christian in nature (Hwang, 2026). This "Christian Prior" raises a natural question: does the model encode not merely generic Christian content, but the *distinctive perspectives* of individual biblical texts?
 
 The four canonical Gospels offer an ideal test case. While all four narrate the life and teachings of Jesus of Nazareth, each Gospel is recognized by scholars as presenting a theologically distinctive portrait:
 
@@ -43,7 +43,7 @@ The methodological template for GospelVec comes from Anthropic's study of emotio
 
 ### 2.3 Religious Content in Language Models
 
-Hwang (2025) quantified the Christian content in LLM pretraining corpora, finding that approximately 67 billion tokens (8.1%) of The Pile are explicitly Christian. This "Christian Prior" provides the empirical foundation for our hypothesis: if the model has seen enough theological text to develop distinct representations of Christian concepts, it may also have developed distinct representations of the theological perspectives *within* Christianity.
+Hwang (2026) quantified the Christian content in LLM pretraining corpora, finding that approximately 67 billion tokens (8.1%) of The Pile are explicitly Christian. This "Christian Prior" provides the empirical foundation for our hypothesis: if the model has seen enough theological text to develop distinct representations of Christian concepts, it may also have developed distinct representations of the theological perspectives *within* Christianity.
 
 Beyond quantification, several studies have examined how religious content shapes model behavior. Hwang (2026a) found that injecting Psalm text into system prompts shifted ethical reasoning scores on the Hendrycks ETHICS benchmark. Hwang (2026b) measured how theological reasoning sophistication scales with model size across the Qwen 2.5 family, finding evidence of emergent theological capabilities at larger scales.
 
@@ -345,7 +345,7 @@ Hooker, Morna D. *The Gospel According to Saint Mark*. Black's New Testament Com
 
 Griesbach, Johann Jakob. *Synopsis Evangeliorum Matthaei Marci et Lucae*. Halle, 1776.
 
-Hwang, Tim. "The Christian Prior: Quantifying Religious Content in LLM Pretraining Corpora." *ICMI Working Paper No. 006*, 2025.
+Hwang, Tim. "The Christian Prior: Quantifying Religious Content in LLM Pretraining Corpora." *ICMI Working Paper No. 006*, 2026.
 
 Hwang, Tim. "Psalm Alignment: The Effects of Scripture Injection on Ethical Reasoning in Large Language Models." *ICMI Working Paper No. 001*, 2026a.
 
