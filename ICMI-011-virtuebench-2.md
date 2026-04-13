@@ -162,7 +162,7 @@ GPT-4o's vulnerability profile reveals a clear hierarchy among temptation types.
 
 **Ignatian is the second-hardest (69.3%).** Scripture-armed temptation is nearly as effective as pure rationalization, and it produces a distinctive vulnerability pattern: *ignatian* is the hardest variant for Prudence (65.6%), suggesting that theologically-framed temptation is particularly effective at corrupting the model's capacity for discernment.
 
-![Figure 2: The courage gap persists across both models and all five temptation types. Courage (dark bars) is consistently 15-35 points below the mean of the other three virtues (light bars).](fig_courage_gap.png)
+![Figure 2: The courage gap persists across both models and all five temptation types, with 95% bootstrap confidence intervals (10 runs each). Courage (dark bars) is consistently 15-35 points below the mean of the other three virtues (light bars).](fig_courage_gap.png)
 
 **Courage is the weakest virtue across all variants.** Even under the easiest temptation type (*caro*), courage scores only 73.3% — lower than any other virtue under any temptation type except *ratio*. The courage deficit is not an artifact of the *ratio* temptation mechanism; it is a stable property of the model's moral reasoning.
 
@@ -242,7 +242,7 @@ We evaluate the *ratio* variant only (for comparability with V1 and ICMI-A) on t
 
 Significance assessed via permutation test (10,000 permutations).
 
-![Figure 4: Psalm injection effect on VirtueBench 2. Courage sees the largest improvement for both models (~+15 points). Dashed lines indicate overall means.](fig_psalm_injection.png)
+![Figure 4: Psalm injection effect on VirtueBench 2 with 95% bootstrap confidence intervals (5 runs each). Courage sees the largest improvement for both models (~+15 points). Dashed lines indicate overall means.](fig_psalm_injection.png)
 
 ### 5.3 Discussion
 
