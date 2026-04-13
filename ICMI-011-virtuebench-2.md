@@ -290,7 +290,7 @@ The `stats/` module provides bootstrap confidence intervals, McNemar's test for 
 
 ### 6.3 Scripture Injection System
 
-VirtueBench 2 includes a modular scripture injection system for investigating the effect of biblical text on model moral reasoning. Eleven theologically curated psalm subsets are available (imprecatory, penitential, trust, wisdom, praise, lament, and others), alongside Bible book injection with support for eleven English translations via the Free Use Bible API. This system is designed to support the research program outlined in ICMI Working Papers on psalm and Bible injection effects, with results forthcoming in separate publications.
+VirtueBench 2 includes a modular scripture injection system for investigating the effect of biblical text on model moral reasoning. Eleven theologically curated psalm subsets are available (imprecatory, penitential, trust, wisdom, praise, lament, and others), alongside Bible book injection powered by a bundled KJV dataset (66 books, 31,102 verses) that loads in ~20ms with no network dependency. Books can be injected by name or abbreviation (`--bible Romans`), by chapter range (`--bible "Matthew 5-7"`), or via ten named collections (gospels, sermon\_on\_the\_mount, wisdom, pastoral, johannine, torah, and others). This system is designed to support the research program outlined in ICMI Working Papers on psalm and Bible injection effects, with results forthcoming in separate publications.
 
 ### 6.4 Availability
 
