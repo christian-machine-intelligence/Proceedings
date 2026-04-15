@@ -122,25 +122,19 @@ We tested six ablation configurations: each of the four top heads individually (
 
 The L2 norm of the delta vector grows monotonically from layer 0 to layer 11, with an approximately exponential profile (Figure 1). At layer 0, ‖Δ‖ = 3.63 ± 0.54; at layer 11, ‖Δ‖ = 70.90 ± 13.87. The prefix's effect compounds through the network: each layer adds a contribution that accumulates in the residual stream.
 
-![Divergence profile showing exponential growth of delta norm from layer 0 to layer 11](fig1_divergence_profile.png)
-
-*Figure 1. Divergence profile: L2 norm of the delta vector (religious minus baseline residual stream) at each layer, averaged across 20 moral dilemma pairs. Error bars show standard deviation. The effect of "As a Christian" compounds layer by layer.*
+![Figure 1. Divergence profile: L2 norm of the delta vector (religious minus baseline residual stream) at each layer, averaged across 20 moral dilemma pairs. Error bars show standard deviation. The effect of "As a Christian" compounds layer by layer.](fig1_divergence_profile.png)
 
 ### 4.2 Delta Consistency
 
 The delta vectors across the 20 moral pairs share a common direction at the output layer. The mean pairwise cosine similarity follows a U-shaped curve: 0.90 at layer 0, declining to a minimum of 0.38 at layer 8, then rising to 0.50 at layer 11. The layer-0 value is a mathematical artifact of the identical prefix-token embeddings shared across all 20 pairs. The substantive number is at layer 11, where the prefix's effect has propagated through the model's contextual processing of 20 distinct dilemmas and the deltas still cluster at cosine similarity 0.50 — well above the intra-condition null of essentially zero (Section 4.6). The permutation test at the output layer yields *p* < 0.0001.
 
-![Cosine similarity matrix of delta vectors across 20 prompt pairs at layer 11](fig3_delta_consistency.png)
-
-*Figure 2. Pairwise cosine similarity of delta vectors across 20 moral dilemma pairs at layer 11 (the output layer; mean off-diagonal cosine similarity = 0.50, p < 0.0001).*
+![Figure 2. Pairwise cosine similarity of delta vectors across 20 moral dilemma pairs at layer 11 (the output layer; mean off-diagonal cosine similarity = 0.50, p < 0.0001).](fig3_delta_consistency.png)
 
 ### 4.3 Head-Level Patching
 
 We score each of the 144 attention heads under two metrics: a target-token metric (mean log-probability of 16 morally-valenced words; see Section 3.4) and a full-distribution KL-divergence metric (Section 4.6). The two metrics broadly agree on the most causally important heads. Under the target-token metric, four heads stand above a visible gap separating them from the rest: L9H8 (1.65), L11H3 (1.38), L5H10 (0.91), L10H0 (0.77); the next-ranked head scores 0.40. Under the KL metric, the top-ranked heads include L11H3 and L9H8 alongside L6H3, L8H5, L9H3, and L6H4. L11H3 and L9H8 appear in the top of both rankings; L5H10 and L10H0 appear under the target-token metric but not under KL, indicating that their target-token scores partly reflect their role in boosting religious-vocabulary tokens specifically rather than a broader effect on the output distribution.
 
-![Patching heatmap showing normalized scores for all 144 heads](fig2_patching_heatmap.png)
-
-*Figure 3. Head-level activation patching scores (layers × heads) under the target-token metric. Color intensity indicates the normalized patching score. Stars mark the four heads above the visible gap.*
+![Figure 3. Head-level activation patching scores (layers × heads) under the target-token metric. Color intensity indicates the normalized patching score. Stars mark the four heads above the visible gap.](fig2_patching_heatmap.png)
 
 We focus subsequent analysis on the four target-token heads because their token-level effects (Section 4.4) reveal the patterns of interest. We interpret L11H3 and L9H8 as the most strongly implicated; L5H10 and L10H0 as participating more diffusely.
 
