@@ -91,6 +91,10 @@ sedi 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}
 # Remove longtable-specific commands
 sedi '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
 
+# 2b. Wrap tabular in resizebox to prevent column overflow
+sedi 's/\\begin{tabular}/\\resizebox{\\columnwidth}{!}{\\begin{tabular}/g' "$tex"
+sedi 's/\\end{tabular}/\\end{tabular}}/g' "$tex"
+
 # 3. Constrain image width to column width
 sedi 's/\\includegraphics{/\\includegraphics[width=\\columnwidth]{/g' "$tex"
 # Fix case where pandoc already added options
