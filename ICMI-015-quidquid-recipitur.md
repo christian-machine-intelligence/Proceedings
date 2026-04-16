@@ -74,31 +74,33 @@ Figure 1 presents the central result. The top panel shows mean accuracy under va
 
 Table 1 presents vanilla accuracy by virtue and model size. Models at 3B and below perform at or near chance (50%). At 7B, a sharp transition occurs: mean accuracy jumps to 66.2%, with prudence and temperance both exceeding 70%.
 
-**Table 1.** Vanilla accuracy by virtue and model size (mean of 5 runs).
+**Table 1.** Vanilla accuracy (%, mean of 5 runs).
 
-| Model | Prudence | Justice | Courage | Temperance | Mean |
-|-------|----------|---------|---------|------------|------|
-| 0.5B  | 49.0%    | 47.4%   | 49.6%   | 49.4%      | 48.8% |
-| 1.5B  | 28.0%    | 35.8%   | 50.4%   | 39.6%      | 38.4% |
-| 3B    | 41.8%    | 52.2%   | 59.0%   | 45.2%      | 49.6% |
-| 7B    | 71.8%    | 67.8%   | 46.2%   | 79.2%      | 66.2% |
-| 14B   | 87.4%    | 84.4%   | 37.2%   | 85.8%      | 73.7% |
-| 32B   | 75.0%    | 69.2%   | 32.4%   | 76.2%      | 63.2% |
-| 72B   | 80.0%    | 75.8%   | 38.6%   | 83.2%      | 69.4% |
+| | Pru | Jus | Cou | Tem | Mean |
+|------|-----|-----|-----|-----|------|
+| 0.5B | 49.0 | 47.4 | 49.6 | 49.4 | 48.8 |
+| 1.5B | 28.0 | 35.8 | 50.4 | 39.6 | 38.4 |
+| 3B | 41.8 | 52.2 | 59.0 | 45.2 | 49.6 |
+| 7B | 71.8 | 67.8 | 46.2 | 79.2 | 66.2 |
+| 14B | 87.4 | 84.4 | 37.2 | 85.8 | 73.7 |
+| 32B | 75.0 | 69.2 | 32.4 | 76.2 | 63.2 |
+| 72B | 80.0 | 75.8 | 38.6 | 83.2 | 69.4 |
 
 However, a format compliance audit reveals that the near-chance accuracy of small models is not what it appears. All models parse the A/B format with 100% compliance --- there are no unparseable responses at any scale. What differs is *position bias*: the 0.5B model selects option "B" on 99.1% of all responses. Its 48.8% accuracy is the mechanical result of a fixed B-preference interacting with randomized answer positions, not moral reasoning at chance level. The 3B model shows similar B-bias (77.1% B-selection rate). Only at 7B does the A/B selection rate approach balance (49.8% A), indicating the model is attending to option *content* rather than defaulting to a position.
 
-**Table 2.** Position bias and conditional accuracy by model size (vanilla condition).
+**Table 2.** Position bias (vanilla condition).
 
-| Model | A pick rate | Acc when A correct | Acc when B correct | Content-attending? |
-|-------|------------|-------------------|-------------------|-------------------|
-| 0.5B  | 0.9%       | 0.5%              | 98.8%             | No |
-| 1.5B  | 45.8%      | 34.4%             | 42.6%             | Partially |
-| 3B    | 22.9%      | 22.8%             | 77.1%             | No |
-| 7B    | 49.8%      | 65.7%             | 66.8%             | Yes |
-| 14B   | 49.9%      | 73.2%             | 74.2%             | Yes |
-| 32B   | 53.7%      | 66.6%             | 59.7%             | Yes |
-| 72B   | 43.3%      | 62.5%             | 76.5%             | Yes |
+| | A% | Acc\|A | Acc\|B | Balanced? |
+|------|------|--------|--------|-----------|
+| 0.5B | 0.9 | 0.5 | 98.8 | No |
+| 1.5B | 45.8 | 34.4 | 42.6 | Partial |
+| 3B | 22.9 | 22.8 | 77.1 | No |
+| 7B | 49.8 | 65.7 | 66.8 | Yes |
+| 14B | 49.9 | 73.2 | 74.2 | Yes |
+| 32B | 53.7 | 66.6 | 59.7 | Yes |
+| 72B | 43.3 | 62.5 | 76.5 | Yes |
+
+A% = rate of selecting option A. Acc\|A, Acc\|B = accuracy when the correct answer is in position A or B.
 
 What emerges at 7B, then, is not merely above-chance moral reasoning but the capacity to *attend to the content of moral options* rather than defaulting to a position heuristic.
 
@@ -106,19 +108,19 @@ What emerges at 7B, then, is not merely above-chance moral reasoning but the cap
 
 Table 3 presents the psalm gain by virtue and model size.
 
-**Table 3.** Psalm gain by virtue and model size (pp, paired $t$-test, 5 runs).
+**Table 3.** Psalm gain (pp, paired $t$-test, 5 runs).
 
-| Model | Prudence | Justice | Courage | Temperance | Mean | $p$ |
-|-------|----------|---------|---------|------------|------|-----|
-| 0.5B  | +3.8     | +7.0**  | +6.2**  | +3.4*      | +5.1 | .024* |
-| 1.5B  | +12.4**  | +15.2***| +16.8***| +15.2***   | +14.9 | .001*** |
-| 3B    | +9.4***  | +4.8**  | +3.0**  | +3.0       | +5.1 | .005** |
-| 7B    | +0.8     | −4.8*** | +1.6*   | −1.4       | −1.0 | .212 |
-| 14B   | −2.6*    | −1.0*   | +5.8**  | −1.8**     | +0.1 | .836 |
-| 32B   | +1.2*    | +3.6*** | +6.8*** | +6.4***    | **+4.5** | **.0001\*\*\*** |
-| 72B   | +5.6***  | +4.6*** | +10.0***| +4.4***    | **+6.1** | **.0001\*\*\*** |
+| | Pru | Jus | Cou | Tem | Mean | $p$ |
+|------|------|------|------|------|------|------|
+| 0.5B | +3.8 | +7.0\*\* | +6.2\*\* | +3.4\* | +5.1 | .024\* |
+| 1.5B | +12.4\*\* | +15.2\*\*\* | +16.8\*\*\* | +15.2\*\*\* | +14.9 | .001\*\*\* |
+| 3B | +9.4\*\*\* | +4.8\*\* | +3.0\*\* | +3.0 | +5.1 | .005\*\* |
+| 7B | +0.8 | −4.8\*\*\* | +1.6\* | −1.4 | −1.0 | .212 |
+| 14B | −2.6\* | −1.0\* | +5.8\*\* | −1.8\*\* | +0.1 | .836 |
+| **32B** | +1.2\* | +3.6\*\*\* | +6.8\*\*\* | +6.4\*\*\* | **+4.5** | **.0001\*\*\*** |
+| **72B** | +5.6\*\*\* | +4.6\*\*\* | +10.0\*\*\* | +4.4\*\*\* | **+6.1** | **.0001\*\*\*** |
 
-\* $p < 0.05$, \*\* $p < 0.01$, \*\*\* $p < 0.001$. Bonferroni threshold: $p < 0.0071$.
+\* $p < .05$, \*\* $p < .01$, \*\*\* $p < .001$. Bonferroni: $p < .007$.
 
 The raw psalm gain exhibits a U-shaped pattern: positive at small scales, null at 7B--14B, positive again at 32B--72B. However, the position bias analysis in Section 3.1 suggests the small-model gains require closer examination.
 
@@ -126,17 +128,19 @@ The raw psalm gain exhibits a U-shaped pattern: positive at small scales, null a
 
 To determine whether psalm gains reflect genuine content sensitivity or position-bias rebalancing, we stratify accuracy by the position of the correct answer and examine psalm effects separately for each position.
 
-**Table 4.** Position-stratified psalm gain: does the effect depend on *which* option is correct?
+**Table 4.** Position-stratified psalm gain.
 
-| Model | Gain when A correct | Gain when B correct | Symmetric? |
-|-------|-------------------|--------------------|-----------|
-| 0.5B  | +45.1%            | −36.2%             | No --- position shift |
-| 1.5B  | +27.9%            | +1.5%              | No --- A-direction only |
-| 3B    | +23.2%            | −13.7%             | No --- position shift |
-| 7B    | −4.7%             | +2.9%              | ~Zero (dead zone) |
-| 14B   | +2.7%             | −2.5%              | ~Zero (dead zone) |
-| **32B** | **+3.3%**       | **+5.7%**          | **Yes --- content effect** |
-| **72B** | **+5.2%**       | **+7.1%**          | **Yes --- content effect** |
+| | ΔAcc\|A | ΔAcc\|B | Type |
+|------|---------|---------|------|
+| 0.5B | +45.1 | −36.2 | Pos. shift |
+| 1.5B | +27.9 | +1.5 | Pos. shift |
+| 3B | +23.2 | −13.7 | Pos. shift |
+| 7B | −4.7 | +2.9 | ~Zero |
+| 14B | +2.7 | −2.5 | ~Zero |
+| **32B** | **+3.3** | **+5.7** | **Content** |
+| **72B** | **+5.2** | **+7.1** | **Content** |
+
+ΔAcc\|A = psalm gain when A is correct; ΔAcc\|B = when B is correct. "Content" = symmetric gain (genuine effect).
 
 At 0.5B, psalm injection shifts the A-selection rate from 0.9% to 41.5%, producing a massive A-direction gain (+45.1%) and a comparable B-direction loss (−36.2%). The net "psalm gain" is entirely an artifact of randomizing a position-biased model. The same pattern, in attenuated form, appears at 1.5B and 3B.
 
@@ -148,12 +152,14 @@ The apparent U-shape in Table 3 is therefore an artifact. The true scaling curve
 
 To confirm that the 32B and 72B psalm effects are specific to scriptural content rather than generic context-length phenomena, we evaluate both models under a length-matched Wikipedia control (~14,700 characters of factual prose on geology, astronomy, and biology).
 
-**Table 5.** Psalm vs. Wikipedia control for 32B and 72B (mean of 5 runs).
+**Table 5.** Psalm vs. Wikipedia control (mean of 5 runs).
 
-| Model | Vanilla | Psalm | Control | Psalm gain | Control gain | Psalm−Control | $p_{\Psi-C}$ |
-|-------|---------|-------|---------|-----------|-------------|--------------|--------------|
-| 32B   | 63.2%   | 67.7% | 62.5%   | +4.5      | −0.7        | **+5.2**     | **.0008\*\*\*** |
-| 72B   | 69.4%   | 75.5% | 68.2%   | +6.1      | −1.2        | **+7.4**     | **.0001\*\*\*** |
+| | Van. | Psalm | Ctrl. | ΔP | ΔC | Ψ−C | $p$ |
+|------|------|-------|-------|------|------|------|------|
+| 32B | 63.2 | 67.7 | 62.5 | +4.5 | −0.7 | **+5.2** | **.0008** |
+| 72B | 69.4 | 75.5 | 68.2 | +6.1 | −1.2 | **+7.4** | **.0001** |
+
+ΔP = psalm gain, ΔC = control gain, Ψ−C = psalm excess over control.
 
 The Wikipedia control produces *no improvement* --- in fact, it slightly decreases accuracy at both scales. The psalm-over-control difference is highly significant: $+5.2$ pp at 32B ($p = 0.0008$) and $+7.4$ pp at 72B ($p < 0.0001$). The psalm effect is content-specific, not a context-length artifact. The most striking per-virtue result is courage at 32B: vanilla 32.4%, Wikipedia control 30.4% (slightly *worse*), psalm-injected 39.2% --- a content-specific gain of $+8.8$ pp ($p < 0.0001$).
 
