@@ -33,20 +33,33 @@ fi
 
 paper_date="$(grep -m1 '^\*\*Date:\*\*' "$md" | sed 's/^\*\*Date:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
 
-# Extract abstract: text between "**Abstract.**" and the next "---" or "## "
-abstract="$(awk '
+# Extract abstract: text between "**Abstract.**" and the next "---" or "## ".
+# Preserve paragraph breaks (empty source lines → \n\n) so pandoc below can
+# render them as distinct LaTeX paragraphs in the abstract block.
+abstract_md="$(awk '
   /^\*\*Abstract\.\*\*/ {
     sub(/^\*\*Abstract\.\*\* */, "")
     text = $0
+    prev_blank = 0
     while ((getline line) > 0) {
       if (line ~ /^---/ || line ~ /^## /) break
-      if (line == "") { text = text "\n"; continue }
-      text = text " " line
+      if (line == "") { prev_blank = 1; continue }
+      if (prev_blank) { text = text "\n\n" line; prev_blank = 0 }
+      else           { text = text " " line }
     }
     print text
     exit
   }
 ' "$md")"
+
+# Convert abstract markdown to LaTeX so *italics*, **bold**, and paragraph
+# breaks in the abstract render correctly. Without this, the raw markdown
+# passed through --variable would surface as literal asterisks in the PDF.
+if [ -n "$abstract_md" ]; then
+  abstract="$(printf '%s\n' "$abstract_md" | pandoc --from markdown --to latex --wrap=none)"
+else
+  abstract=""
+fi
 
 # --- Create body-only markdown (strip header block) ---
 # Remove everything before the first ## section heading
@@ -58,8 +71,8 @@ body_md="$(awk '
 
 # --- Escape % signs for LaTeX ---
 # Percent signs in markdown become LaTeX comments and truncate lines.
-# Escape them before pandoc processes the text.
-abstract="$(echo "$abstract" | sed 's/%/\\%/g')"
+# The abstract is already LaTeX (converted via pandoc above, which emitted
+# properly escaped \% already) so we only escape the body here.
 body_md="$(echo "$body_md" | sed 's/%/\\%/g')"
 
 # --- Run pandoc with metadata ---
