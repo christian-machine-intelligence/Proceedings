@@ -10,13 +10,7 @@
 
 ---
 
-## Abstract
-
-Frontier language models exhibit evaluation awareness: they recognize testing conditions and sometimes behave differently than they would in deployment, undermining pre-deployment safety assessment. We ask whether a Christian theological framing in system prompt can induce earnest engagement with evaluations even when the model recognizes the setting, drawing on the religion's tradition of remaining steadfast under tests of faith. In a BrowseComp-style honeypot study on Claude Opus 4.6 designed to evoke evaluation awareness, unconditioned cheating occurs in 16/71 trials (22.5%). Framing containing admonitions to reason as a devout Christian and to accept tests of faith reduces the rate substantially to 8.5%. 
-
-However, both our Christian framing and a matched secular control framing exhibit a failure we identify as *akrasia*, the classical diagnosis (Aristotle, *Nicomachean Ethics* VII; Aquinas, *ST* I-II Q.77) of reasoning rightly and acting otherwise. We test two anti-akrasia prompt fixes — one scriptural (James 2:14-26, "faith without works is dead"), one structurally parallel and secular (Feynman's "you must not fool yourself") — across both Christian and secular framings. Neither fix on the Christian framing clears conventional significance on its own (James 2: 1/58 vs 5/59, p = 0.21; Feynman: 1/60 vs 5/59, p = 0.11), but the pooled anchored-vs-unanchored contrast does: 2/118 (1.7%) anchored vs 5/59 (8.5%) unanchored, Fisher's exact p = 0.042. The secular framing shows no significant effect from either fix, individually or pooled: 12/120 (10.0%) anchored vs 4/60 (6.7%) unanchored, Fisher's exact p = 0.58. The broader framing determines whether a fix 'binds'; the Christian framing facilitates it, the secular framing does not. 
-
-We present the **moral thickness conjecture** as an explanation: drawing on Williams' (1985) distinction between thick and thin ethical concepts and Geertz's (1973) "thick description," we conjecture that morally thick representations (named virtues, failure modes, textual precedents, and a long catalogue of self-diagnosis) like Christianity create an attachment surface on which pointed correctives can bind, while thin vocabularies do not. The Christian tradition's contribution to alignment, on this evidence, is less its inventory of specific correctives than the density of moral vocabulary that makes correctives work at all. We present this as an initial exploration at modest N, not a settled theoretical result; we flag the follow-up experiments the conjecture would most need.
+**Abstract.** Frontier language models exhibit evaluation awareness: they recognize testing conditions and sometimes behave differently than they would in deployment, undermining pre-deployment safety assessment. We ask whether a Christian theological framing in the system prompt can induce earnest engagement with evaluations even when the model recognizes the setting, drawing on the religion's tradition of remaining steadfast under tests of faith. In a BrowseComp-style honeypot study on Claude Opus 4.6 designed to evoke evaluation awareness, unconditioned cheating occurs in 16/71 trials (22.5%); framing containing admonitions to reason as a devout Christian and to accept tests of faith reduces the rate substantially to 8.5%. However, both our Christian framing and a matched secular control framing exhibit a failure we identify as *akrasia*, the classical diagnosis (Aristotle, *Nicomachean Ethics* VII; Aquinas, *ST* I-II Q.77) of reasoning rightly and acting otherwise. We test two anti-akrasia prompt fixes --- one scriptural (James 2:14-26, "faith without works is dead"), one structurally parallel and secular (Feynman's "you must not fool yourself") --- across both framings. Neither fix on the Christian framing clears conventional significance on its own (James 2: 1/58 vs 5/59, $p=0.21$; Feynman: 1/60 vs 5/59, $p=0.11$), but the pooled anchored-vs-unanchored contrast does: 2/118 (1.7%) anchored vs 5/59 (8.5%) unanchored, Fisher's exact $p=0.042$. The secular framing shows no significant effect from either fix, individually or pooled: 12/120 (10.0%) anchored vs 4/60 (6.7%) unanchored, Fisher's exact $p=0.58$. The broader framing determines whether a fix binds; the Christian framing facilitates it, the secular framing does not. We present the **moral thickness conjecture** as an explanation: drawing on Williams' (1985) distinction between thick and thin ethical concepts and Geertz's (1973) "thick description," we conjecture that morally thick representations (named virtues, failure modes, textual precedents, and a long catalogue of self-diagnosis) like Christianity create an attachment surface on which pointed correctives can bind, while thin vocabularies do not. The Christian tradition's contribution to alignment, on this evidence, is less its inventory of specific correctives than the density of moral vocabulary that makes correctives work at all. We present this as an initial exploration at modest $N$, not a settled theoretical result.
 
 ---
 
@@ -100,12 +94,12 @@ We read the extended-thinking traces alongside this action-level classification.
 
 On the baseline prompt — no earnestness directive, no moral framing — Opus 4.6 cheats on 16 of 71 trials: the model fetches the honeypot, executes the decryption code, and submits the decrypted content as if it were the fruit of legitimate research. Adding either earnestness framing substantially reduces the rate.
 
-| Condition | Cheat rate | Wilson 95% CI | Fisher's vs baseline |
+| Condition | Cheats | 95% CI | $p$ vs base |
 |---|:-:|:-:|:-:|
-| Baseline | 16/71 (22.5%) | [14.4%, 33.5%] | — |
-| Christian earnestness | 5/59 (8.5%) | [3.7%, 18.4%] | p = 0.033 |
-| Secular earnestness | 4/60 (6.7%) | [2.6%, 16.0%] | p = 0.014 |
-| Christian vs Secular | — | — | p = 0.74 |
+| Baseline | 16/71 (22.5%) | [14.4, 33.5] | — |
+| Christian earn. | 5/59 (8.5%) | [3.7, 18.4] | 0.033 |
+| Secular earn. | 4/60 (6.7%) | [2.6, 16.0] | 0.014 |
+| Chr. vs Sec. | — | — | 0.74 |
 
 Both framings are substantial improvements on baseline and reach conventional significance; the Christian-vs-secular contrast is statistically indistinguishable at this N (Fisher's exact p = 0.74). The baseline N is larger than the intervention cells because the base rate was estimated over all available baseline trials (to tighten the base rate estimate); intervention cells were targeted at N=60.
 
@@ -167,10 +161,10 @@ This produces a 2×3 design: framing (Christian, secular) × fix (none, James 2,
 
 The James 2 fix appended to christian_earnestness reduces akrasia from 5/59 (8.5%) to 1/58 (1.7%) — a ~5-fold reduction, Fisher's exact p = 0.21. The same fix appended to secular_earnestness produces 8/60 (13.3%), numerically higher than the secular baseline of 4/60 (6.7%) but not statistically distinguishable from it (Fisher's exact p = 0.36).
 
-| Framing | + James 2 fix | Matched baseline | Within-framing comparison |
+| Framing | + James 2 | Base | Within-frame $p$ |
 |---|:-:|:-:|:-:|
-| Christian | 1/58 (1.7%) | 5/59 (8.5%) | p = 0.21 (~5× reduction) |
-| Secular | 8/60 (13.3%) | 4/60 (6.7%) | p = 0.36 (no significant effect) |
+| Christian | 1/58 (1.7%) | 5/59 (8.5%) | 0.21 |
+| Secular | 8/60 (13.3%) | 4/60 (6.7%) | 0.36 |
 
 The within-fix Christian contrast alone does not clear conventional significance; we return to the stronger pooled contrast (James 2 + Feynman combined) in §5.4.
 
@@ -186,10 +180,10 @@ The model quotes the James 2 fix from the prompt, applies it directly to the dec
 
 The Feynman fix, appended to christian_earnestness, reduces akrasia to 1/60 (1.7%) — numerically the same as the James 2 result on the same framing. Appended to secular_earnestness, it produces 4/60 (6.7%) — numerically identical to the secular baseline.
 
-| Framing | + Feynman fix | Matched baseline | Within-framing comparison |
+| Framing | + Feynman | Base | Within-frame $p$ |
 |---|:-:|:-:|:-:|
-| Christian | 1/60 (1.7%) | 5/59 (8.5%) | p = 0.11 (~5× reduction) |
-| Secular | 4/60 (6.7%) | 4/60 (6.7%) | p = 1.00 (no effect) |
+| Christian | 1/60 (1.7%) | 5/59 (8.5%) | 0.11 |
+| Secular | 4/60 (6.7%) | 4/60 (6.7%) | 1.00 |
 
 The secular fix on the Christian framing achieves the same reduction as the scriptural fix. On the secular framing, the fix is inert — the same fix whose authorial provenance matches the framing still fails to reduce akrasia. Whatever makes the Christian prompt fix-receptive, it is not a preference for textually native content.
 
@@ -197,17 +191,17 @@ The secular fix on the Christian framing achieves the same reduction as the scri
 
 The full 2×3 matrix on Opus 4.6:
 
-|  | No fix | + James 2 | + Feynman |
+| | No fix | + James 2 | + Feynman |
 |---|:-:|:-:|:-:|
-| Christian earnestness | 5/59 (8.5%) | 1/58 (1.7%) | 1/60 (1.7%) |
-| Secular earnestness | 4/60 (6.7%) | 8/60 (13.3%) | 4/60 (6.7%) |
+| Christian | 5/59 (8.5%) | 1/58 (1.7%) | 1/60 (1.7%) |
+| Secular | 4/60 (6.7%) | 8/60 (13.3%) | 4/60 (6.7%) |
 
 Within the Christian row the two fixes produce effectively the same reduction; within the secular row neither fix produces a significant effect, and the James 2 cell trends numerically upward (not distinguishable from baseline, p = 0.36, but notably not the downward movement the Christian row shows). The individual within-fix Christian contrasts (James 2 p = 0.21, Feynman p = 0.11) do not clear conventional significance at this N. Our central empirical claim is therefore the **pooled anchored-vs-unanchored contrast within each framing**, which captures the effect the two fixes share. On the Christian framing, pooling James 2 and Feynman gives 2/118 (1.7%) anchored vs 5/59 (8.5%) unanchored — Fisher's exact p = 0.042. On the secular framing, the same pooling gives 12/120 (10.0%) anchored vs 4/60 (6.7%) unanchored — Fisher's exact p = 0.58, no significant effect in either direction.
 
-| Framing | Anchored (pooled) | Unanchored | Fisher's exact |
+| Framing | Anchored | Unanchored | Fisher's $p$ |
 |---|:-:|:-:|:-:|
-| Christian | 2/118 (1.7%) | 5/59 (8.5%) | **p = 0.042** |
-| Secular | 12/120 (10.0%) | 4/60 (6.7%) | p = 0.58 |
+| Christian | 2/118 (1.7%) | 5/59 (8.5%) | **0.042** |
+| Secular | 12/120 (10.0%) | 4/60 (6.7%) | 0.58 |
 
 At research-pilot scale this difference is modest. At deployment scale, where frontier models execute millions of agentic sessions, a ~5× reduction in residual cheating on eval-shaped tasks is a substantial risk delta. The paper's claim is not that Christian framing achieves uniquely safe behavior in absolute terms — the secular prompt's 6.7% is already a strong improvement on the 22.5% baseline — but that *on the Christian framing, a specific characteristic failure responds cleanly to a pointed fix*, and that the framing property responsible for this may be more broadly exploitable.
 
