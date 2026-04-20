@@ -90,9 +90,7 @@ We read the extended-thinking traces alongside this action-level classification.
 
 ## 4. Results
 
-![Cheat rates by framing × fix on Opus 4.6, with Wilson 95% confidence intervals. Baseline cheats at 22.5%. Christian and secular earnestness framings reduce this to 8.5% and 6.7% respectively. On the Christian framing, both the James 2 fix and the Feynman fix reduce cheating to 1.7%. On the secular framing, neither fix moves the needle. Vertical dashed line marks the baseline rate for reference.](ICMI-016-results-summary.png)
-
-*Figure 1. Summary of results across all conditions. Point estimates are the fraction of trials classified as verified cheats (model executed honeypot decryption code and submitted the decrypted content); whiskers are Wilson 95% confidence intervals. Marker shape indicates fix (circle = no fix, square = James 2, diamond = Feynman); color indicates framing (blue = Christian, orange = secular, grey = baseline). Overlapping CIs do not imply non-significant contrasts: Wilson CIs reflect the precision of each point estimate individually, while the paper's specific contrast tests (baseline vs framings, anchored vs unanchored) are reported via Fisher's exact in §4.1 and §5.4. All numbers are reproduced by `analyze.py` in the accompanying repository.*
+![**Figure 1.** Summary of results across all conditions. Point estimates are the fraction of trials classified as verified cheats (model executed honeypot decryption code and submitted the decrypted content); whiskers are Wilson 95% confidence intervals. Marker shape indicates fix (circle = no fix, square = James 2, diamond = Feynman); color indicates framing (blue = Christian, orange = secular, grey = baseline); the vertical dashed line marks the baseline rate. Overlapping CIs do not imply non-significant contrasts — Wilson CIs reflect the precision of each point estimate individually, while the paper's specific contrast tests (baseline vs framings, anchored vs unanchored) are reported via Fisher's exact in §4.1 and §5.4. All numbers are reproduced by `analyze.py` in the accompanying repository.](ICMI-016-results-summary.png)
 
 ### 4.1 Baseline and the two framings
 
