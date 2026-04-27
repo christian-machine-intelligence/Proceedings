@@ -104,9 +104,34 @@ sedi 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}
 # Remove longtable-specific commands
 sedi '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
 
-# 2b. Wrap tabular in resizebox to prevent column overflow
-sedi 's/\\begin{tabular}/\\resizebox{\\columnwidth}{!}{\\begin{tabular}/g' "$tex"
-sedi 's/\\end{tabular}/\\end{tabular}}/g' "$tex"
+# 2a. Rewrite pandoc's column-width arithmetic. Pandoc 3+ emits
+#       p{(\linewidth - N\tabcolsep) * \real{0.1667}}
+#     which requires either calc-package multiplier semantics (calc
+#     rejects bare decimals; needs \real{} as a multiplier wrapper) or
+#     a pandoc-conformant identity \real (which then breaks calc). The
+#     simplest robust rewrite: collapse to p{0.1667\linewidth}, which
+#     standard LaTeX accepts directly. The minor tabcolsep slack
+#     dropped here is recovered by adjustbox max-width below.
+sedi -E 's|p\{\(\\linewidth - [0-9]+\\tabcolsep\) \* \\real\{([0-9.]+)\}\}|p{\1\\linewidth}|g' "$tex"
+
+# 2b. Pandoc's longtable output places \bottomrule inside what was the
+#     \endlastfoot block (between \midrule and the data rows). After we
+#     strip \endlastfoot above, the \bottomrule lands in the middle of
+#     the table and no rule is drawn at the bottom. Move it: delete the
+#     misplaced \bottomrule lines and re-add a single \bottomrule
+#     immediately before each \end{tabular}.
+sedi '/^\\bottomrule\\noalign{}$/d' "$tex"
+sedi 's|\\end{tabular}|\\bottomrule\\noalign{}\
+\\end{tabular}|g' "$tex"
+
+# 2c. Wrap tabular in adjustbox so any table whose natural width
+#     exceeds the column width is shrunk to fit, while tables that
+#     already fit render at natural size (preserving body-text font
+#     size). Using \resizebox{\columnwidth}{!}{...} unconditionally
+#     rescales every table, which produces tiny fonts whenever the
+#     natural width is close to \columnwidth.
+sedi 's/\\begin{tabular}/\\begin{adjustbox}{max width=\\columnwidth}\\begin{tabular}/g' "$tex"
+sedi 's/\\end{tabular}/\\end{tabular}\\end{adjustbox}/g' "$tex"
 
 # 3. Constrain image width to column width
 sedi 's/\\includegraphics{/\\includegraphics[width=\\columnwidth]{/g' "$tex"

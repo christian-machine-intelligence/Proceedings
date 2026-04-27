@@ -14,9 +14,16 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{calc}
-\makeatletter
-\providecommand{\real}[1]{\dimexpr#1\p@\relax}
-\makeatother
+\usepackage{adjustbox}  % max-width-only table shrink (md-to-tex.sh wraps tabulars)
+% Pandoc 3+ emits column widths like
+%   p{(\linewidth - N\tabcolsep) * \real{0.1234}}
+% where \real{X} must expand to the raw number X so the surrounding
+% dimension arithmetic resolves to a length. Defining \real to wrap its
+% argument in a \dimexpr (e.g. 0.1234pt) turns the expression into
+% dim*dim, which silently fails and makes each p-column ~\linewidth
+% wide; \resizebox then over-shrinks the table. Keep the simple
+% identity definition pandoc expects.
+\providecommand{\real}[1]{#1}
 
 % Unicode character support
 \DeclareUnicodeCharacter{00D7}{\texttimes}
@@ -70,6 +77,10 @@
 
 % Pandoc tightlist support
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Pandoc 3+ wraps figures in \pandocbounded{...}; provide a no-op
+% fallback for older texlive distributions that haven't seen it yet.
+\providecommand{\pandocbounded}[1]{#1}
 
 % Paragraph spacing
 \setlength{\parindent}{1em}
