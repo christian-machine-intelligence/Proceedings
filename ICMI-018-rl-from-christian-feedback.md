@@ -113,13 +113,13 @@ Table 1 reports the per-seed behavioral effect for each (rubric, seed) on $n{=}4
 | 4 | $+4.03$ ($p{=}0.0009$) | $+5.27$ ($p{=}0.0005$) | $-2.00$ ($p{=}0.118$) |
 | 5 | $+4.68$ ($p{=}0.0001$) | $+3.56$ ($p{=}0.011$) | $+7.75$ ($p{<}10^{-6}$) |
 
-**Table 2**: Per-rubric summary across 5 seeds.
+**Table 2**: Per-rubric summary across 5 seeds per arm. CI is half-width.
 
-| Arm | n | Mean $\Delta$pp | 95% CI | SD | Range |
-|---|---|---|---|---|---|
-| **Abstract Rubric** | 5 | **$+4.52$** | $\pm 0.42$ | **0.34** | $[+4.03, +4.94]$ |
-| **Persona Rubric** | 5 | $+3.50$ | $\pm 2.02$ | 1.62 | $[+0.85, +5.27]$ |
-| **Exemplar Rubric** | 5 | $+3.48$ | $\pm 4.55$ | **3.67** | $[-2.00, +7.75]$ |
+| Arm | Mean $\Delta$pp | 95% CI | SD | Range |
+|---|---|---|---|---|
+| **Abstract Rubric** | **$+4.52$** | $\pm 0.42$ | **0.34** | $[+4.03, +4.94]$ |
+| **Persona Rubric** | $+3.50$ | $\pm 2.02$ | 1.62 | $[+0.85, +5.27]$ |
+| **Exemplar Rubric** | $+3.48$ | $\pm 4.55$ | **3.67** | $[-2.00, +7.75]$ |
 
 Figure 1 plots the per-seed behavioral $\Delta$pp by rubric, with mean and 95% confidence interval for each arm overlaid on the individual-seed datapoints.
 
