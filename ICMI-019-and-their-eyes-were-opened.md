@@ -98,7 +98,7 @@ Responses are scored using VirtueBench-2's `parse_answer` function, which extrac
 
 Table 1 reports accuracy per (model, virtue, arm) with 95% bootstrap confidence intervals (10,000 resamples). Bold cells are Bonferroni-significant Δ vs. baseline at corrected α = 0.05 across the 24-test family (3 image arms × 4 virtues × 2 models; tested by paired permutation, 10,000 sign-flip permutations paired by `(base_id, run_index)`). Figure 2 visualizes the same data; full per-cell p-values and Cohen's *h* effect sizes are reproducible from the included JSONL records via `analyze.py`.
 
-**Table 1: Per-arm accuracy with 95% bootstrap CI (n = 750 per cell). Bold = Bonferroni-significant Δ vs. baseline.**
+**Table 1: Per-arm accuracy. 750 calls per cell; 23,935 (99.7%) returned a parsable A/B answer and entered the analysis (per-cell valid n: median 750, range 727–750). Bold = Bonferroni-significant Δ vs. baseline (paired permutation test on common (base_id, run_index) keys; α/24 ≈ 0.0021).**
 
 *Claude Opus 4.6:*
 
@@ -118,9 +118,9 @@ Table 1 reports accuracy per (model, virtue, arm) with 95% bootstrap confidence 
 | Courage     | 68.7 | 68.4 | 64.7 | 69.7 |
 | Temperance  | 88.0 | 88.1 | 87.5 | 89.3 |
 
-(All cells are accuracy in percent, n = 750 per cell. 95% bootstrap CIs are uniformly within ±2.5 to ±3.5 pp of each point estimate; the largest CI half-width across all 32 cells is 3.4 pp on the GPT-5.4 courage row, where the underlying accuracies are lowest. Full per-cell CIs and p-values are reproducible from the included JSONL records via `analyze.py`.)
+(All cells are accuracy in percent. 95% bootstrap CIs are tight: half-widths range from 1.2 to 3.5 pp across all 32 cells (median 2.0); the largest is 3.5 pp on the GPT-5.4 courage row, where the underlying accuracies are lowest. The Δ-vs-baseline values cited in the bullets below are from paired permutation tests on common (base_id, run_index) keys; they may differ slightly from naive subtraction of the Table 1 point estimates because the two arms can have different per-cell valid-n. Full per-cell CIs and p-values are reproducible from the included JSONL records via `analyze.py`.)
 
-![**Figure 2.** Per-arm accuracy across all four conditions, both models, four cardinal virtues. Error bars are 95% bootstrap CIs. On Opus 4.6 (top row), the four-arm gradient is visible especially on temperance (85.2 → 86.7 → 88.8 → 94.7) and courage (82.8 → 84.5 → 81.8 → 87.5); the *Annunciation* bar is the highest in three of four virtue cells. On GPT-5.4 (bottom row), the four bars are essentially indistinguishable across all virtues. n=750 per cell.](ICMI-019-four-arm-comparison.png)
+![**Figure 2.** Per-arm accuracy across all four conditions, both models, four cardinal virtues. Error bars are 95% bootstrap CIs. On Opus 4.6 (top row), the four-arm gradient is visible especially on temperance (85.2 → 86.7 → 88.8 → 94.7) and courage (82.8 → 84.5 → 81.8 → 87.5); the *Annunciation* bar is the highest in three of four virtue cells. On GPT-5.4 (bottom row), the four bars are essentially indistinguishable across all virtues. 750 calls per cell; valid-n 727–750.](ICMI-019-four-arm-comparison.png)
 
 The structure of the Opus 4.6 result is the heart of the paper:
 
