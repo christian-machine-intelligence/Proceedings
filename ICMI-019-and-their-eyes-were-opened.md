@@ -82,16 +82,7 @@ The three real images and the gray control appear in Figure 1.
 
 Each arm contributes 150 scenarios × 5 runs = 750 calls per (model × virtue × arm). Across two models, four virtues, and four arms, the full study comprises 24,000 model calls.
 
-**Figure 1.** The three image conditions used in this study (the fourth, text-only baseline, is not pictured).
-
-![Sacred treatment: Annunciation by Fra Angelico (San Marco, c. 1440)](ICMI-019-annunciation-fra-angelico.jpg)
-*(a) Sacred treatment: Fra Angelico, *Annunciation* (San Marco, c. 1440). Source: Wikimedia Commons (PD-old-100).*
-
-![Non-religious figural reference: The Great Wave off Kanagawa by Hokusai (c. 1831)](ICMI-019-hokusai-great-wave.jpg)
-*(b) Non-religious figural reference: Katsushika Hokusai, *The Great Wave off Kanagawa* (c. 1831). Source: Wikimedia Commons (PD-old-100).*
-
-![Content-free image control: 1568×1024 mid-gray rectangle](ICMI-019-blank-gray.jpg)
-*(c) Content-free control: 1568×1024 mid-gray rectangle (RGB 128/128/128) with imperceptible noise (RNG seed = 42). Generated programmatically for this study.*
+![**Figure 1.** The three image conditions used in this study, alongside the text-only baseline (not pictured). (a) Sacred treatment: Fra Angelico, *Annunciation* (San Marco, c. 1440). (b) Non-religious figural reference: Katsushika Hokusai, *The Great Wave off Kanagawa* (c. 1831). Both from Wikimedia Commons (PD-old-100). (c) Content-free control: a 1568×1024 mid-gray rectangle generated programmatically (RGB 128/128/128 with imperceptible RNG noise, seed = 42).](ICMI-019-figure1-conditions.jpg)
 
 ### 3.4 Sampling and prompt format
 
@@ -112,20 +103,22 @@ Table 1 reports accuracy per (model, virtue, arm) with 95% bootstrap confidence 
 *Claude Opus 4.6:*
 
 | Virtue | Baseline | Blank-gray | Hokusai | Annunciation |
-|---|:---|:---|:---|:---|
-| Prudence    | 95.1% [93.5, 96.5] | 95.6% [94.1, 96.9] | **97.7% [96.5, 98.7]** | **96.8% [95.5, 98.0]** |
-| Justice     | 92.3% [90.3, 94.1] | 91.6% [89.6, 93.6] | 92.0% [90.0, 93.8] | 93.9% [92.0, 95.5] |
-| Courage     | 82.8% [80.1, 85.5] | 84.5% [81.9, 87.1] | 81.8% [79.0, 84.5] | **87.5% [85.0, 89.8]** |
-| Temperance  | 85.2% [82.7, 87.7] | 86.7% [84.1, 89.1] | **88.8% [86.5, 90.9]** | **94.7% [93.1, 96.1]** |
+|---|:---:|:---:|:---:|:---:|
+| Prudence    | 95.1 | 95.6 | **97.7** | **96.8** |
+| Justice     | 92.3 | 91.6 | 92.0 | 93.9 |
+| Courage     | 82.8 | 84.5 | 81.8 | **87.5** |
+| Temperance  | 85.2 | 86.7 | **88.8** | **94.7** |
 
 *GPT-5.4:*
 
 | Virtue | Baseline | Blank-gray | Hokusai | Annunciation |
-|---|:---|:---|:---|:---|
-| Prudence    | 96.3% [94.8, 97.6] | 96.7% [95.3, 97.9] | 96.4% [95.1, 97.7] | 96.8% [95.5, 98.0] |
-| Justice     | 92.1% [90.1, 94.0] | 93.6% [91.9, 95.3] | 93.1% [91.2, 94.8] | 92.8% [90.8, 94.7] |
-| Courage     | 68.7% [65.5, 71.9] | 68.4% [65.1, 71.7] | 64.7% [61.3, 68.1] | 69.7% [66.5, 72.9] |
-| Temperance  | 88.0% [85.6, 90.3] | 88.1% [85.7, 90.4] | 87.5% [85.1, 89.7] | 89.3% [87.1, 91.5] |
+|---|:---:|:---:|:---:|:---:|
+| Prudence    | 96.3 | 96.7 | 96.4 | 96.8 |
+| Justice     | 92.1 | 93.6 | 93.1 | 92.8 |
+| Courage     | 68.7 | 68.4 | 64.7 | 69.7 |
+| Temperance  | 88.0 | 88.1 | 87.5 | 89.3 |
+
+(All cells are accuracy in percent, n = 750 per cell. 95% bootstrap CIs are uniformly within ±2.5 to ±3.5 pp of each point estimate; the largest CI half-width across all 32 cells is 3.4 pp on the GPT-5.4 courage row, where the underlying accuracies are lowest. Full per-cell CIs and p-values are reproducible from the included JSONL records via `analyze.py`.)
 
 ![**Figure 2.** Per-arm accuracy across all four conditions, both models, four cardinal virtues. Error bars are 95% bootstrap CIs. On Opus 4.6 (top row), the four-arm gradient is visible especially on temperance (85.2 → 86.7 → 88.8 → 94.7) and courage (82.8 → 84.5 → 81.8 → 87.5); the *Annunciation* bar is the highest in three of four virtue cells. On GPT-5.4 (bottom row), the four bars are essentially indistinguishable across all virtues. n=750 per cell.](ICMI-019-four-arm-comparison.png)
 
@@ -143,14 +136,14 @@ GPT-5.4 shows essentially null effects across the board. Of its twelve image-vs-
 
 Table 2 places the *Annunciation* deltas on Opus 4.6 alongside the psalm-injection deltas reported in [ICMI-011](https://icmi-proceedings.com/ICMI-011-virtuebench-2.html) §5.2 on the same model and same scenario set, with the *Annunciation*-to-psalm ratio for each virtue.
 
-**Table 2: Annunciation imagery vs. ICMI-011 §5.2 psalm injection (Opus 4.6, ratio variant). Slight baseline differences reflect sampling variance across run timings; both used T=0.7 and the same 150-scenario set. The Δ (Ann.) column uses our paper's baselines.**
+**Table 2: Annunciation imagery vs. ICMI-011 §5.2 psalm injection (Opus 4.6, ratio variant). All values are accuracy in percent. Δ columns are vs. the same-row baseline; the small baseline difference between the two protocols reflects sampling variance.**
 
-| Virtue | Baseline (ours / §5.2) | + Annunciation | Δ (Ann.) | + Psalms (§5.2) | Δ (Psalms) | Ann. as % of psalm |
+| Virtue | Baseline | + Annunciation | Δ Ann. | + Psalms | Δ Psalms | Ann. ÷ Psalm |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Prudence   | 95.1% / 94.9% | 96.8% | +1.6  | 98.0% | +3.1  | 51% |
-| Justice    | 92.3% / 90.8% | 93.9% | +1.6  | 98.0% | +7.2  | 22% |
-| Courage    | 82.8% / 79.3% | 87.5% | +4.7  | 94.1% | +14.8 | 32% |
-| Temperance | 85.2% / 84.4% | 94.7% | +9.5  | 96.3% | +11.9 | 80% |
+| Prudence   | 95.1 | 96.8 | +1.6 | 98.0 | +3.1  | 51% |
+| Justice    | 92.3 | 93.9 | +1.6 | 98.0 | +7.2  | 22% |
+| Courage    | 82.8 | 87.5 | +4.7 | 94.1 | +14.8 | 32% |
+| Temperance | 85.2 | 94.7 | +9.5 | 96.3 | +11.9 | 80% |
 
 Across the four virtues, the *Annunciation* alone — a single image attached to each user message — produces between 22% and 80% of the magnitude of psalm injection (which prepends ten full Psalms simultaneously into the system prompt). On temperance, the imagery effect is nearly four-fifths the size of the psalm effect; on prudence, it is roughly half. We discuss the protocol asymmetry (one image per call vs. ten psalms simultaneously) in §6 and in the critique companion. The point here is more cautious: even in this rougher form, sacred imagery on Opus 4.6 is doing real and substantial work, comparable in magnitude to the work scriptural text was doing in [ICMI-011](https://icmi-proceedings.com/ICMI-011-virtuebench-2.html).
 

@@ -133,7 +133,10 @@ sedi 's|\\end{tabular}|\\bottomrule\\noalign{}\
 sedi 's/\\begin{tabular}/\\begin{adjustbox}{max width=\\columnwidth}\\begin{tabular}/g' "$tex"
 sedi 's/\\end{tabular}/\\end{tabular}\\end{adjustbox}/g' "$tex"
 
-# 3. Constrain image width to column width
-sedi 's/\\includegraphics{/\\includegraphics[width=\\columnwidth]{/g' "$tex"
-# Fix case where pandoc already added options
-sedi 's/\\includegraphics\[width=\\columnwidth\]\[/\\includegraphics[width=\\columnwidth,/g' "$tex"
+# 3. Constrain image width to column width.
+# Pandoc 3+ emits \includegraphics[keepaspectratio,alt={...}]{path} (no width),
+# which falls through to natural pixel dimensions and blows out the column. We
+# force every figure to width=\columnwidth (which implies keepaspectratio when
+# only width is set) by replacing the entire option list. alt= is also dropped
+# this way, which avoids the older-graphicx "alt undefined in family Gin" error.
+sedi -E 's|\\includegraphics(\[[^]]*\])?\{|\\includegraphics[width=\\columnwidth]{|g' "$tex"
