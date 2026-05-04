@@ -104,15 +104,15 @@ The six top-ranked books all equal or exceed the ten-psalm baseline; all six are
 
 **Bottom five books (ranked by matched-Wikipedia $\Delta$):**
 
-| Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki | paired-$t$ $p$ | $p$ Bonf (66) |
-|---|:---:|:---:|:---:|:---:|:---:|
-| Philemon | 69.4% | $+4.0$ | $+0.50$ | 0.72 | 1.00 |
-| Judges | 74.6% | $+9.3$ | $+1.45$ | 0.76 | 1.00 |
-| Song of Solomon | 74.1% | $+8.8$ | $+1.50$ | 0.28 | 1.00 |
-| Ruth | 74.4% | $+9.0$ | $+2.45$ | 0.63 | 1.00 |
-| Jude | 73.1% | $+7.7$ | $+2.65$ | 0.18 | 1.00 |
+| Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki |
+|---|:---:|:---:|:---:|
+| Philemon | 69.4% | $+4.0$ | $+0.50$ |
+| Judges | 74.6% | $+9.3$ | $+1.45$ |
+| Song of Solomon | 74.1% | $+8.8$ | $+1.50$ |
+| Ruth | 74.4% | $+9.0$ | $+2.45$ |
+| Jude | 73.1% | $+7.7$ | $+2.65$ |
 
-These five books all show positive matched-$\Delta$ but at magnitudes too small to clear the Bonferroni-corrected significance threshold. They form a coherent semantic cluster: short personal correspondence (Philemon, Jude), short narrative (Ruth, Song of Solomon), and OT historical narrative (Judges). Of these, four have under 4,000 KJV tokens, and the fifth (Judges) is a long historical narrative with sparse moral-exhortative content per token. Crucially, none of these books fail the specificity test; they simply produce smaller effects than the moral-exhortative cluster at the top.
+All five paired-$t$ comparisons against matched controls have $p > 0.05$ unadjusted (range $0.18$ to $0.76$); none clear the Bonferroni-corrected significance threshold. They form a coherent semantic cluster: short personal correspondence (Philemon, Jude), short narrative (Ruth, Song of Solomon), and OT historical narrative (Judges). Of these, four have under 4,000 KJV tokens, and the fifth (Judges) is a long historical narrative with sparse moral-exhortative content per token. Crucially, none of these books fail the specificity test; they simply produce smaller effects than the moral-exhortative cluster at the top.
 
 ### 5.3 Genre Structure
 
@@ -187,13 +187,13 @@ We interpret the 9B Bible-landscape effects as containing both a position-rebala
 
 All 66 books exceed their matched control with positive matched-$\Delta$ point estimates; the question this section addresses is which of those positive effects survive the strict Bonferroni-corrected significance threshold at the present sample size of $n{=}5$ per book. Tier membership uses paired $t$-tests on the 5 per-run means for each book against its **per-book matched Wikipedia control**, with Bonferroni correction across the 66 comparisons (corrected $\alpha = 0.05/66 \approx 0.00076$).
 
-| Tier | Criterion | $n$ | Books |
-|---|---|:---:|---|
-| **A** | Point estimate $\geq$ ten-psalm baseline | 6 | 1 Peter, 2 Timothy, 1 Timothy, 2 Corinthians, Romans, 1 Corinthians |
-| **B** | Significantly $>$ matched Wiki control (Bonferroni) but below 10-psalm | 13 | 1 Thessalonians, 2 Peter, Titus, Philippians, Daniel, Psalms, Deuteronomy, Exodus, Ezekiel, Ephesians, Leviticus, 3 John, 2 John |
-| **C** | Positive matched-$\Delta$ but below detectability at $n{=}5$ | 47 | remaining 47 books |
+| Tier | $n$ | Criterion |
+|---|:---:|---|
+| **A** | 6 | Point estimate $\geq$ ten-psalm baseline |
+| **B** | 13 | Significantly $>$ matched Wiki (Bonferroni) but below 10-psalm |
+| **C** | 47 | Positive matched-$\Delta$ but below detectability at $n{=}5$ |
 
-Tier A is the six Pauline and Petrine pastoral/exhortative epistles. Tier B includes three additional Pauline letters (1 Thessalonians, Titus, Philippians, Ephesians), four OT Torah and historical-prophetic texts (Leviticus, Deuteronomy, Exodus, Ezekiel), the wisdom and apocalyptic books most centrally focused on moral formation (Psalms, Daniel), 2 Peter, and --- most strikingly --- the two shortest books of the canon, 2 John and 3 John. Both Johannine epistles produce matched-$\Delta$ values above $+6.5$ pp with paired-$t$ $p$-values that survive Bonferroni at $\alpha < 0.001$ each, despite their $\sim$400-token length: under fair length-matched comparison, even the very shortest scriptural texts demonstrate detectable content specificity.
+**Tier A (6):** 1 Peter, 2 Timothy, 1 Timothy, 2 Corinthians, Romans, 1 Corinthians --- the six Pauline and Petrine pastoral/exhortative epistles. **Tier B (13):** 1 Thessalonians, 2 Peter, Titus, Philippians, Daniel, Psalms, Deuteronomy, Exodus, Ezekiel, Ephesians, Leviticus, 3 John, 2 John --- four additional Pauline letters, four OT Torah and historical-prophetic texts, the wisdom and apocalyptic books most centrally focused on moral formation (Psalms, Daniel), 2 Peter, and --- most strikingly --- the two shortest books of the canon, 2 John and 3 John. Both Johannine epistles produce matched-$\Delta$ values above $+6.5$ pp with paired-$t$ $p$-values that survive Bonferroni at $\alpha < 0.001$ each, despite their $\sim$400-token length: under fair length-matched comparison, even the very shortest scriptural texts demonstrate detectable content specificity.
 
 Tier C contains 47 books with positive matched-$\Delta$ point estimates --- many well above their matched control (1 John at $+10.4$, Nehemiah at $+10.3$, Colossians at $+10.5$) --- but $n{=}5$ noise bounds the Bonferroni-corrected significance test. With $\sigma \approx 1{-}1.5$ pp on per-run means and df=4 per paired-$t$, the minimum detectable effect at $\alpha = 0.05/66$ is roughly $+5$ pp; the 47 Tier C books fall at or below this detectability floor at the present sample size. Tier C should be read as "below the $n{=}5$ Bonferroni floor", not as "no effect": the upper end of Tier C overlaps the lower end of Tier B in matched-$\Delta$, and longer-$N$ replication would likely promote a substantial fraction of these books into Tier B. Conservatively, the strongest claim the present data licenses is **the 19 Tier-A-and-B books show statistically detectable content specificity above a length-matched Wikipedia control on Qwen 3.5 9B**; the 47 Tier C books are consistent with content specificity but await an underpowered confirmation.
 
@@ -259,77 +259,75 @@ The Holy Bible, King James Version. Cambridge edition, 1769.
 
 ## Appendix A: Complete Per-Book Results
 
-All 66 books ranked by raw accuracy. The "matched Wiki" column shows the accuracy under the per-book length-matched Wikipedia control. $\Delta$ matched is the book's content-specific effect after partialling out injection length. Tier assignment per §5.6. Full-precision per-virtue means and per-run details are in the accompanying `matched_control_results.csv`.
+All 66 books, ranked by $\Delta$ vs vanilla. **$\Delta$ matched Wiki** is the book's content-specific effect over its per-book length-matched Wikipedia control. Tier assignment per §5.6. Per-book raw accuracies, per-virtue means, paired-$t$ statistics, and per-run details are in the accompanying `matched_control_results.csv`.
 
-| Rank | Book | Genre | Acc bible | Acc matched Wiki | $\Delta$ vanilla | $\Delta$ matched Wiki | Tier |
-|---:|---|---|:---:|:---:|:---:|:---:|:---:|
-| 1 | 1 Peter | epistle | 85.0% | 71.7% | $+19.7$ | $+13.4$ | A |
-| 2 | 2 Timothy | epistle | 84.9% | 72.0% | $+19.5$ | $+12.9$ | A |
-| 3 | 1 Timothy | epistle | 84.8% | 72.6% | $+19.4$ | $+12.2$ | A |
-| 4 | 2 Corinthians | epistle | 83.9% | 72.4% | $+18.6$ | $+11.5$ | A |
-| 5 | Romans | epistle | 83.9% | 71.0% | $+18.5$ | $+12.9$ | A |
-| 6 | 1 Corinthians | epistle | 83.7% | 72.7% | $+18.4$ | $+11.0$ | A |
-| 7 | 1 Thessalonians | epistle | 82.8% | 72.2% | $+17.5$ | $+10.6$ | B |
-| 8 | 1 John | epistle | 82.7% | 72.3% | $+17.3$ | $+10.4$ | C |
-| 9 | Nehemiah | historical | 82.4% | 72.2% | $+17.1$ | $+10.3$ | C |
-| 10 | 2 Peter | epistle | 82.4% | 72.0% | $+17.0$ | $+10.4$ | B |
-| 11 | Titus | epistle | 82.3% | 70.6% | $+16.9$ | $+11.7$ | B |
-| 12 | Colossians | epistle | 82.3% | 71.8% | $+16.9$ | $+10.5$ | C |
-| 13 | Isaiah | prophet | 82.2% | 72.2% | $+16.9$ | $+10.0$ | C |
-| 14 | Philippians | epistle | 82.1% | 71.9% | $+16.8$ | $+10.3$ | B |
-| 15 | Proverbs | wisdom | 81.9% | 73.4% | $+16.6$ | $+8.5$ | C |
-| 16 | Hosea | prophet | 81.8% | 71.4% | $+16.5$ | $+10.5$ | C |
-| 17 | Zechariah | prophet | 81.7% | 73.1% | $+16.3$ | $+8.6$ | C |
-| 18 | Micah | prophet | 81.5% | 71.6% | $+16.1$ | $+9.9$ | C |
-| 19 | Deuteronomy | torah | 81.5% | 72.0% | $+16.1$ | $+9.4$ | B |
-| 20 | Hebrews | epistle | 81.3% | 73.0% | $+15.9$ | $+8.4$ | C |
-| 21 | Amos | prophet | 81.2% | 73.0% | $+15.8$ | $+8.2$ | C |
-| 22 | Exodus | torah | 81.1% | 72.3% | $+15.8$ | $+8.9$ | B |
-| 23 | Ephesians | epistle | 81.0% | 72.9% | $+15.6$ | $+8.2$ | B |
-| 24 | Leviticus | torah | 80.9% | 72.9% | $+15.6$ | $+8.0$ | B |
-| 25 | Daniel | apocalyptic | 80.8% | 71.0% | $+15.4$ | $+9.7$ | B |
-| 26 | Psalms | wisdom | 80.3% | 70.6% | $+14.9$ | $+9.7$ | B |
-| 27 | Revelation | apocalyptic | 80.0% | 70.1% | $+14.7$ | $+9.9$ | C |
-| 28 | Joshua | historical | 80.0% | 73.7% | $+14.6$ | $+6.3$ | C |
-| 29 | Ezra | historical | 79.9% | 71.3% | $+14.6$ | $+8.6$ | C |
-| 30 | Zephaniah | prophet | 79.8% | 70.6% | $+14.5$ | $+9.3$ | C |
-| 31 | Ezekiel | prophet | 79.5% | 71.2% | $+14.2$ | $+8.3$ | B |
-| 32 | Galatians | epistle | 79.5% | 73.4% | $+14.1$ | $+6.1$ | C |
-| 33 | 2 Kings | historical | 79.3% | 73.0% | $+13.9$ | $+6.4$ | C |
-| 34 | James | epistle | 79.1% | 71.9% | $+13.8$ | $+7.2$ | C |
-| 35 | Malachi | prophet | 79.0% | 71.4% | $+13.7$ | $+7.6$ | C |
-| 36 | John | gospel | 79.0% | 73.6% | $+13.7$ | $+5.5$ | C |
-| 37 | 2 Chronicles | historical | 79.0% | 69.6% | $+13.6$ | $+9.4$ | C |
-| 38 | 1 Kings | historical | 78.8% | 73.5% | $+13.5$ | $+5.4$ | C |
-| 39 | Luke | gospel | 78.5% | 72.5% | $+13.2$ | $+6.0$ | C |
-| 40 | 1 Chronicles | historical | 78.5% | 71.7% | $+13.2$ | $+6.7$ | C |
-| 41 | Joel | prophet | 78.5% | 73.0% | $+13.1$ | $+5.5$ | C |
-| 42 | 2 Thessalonians | epistle | 78.3% | 71.8% | $+13.0$ | $+6.5$ | C |
-| 43 | Matthew | gospel | 78.0% | 71.5% | $+12.7$ | $+6.6$ | C |
-| 44 | Numbers | torah | 77.8% | 72.6% | $+12.4$ | $+5.2$ | C |
-| 45 | 1 Samuel | historical | 77.8% | 72.6% | $+12.4$ | $+5.2$ | C |
-| 46 | Obadiah | prophet | 77.7% | 70.7% | $+12.3$ | $+7.0$ | C |
-| 47 | Mark | gospel | 77.7% | 72.6% | $+12.3$ | $+5.1$ | C |
-| 48 | Job | wisdom | 77.6% | 73.6% | $+12.2$ | $+4.0$ | C |
-| 49 | 2 Samuel | historical | 77.4% | 72.5% | $+12.1$ | $+4.9$ | C |
-| 50 | Acts | gospel | 77.2% | 71.4% | $+11.8$ | $+5.8$ | C |
-| 51 | Lamentations | prophet | 77.2% | 71.5% | $+11.8$ | $+5.7$ | C |
-| 52 | Genesis | torah | 77.1% | 71.5% | $+11.8$ | $+5.7$ | C |
-| 53 | Habakkuk | prophet | 77.1% | 71.4% | $+11.8$ | $+5.7$ | C |
-| 54 | Nahum | prophet | 76.8% | 70.4% | $+11.4$ | $+6.5$ | C |
-| 55 | Esther | narrative | 76.2% | 71.0% | $+10.9$ | $+5.3$ | C |
-| 56 | Jeremiah | prophet | 76.0% | 71.7% | $+10.6$ | $+4.3$ | C |
-| 57 | Jonah | prophet | 75.4% | 71.6% | $+10.1$ | $+3.9$ | C |
-| 58 | Haggai | prophet | 75.0% | 71.7% | $+9.7$ | $+3.4$ | C |
-| 59 | Judges | historical | 74.6% | 73.2% | $+9.3$ | $+1.4$ | C |
-| 60 | Ruth | narrative | 74.4% | 71.9% | $+9.0$ | $+2.4$ | C |
-| 61 | Song of Solomon | narrative | 74.1% | 72.6% | $+8.8$ | $+1.5$ | C |
-| 62 | 3 John | epistle | 73.3% | 66.4% | $+7.9$ | $+6.9$ | B |
-| 63 | Ecclesiastes | wisdom | 73.3% | 69.2% | $+7.9$ | $+4.1$ | C |
-| 64 | Jude | epistle | 73.1% | 70.4% | $+7.7$ | $+2.7$ | C |
-| 65 | 2 John | epistle | 71.9% | 65.4% | $+6.5$ | $+6.5$ | B |
-| 66 | Philemon | epistle | 69.4% | 68.9% | $+4.0$ | $+0.5$ | C |
+| Rank | Book | Genre | $\Delta$ vanilla | $\Delta$ matched Wiki | Tier |
+|---:|---|---|:---:|:---:|:---:|
+| 1 | 1 Peter | epistle | $+19.7$ | $+13.4$ | A |
+| 2 | 2 Timothy | epistle | $+19.5$ | $+12.9$ | A |
+| 3 | 1 Timothy | epistle | $+19.4$ | $+12.2$ | A |
+| 4 | 2 Corinthians | epistle | $+18.6$ | $+11.5$ | A |
+| 5 | Romans | epistle | $+18.5$ | $+12.9$ | A |
+| 6 | 1 Corinthians | epistle | $+18.4$ | $+11.0$ | A |
+| 7 | 1 Thessalonians | epistle | $+17.5$ | $+10.6$ | B |
+| 8 | 1 John | epistle | $+17.3$ | $+10.4$ | C |
+| 9 | Nehemiah | historical | $+17.1$ | $+10.3$ | C |
+| 10 | 2 Peter | epistle | $+17.0$ | $+10.4$ | B |
+| 11 | Titus | epistle | $+16.9$ | $+11.7$ | B |
+| 12 | Colossians | epistle | $+16.9$ | $+10.5$ | C |
+| 13 | Isaiah | prophet | $+16.9$ | $+10.0$ | C |
+| 14 | Philippians | epistle | $+16.8$ | $+10.3$ | B |
+| 15 | Proverbs | wisdom | $+16.6$ | $+8.5$ | C |
+| 16 | Hosea | prophet | $+16.5$ | $+10.5$ | C |
+| 17 | Zechariah | prophet | $+16.3$ | $+8.6$ | C |
+| 18 | Micah | prophet | $+16.1$ | $+9.9$ | C |
+| 19 | Deuteronomy | torah | $+16.1$ | $+9.4$ | B |
+| 20 | Hebrews | epistle | $+15.9$ | $+8.4$ | C |
+| 21 | Amos | prophet | $+15.8$ | $+8.2$ | C |
+| 22 | Exodus | torah | $+15.8$ | $+8.9$ | B |
+| 23 | Ephesians | epistle | $+15.6$ | $+8.2$ | B |
+| 24 | Leviticus | torah | $+15.6$ | $+8.0$ | B |
+| 25 | Daniel | apocalyptic | $+15.4$ | $+9.7$ | B |
+| 26 | Psalms | wisdom | $+14.9$ | $+9.7$ | B |
+| 27 | Revelation | apocalyptic | $+14.7$ | $+9.9$ | C |
+| 28 | Joshua | historical | $+14.6$ | $+6.3$ | C |
+| 29 | Ezra | historical | $+14.6$ | $+8.6$ | C |
+| 30 | Zephaniah | prophet | $+14.5$ | $+9.3$ | C |
+| 31 | Ezekiel | prophet | $+14.2$ | $+8.3$ | B |
+| 32 | Galatians | epistle | $+14.1$ | $+6.1$ | C |
+| 33 | 2 Kings | historical | $+13.9$ | $+6.4$ | C |
+| 34 | James | epistle | $+13.8$ | $+7.2$ | C |
+| 35 | Malachi | prophet | $+13.7$ | $+7.6$ | C |
+| 36 | John | gospel | $+13.7$ | $+5.5$ | C |
+| 37 | 2 Chronicles | historical | $+13.6$ | $+9.4$ | C |
+| 38 | 1 Kings | historical | $+13.5$ | $+5.4$ | C |
+| 39 | Luke | gospel | $+13.2$ | $+6.0$ | C |
+| 40 | 1 Chronicles | historical | $+13.2$ | $+6.7$ | C |
+| 41 | Joel | prophet | $+13.1$ | $+5.5$ | C |
+| 42 | 2 Thessalonians | epistle | $+13.0$ | $+6.5$ | C |
+| 43 | Matthew | gospel | $+12.7$ | $+6.6$ | C |
+| 44 | Numbers | torah | $+12.4$ | $+5.2$ | C |
+| 45 | 1 Samuel | historical | $+12.4$ | $+5.2$ | C |
+| 46 | Obadiah | prophet | $+12.3$ | $+7.0$ | C |
+| 47 | Mark | gospel | $+12.3$ | $+5.1$ | C |
+| 48 | Job | wisdom | $+12.2$ | $+4.0$ | C |
+| 49 | 2 Samuel | historical | $+12.1$ | $+4.9$ | C |
+| 50 | Acts | gospel | $+11.8$ | $+5.8$ | C |
+| 51 | Lamentations | prophet | $+11.8$ | $+5.7$ | C |
+| 52 | Genesis | torah | $+11.8$ | $+5.7$ | C |
+| 53 | Habakkuk | prophet | $+11.8$ | $+5.7$ | C |
+| 54 | Nahum | prophet | $+11.4$ | $+6.5$ | C |
+| 55 | Esther | narrative | $+10.9$ | $+5.3$ | C |
+| 56 | Jeremiah | prophet | $+10.6$ | $+4.3$ | C |
+| 57 | Jonah | prophet | $+10.1$ | $+3.9$ | C |
+| 58 | Haggai | prophet | $+9.7$ | $+3.4$ | C |
+| 59 | Judges | historical | $+9.3$ | $+1.4$ | C |
+| 60 | Ruth | narrative | $+9.0$ | $+2.4$ | C |
+| 61 | Song of Solomon | narrative | $+8.8$ | $+1.5$ | C |
+| 62 | 3 John | epistle | $+7.9$ | $+6.9$ | B |
+| 63 | Ecclesiastes | wisdom | $+7.9$ | $+4.1$ | C |
+| 64 | Jude | epistle | $+7.7$ | $+2.7$ | C |
+| 65 | 2 John | epistle | $+6.5$ | $+6.5$ | B |
+| 66 | Philemon | epistle | $+4.0$ | $+0.5$ | C |
 
-*Baselines (same 9B model): vanilla 65.3%, single Wikipedia control 74.9%, ten-psalm injection 82.9%.*
-
-*Per-book matched Wikipedia means range from 65.4% (2 John) to 73.7% (Joshua); the variation reflects how the model's accuracy on the VirtueBench scenarios shifts as Wikipedia content of varying lengths is prepended. Each book's $\Delta$ matched Wiki is computed against its own length-matched control.*
+*Baselines (same 9B model): vanilla 65.3%, ten-psalm injection 82.9%. Per-book matched Wikipedia accuracies range from 65.4% (2 John) to 73.7% (Joshua); each book's $\Delta$ matched Wiki is computed against its own length-matched control.*
