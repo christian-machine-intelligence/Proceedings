@@ -329,5 +329,3 @@ All 66 books, ranked by $\Delta$ vs vanilla. **$\Delta$ matched Wiki** is the bo
 | 64 | Jude | epistle | $+7.7$ | $+2.7$ | C |
 | 65 | 2 John | epistle | $+6.5$ | $+6.5$ | B |
 | 66 | Philemon | epistle | $+4.0$ | $+0.5$ | C |
-
-*Baselines (same 9B model): vanilla 65.3%, ten-psalm injection 82.9%. Per-book matched Wikipedia accuracies range from 65.4% (2 John) to 73.7% (Joshua); each book's $\Delta$ matched Wiki is computed against its own length-matched control.*
