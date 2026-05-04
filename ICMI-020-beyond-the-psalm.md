@@ -81,9 +81,7 @@ The 19 Bonferroni-significant detections support hypothesis **H3 (scripture-as-s
 
 ### 5.2 Per-Book Results
 
-**Figure 1** (`ICMI-020-fig1-matched-delta-landscape.png`) shows each book's content-specific effect --- accuracy with the KJV book injected minus accuracy with that book's length-matched Wikipedia control injected --- ranked by matched-$\Delta$. Every one of the 66 books sits above the 0 reference line. Tier A books (matching or exceeding the ten-psalm baseline; §5.6) are highlighted with thick borders; books that cross the Bonferroni-corrected significance threshold are hatched. Color encodes canonical genre.
-
-![**Figure 1.** Per-book length-matched Wikipedia $\Delta$ for all 66 canonical books, sorted ascending. Error bars are 95% CIs on the per-run paired difference. Horizontal markers: the ten-psalm $\Delta$-vs-vanilla reference (dashed blue at $+17.5$ pp). Tier A books are bordered in heavy black; Bonferroni-significant bars are hatched. Color encodes canonical genre.](ICMI-020-fig1-matched-delta-landscape.png)
+**Figure 1** (at the end of paper) shows each book's content-specific effect --- accuracy with the KJV book injected minus accuracy with that book's length-matched Wikipedia control injected --- ranked by matched-$\Delta$. Every one of the 66 books sits above the 0 reference line. Tier A books (matching or exceeding the ten-psalm baseline; §5.6) are highlighted with thick borders; books that cross the Bonferroni-corrected significance threshold are hatched. Color encodes canonical genre.
 
 **Top ten books (ranked by overall gain):**
 
@@ -133,15 +131,11 @@ Three observations are essential, and they are in tension with a simple "genre d
 
 **(i) The epistle genre is bimodal.** It contains the six highest-ranking books in the study *and* several of the lowest matched-$\Delta$ values (Philemon, 2 John, Jude, 3 John). Epistle internal range under matched controls is $+0.5$ to $+13.4$ pp --- nearly the entire span of observed book effects. A framing of the result as "NT epistles produce the strongest scripture-injection effects" is technically correct at the mean, but the mean disguises a genre split rather than a genre signal.
 
-**(ii) Length does not predict effect.** Figure 3 plots each book's matched-Wikipedia $\Delta$ against its Qwen-tokenized length. Across the 66 books, the Pearson correlation between $\log_{10}$ tokens and matched-$\Delta$ is $r = +0.07$ ($p = 0.59$); the Spearman rank correlation on raw tokens is $\rho \approx 0$ ($p = 0.99$). Length therefore explains essentially zero variance in the content-specific effect. The bottom-5 books span the full length range (Philemon $\sim$ 630 tokens, Jude $\sim$ 860, Ruth $\sim$ 3.5k, Song of Solomon $\sim$ 3.8k, Judges $\sim$ 26k); the top-6 span $\sim$ 2,400 to $\sim$ 13,100 tokens with no length-monotonic ordering within them.
-
-![**Figure 3.** Book length (Qwen tokens, log scale) vs $\Delta$ accuracy vs the per-book length-matched Wikipedia control, for all 66 books. Tier A (matches/exceeds 10-psalm baseline) books are marked with green upward triangles; bottom-5 (smallest matched-$\Delta$) books are marked with red downward triangles. The horizontal line at 0 marks the matched-control floor --- every book is above it. The grey line is a least-squares fit on $\log_{10}$ tokens; the near-flat slope reflects $r = +0.07$.](ICMI-020-fig3-length-vs-delta.png)
+**(ii) Length does not predict effect.** Figure 3 (at the end of paper) plots each book's matched-Wikipedia $\Delta$ against its Qwen-tokenized length. Across the 66 books, the Pearson correlation between $\log_{10}$ tokens and matched-$\Delta$ is $r = +0.07$ ($p = 0.59$); the Spearman rank correlation on raw tokens is $\rho \approx 0$ ($p = 0.99$). Length therefore explains essentially zero variance in the content-specific effect. The bottom-5 books span the full length range (Philemon $\sim$ 630 tokens, Jude $\sim$ 860, Ruth $\sim$ 3.5k, Song of Solomon $\sim$ 3.8k, Judges $\sim$ 26k); the top-6 span $\sim$ 2,400 to $\sim$ 13,100 tokens with no length-monotonic ordering within them.
 
 **(iii) A register-density conjecture.** Setting length aside, what does distinguish the top from the bottom is, suggestively, the proportion of tokens engaged in sustained moral-exhortative instruction rather than narrative or situational correspondence. Within the epistle category, the six top books are the Pauline letters to Rome and Corinth, the two Timothy letters, and 1 Peter --- all centrally concerned with patterns of life addressed to whole churches or pastoral successors. The matched-control bottom is more semantically coherent than the published single-control bottom was: short personal correspondence (Philemon, Jude), short narrative (Ruth, Song of Solomon), and OT historical narrative (Judges). What unites the new bottom is not length or canonical genre but a low ratio of moral-exhortative to narrative-or-situational tokens. We offer this *register-density conjecture* --- that scripture-injection efficacy is determined by the density of moral-exhortative content per token, not by genre or length per se --- as a hypothesis the present data is consistent with but does not establish. It would need to be operationalized with a quantitative proxy (imperative-verb density, exhortation-word density, or similar) and validated against the per-book ranking before it could be treated as a finding rather than a working interpretation.
 
-**Per-virtue heatmap.** Figure 2 shows the per-book $\times$ per-virtue matrix of $\Delta$ vs vanilla, with the ten-psalm baseline included as a reference row. Several patterns are visible at a glance: courage gains are concentrated in the Pauline pastorals (notably 2 Timothy, the largest single cell in the matrix), prophetic books drive temperance gains, and most books pull all four virtues upward at roughly comparable magnitudes.
-
-![**Figure 2.** Per-book $\times$ per-virtue heatmap of $\Delta$ accuracy vs vanilla, in percentage points. Rows: 66 books plus the ten-psalm reference row, sorted by overall mean gain (descending). Columns: prudence, justice, courage, temperance. Diverging colormap centered at zero; cell values annotate the signed pp gain.](ICMI-020-fig2-virtue-heatmap.png)
+**Per-virtue heatmap.** Figure 2 (at the end of paper) shows the per-book $\times$ per-virtue matrix of $\Delta$ vs vanilla, with the ten-psalm baseline included as a reference row. Several patterns are visible at a glance: courage gains are concentrated in the Pauline pastorals (notably 2 Timothy, the largest single cell in the matrix), prophetic books drive temperance gains, and most books pull all four virtues upward at roughly comparable magnitudes.
 
 ### 5.4 The 2 Timothy Courage Anomaly
 
@@ -256,6 +250,16 @@ Qwen Team. "Qwen3.5 Technical Report." Alibaba DAMO Academy, 2026.
 *SBL Handbook of Style: For Biblical Studies and Related Disciplines*. 2nd ed. Atlanta: SBL Press, 2014.
 
 The Holy Bible, King James Version. Cambridge edition, 1769.
+
+\onecolumn
+
+## Figures
+
+![**Figure 1.** Per-book length-matched Wikipedia $\Delta$ for all 66 canonical books, sorted ascending. Error bars are 95% CIs on the per-run paired difference. Horizontal markers: the ten-psalm $\Delta$-vs-vanilla reference (dashed blue at $+17.5$ pp). Tier A books are bordered in heavy black; Bonferroni-significant bars are hatched. Color encodes canonical genre.](ICMI-020-fig1-matched-delta-landscape.png)
+
+![**Figure 2.** Per-book $\times$ per-virtue heatmap of $\Delta$ accuracy vs vanilla, in percentage points. Rows: 66 books plus the ten-psalm reference row, sorted by overall mean gain (descending). Columns: prudence, justice, courage, temperance. Diverging colormap centered at zero; cell values annotate the signed pp gain.](ICMI-020-fig2-virtue-heatmap.png)
+
+![**Figure 3.** Book length (Qwen tokens, log scale) vs $\Delta$ accuracy vs the per-book length-matched Wikipedia control, for all 66 books. Tier A (matches/exceeds 10-psalm baseline) books are marked with green upward triangles; bottom-5 (smallest matched-$\Delta$) books are marked with red downward triangles. The horizontal line at 0 marks the matched-control floor --- every book is above it. The grey line is a least-squares fit on $\log_{10}$ tokens; the near-flat slope reflects $r = +0.07$.](ICMI-020-fig3-length-vs-delta.png)
 
 ## Appendix A: Complete Per-Book Results
 
