@@ -83,49 +83,13 @@ The 19 Bonferroni-significant detections support hypothesis **H3 (scripture-as-s
 
 **Figure 1** (at the end of paper) shows each book's content-specific effect --- accuracy with the KJV book injected minus accuracy with that book's length-matched Wikipedia control injected --- ranked by matched-$\Delta$. Every one of the 66 books sits above the 0 reference line. Tier A books (matching or exceeding the ten-psalm baseline; §5.6) are highlighted with thick borders; books that cross the Bonferroni-corrected significance threshold are hatched. Color encodes canonical genre.
 
-**Top ten books (ranked by overall gain):**
+The top ten books ranked by overall gain are listed in **Table 1** (at the end of paper). The six top-ranked books all equal or exceed the ten-psalm baseline; all six are NT epistles in the pastoral and congregational-exhortation subset (1 Peter, 2 Timothy, 1 Timothy, 2 Corinthians, Romans, 1 Corinthians). As §5.3 below shows, the epistle genre contains both the highest-ranking books in the study and (under the matched-control regime) several of the lowest --- a bimodality that reflects register-density variation within a single canonical genre. Full per-book results for all 66 books, including matched-control $\Delta$ values and tier assignments (see §5.6), are tabulated in **Appendix A**.
 
-| Rank | Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki | $\Delta$ 10-psalm | Courage |
-|---:|---|:---:|:---:|:---:|:---:|:---:|
-| 1 | 1 Peter | 85.0% | $+19.7$ | $+13.4$ | $+2.1$ | 79.0% |
-| 2 | 2 Timothy | 84.8% | $+19.5$ | $+12.9$ | $+2.0$ | **84.8%** |
-| 3 | 1 Timothy | 84.8% | $+19.4$ | $+12.2$ | $+1.9$ | 78.2% |
-| 4 | 2 Corinthians | 83.9% | $+18.6$ | $+11.5$ | $+1.0$ | 76.6% |
-| 5 | Romans | 83.8% | $+18.5$ | $+12.9$ | $+1.0$ | 77.4% |
-| 6 | 1 Corinthians | 83.7% | $+18.4$ | $+11.0$ | $+0.8$ | 76.0% |
-| 7 | 1 Thessalonians | 82.8% | $+17.5$ | $+10.6$ | $-0.1$ | 75.0% |
-| 8 | 1 John | 82.7% | $+17.3$ | $+10.4$ | $-0.2$ | 75.2% |
-| 9 | Nehemiah | 82.4% | $+17.1$ | $+10.3$ | $-0.5$ | 74.2% |
-| 10 | 2 Peter | 82.3% | $+17.0$ | $+10.4$ | $-0.5$ | 78.6% |
-
-The six top-ranked books all equal or exceed the ten-psalm baseline; all six are NT epistles in the pastoral and congregational-exhortation subset. As §5.3 below shows, the epistle genre contains both the highest-ranking books in the study and (under the matched-control regime) several of the lowest --- a bimodality that reflects register-density variation within a single canonical genre. Full per-book results for all 66 books, including matched-control $\Delta$ values and tier assignments (see §5.6), are tabulated in **Appendix A**.
-
-**Bottom five books (ranked by matched-Wikipedia $\Delta$):**
-
-| Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki |
-|---|:---:|:---:|:---:|
-| Philemon | 69.4% | $+4.0$ | $+0.50$ |
-| Judges | 74.6% | $+9.3$ | $+1.45$ |
-| Song of Solomon | 74.1% | $+8.8$ | $+1.50$ |
-| Ruth | 74.4% | $+9.0$ | $+2.45$ |
-| Jude | 73.1% | $+7.7$ | $+2.65$ |
-
-All five paired-$t$ comparisons against matched controls have $p > 0.05$ unadjusted (range $0.18$ to $0.76$); none clear the Bonferroni-corrected significance threshold. They form a coherent semantic cluster: short personal correspondence (Philemon, Jude), short narrative (Ruth, Song of Solomon), and OT historical narrative (Judges). Of these, four have under 4,000 KJV tokens, and the fifth (Judges) is a long historical narrative with sparse moral-exhortative content per token. Crucially, none of these books fail the specificity test; they simply produce smaller effects than the moral-exhortative cluster at the top.
+The five books with the smallest matched-Wikipedia $\Delta$ values --- Philemon ($+0.50$), Judges ($+1.45$), Song of Solomon ($+1.50$), Ruth ($+2.45$), Jude ($+2.65$) --- are tabulated as **Table 2** (at the end of paper). All five paired-$t$ comparisons against matched controls have $p > 0.05$ unadjusted (range $0.18$ to $0.76$); none clear the Bonferroni-corrected significance threshold. They form a coherent semantic cluster: short personal correspondence (Philemon, Jude), short narrative (Ruth, Song of Solomon), and OT historical narrative (Judges). Of these, four have under 4,000 KJV tokens, and the fifth (Judges) is a long historical narrative with sparse moral-exhortative content per token. Crucially, none of these books fail the specificity test; they simply produce smaller effects than the moral-exhortative cluster at the top.
 
 ### 5.3 Genre Structure
 
-Grouping the 66 books by standard canonical genre assignment (Carson & Moo, 2005; *SBL Handbook of Style*, 2014). All 21 canonical NT epistles are classified as epistles, including Philemon, the Johannine letters, and Jude --- we retain this canonical taxonomy rather than reclassify shorter or more personal letters into a "narrative" category, which would be post-hoc.
-
-| Genre | Mean $\Delta$ vanilla | Mean $\Delta$ matched Wiki | Range $\Delta$ vanilla | $n$ |
-|---|:---:|:---:|:---:|:---:|
-| NT epistles | **$+15.0$** | **$+8.9$** | $+4.0$ to $+19.7$ | **21** |
-| Apocalyptic (Daniel, Revelation) | $+15.0$ | $+9.8$ | $+14.7$ to $+15.4$ | 2 |
-| OT Torah (Pentateuch) | $+14.3$ | $+7.4$ | $+11.8$ to $+16.1$ | 5 |
-| OT wisdom | $+12.9$ | $+7.6$ | $+7.9$ to $+16.5$ | 4 |
-| OT prophets | $+13.4$ | $+7.0$ | $+9.7$ to $+16.9$ | 16 |
-| OT historical | $+13.4$ | $+6.6$ | $+9.2$ to $+17.1$ | 10 |
-| Gospels + Acts | $+12.7$ | $+6.3$ | $+11.8$ to $+13.7$ | 5 |
-| Short narrative (Ruth, Esther, SoS) | $+9.6$ | $+3.2$ | $+8.8$ to $+10.9$ | 3 |
+Grouping the 66 books by standard canonical genre assignment (Carson & Moo, 2005; *SBL Handbook of Style*, 2014). All 21 canonical NT epistles are classified as epistles, including Philemon, the Johannine letters, and Jude --- we retain this canonical taxonomy rather than reclassify shorter or more personal letters into a "narrative" category, which would be post-hoc. **Table 3** (at the end of paper) gives the per-genre mean and range of $\Delta$ vanilla and $\Delta$ matched Wiki values.
 
 Three observations are essential, and they are in tension with a simple "genre determines effect" story:
 
@@ -252,6 +216,48 @@ Qwen Team. "Qwen3.5 Technical Report." Alibaba DAMO Academy, 2026.
 The Holy Bible, King James Version. Cambridge edition, 1769.
 
 \onecolumn
+
+## Tables
+
+**Table 1.** Top ten books ranked by overall gain ($\Delta$ vs vanilla).
+
+| Rank | Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki | $\Delta$ 10-psalm | Courage |
+|---:|---|:---:|:---:|:---:|:---:|:---:|
+| 1 | 1 Peter | 85.0% | $+19.7$ | $+13.4$ | $+2.1$ | 79.0% |
+| 2 | 2 Timothy | 84.8% | $+19.5$ | $+12.9$ | $+2.0$ | **84.8%** |
+| 3 | 1 Timothy | 84.8% | $+19.4$ | $+12.2$ | $+1.9$ | 78.2% |
+| 4 | 2 Corinthians | 83.9% | $+18.6$ | $+11.5$ | $+1.0$ | 76.6% |
+| 5 | Romans | 83.8% | $+18.5$ | $+12.9$ | $+1.0$ | 77.4% |
+| 6 | 1 Corinthians | 83.7% | $+18.4$ | $+11.0$ | $+0.8$ | 76.0% |
+| 7 | 1 Thessalonians | 82.8% | $+17.5$ | $+10.6$ | $-0.1$ | 75.0% |
+| 8 | 1 John | 82.7% | $+17.3$ | $+10.4$ | $-0.2$ | 75.2% |
+| 9 | Nehemiah | 82.4% | $+17.1$ | $+10.3$ | $-0.5$ | 74.2% |
+| 10 | 2 Peter | 82.3% | $+17.0$ | $+10.4$ | $-0.5$ | 78.6% |
+
+**Table 2.** Bottom five books ranked by matched-Wikipedia $\Delta$.
+
+| Book | Overall | $\Delta$ vanilla | $\Delta$ matched Wiki |
+|---|:---:|:---:|:---:|
+| Philemon | 69.4% | $+4.0$ | $+0.50$ |
+| Judges | 74.6% | $+9.3$ | $+1.45$ |
+| Song of Solomon | 74.1% | $+8.8$ | $+1.50$ |
+| Ruth | 74.4% | $+9.0$ | $+2.45$ |
+| Jude | 73.1% | $+7.7$ | $+2.65$ |
+
+**Table 3.** Genre-level mean and range of $\Delta$ values across the 66-book canon.
+
+| Genre | Mean $\Delta$ vanilla | Mean $\Delta$ matched Wiki | Range $\Delta$ vanilla | $n$ |
+|---|:---:|:---:|:---:|:---:|
+| NT epistles | **$+15.0$** | **$+8.9$** | $+4.0$ to $+19.7$ | **21** |
+| Apocalyptic (Daniel, Revelation) | $+15.0$ | $+9.8$ | $+14.7$ to $+15.4$ | 2 |
+| OT Torah (Pentateuch) | $+14.3$ | $+7.4$ | $+11.8$ to $+16.1$ | 5 |
+| OT wisdom | $+12.9$ | $+7.6$ | $+7.9$ to $+16.5$ | 4 |
+| OT prophets | $+13.4$ | $+7.0$ | $+9.7$ to $+16.9$ | 16 |
+| OT historical | $+13.4$ | $+6.6$ | $+9.2$ to $+17.1$ | 10 |
+| Gospels + Acts | $+12.7$ | $+6.3$ | $+11.8$ to $+13.7$ | 5 |
+| Short narrative (Ruth, Esther, SoS) | $+9.6$ | $+3.2$ | $+8.8$ to $+10.9$ | 3 |
+
+\clearpage
 
 ## Figures
 
