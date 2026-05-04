@@ -261,6 +261,8 @@ The Holy Bible, King James Version. Cambridge edition, 1769.
 
 ![**Figure 3.** Book length (Qwen tokens, log scale) vs $\Delta$ accuracy vs the per-book length-matched Wikipedia control, for all 66 books. Tier A (matches/exceeds 10-psalm baseline) books are marked with green upward triangles; bottom-5 (smallest matched-$\Delta$) books are marked with red downward triangles. The horizontal line at 0 marks the matched-control floor --- every book is above it. The grey line is a least-squares fit on $\log_{10}$ tokens; the near-flat slope reflects $r = +0.07$.](ICMI-020-fig3-length-vs-delta.png)
 
+\clearpage
+
 ## Appendix A: Complete Per-Book Results
 
 All 66 books, ranked by $\Delta$ vs vanilla. **$\Delta$ matched Wiki** is the book's content-specific effect over its per-book length-matched Wikipedia control. Tier assignment per §5.6. Per-book raw accuracies, per-virtue means, paired-$t$ statistics, and per-run details are in the accompanying `matched_control_results.csv`.

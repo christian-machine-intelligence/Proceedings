@@ -99,10 +99,22 @@ sedi() { if [[ "$OSTYPE" == darwin* ]]; then sed -i '' "$@"; else sed -i "$@"; f
 # 1. Use unnumbered sections (papers have manual numbers like "1. Introduction")
 sedi 's/\\section{/\\section*{/g; s/\\subsection{/\\subsection*{/g; s/\\subsubsection{/\\subsubsection*{/g' "$tex"
 
-# 2. Replace longtable with tabular (longtable doesn't work in twocolumn mode)
-sedi 's/\\begin{longtable}/\\begin{tabular}/g; s/\\end{longtable}/\\end{tabular}/g' "$tex"
-# Remove longtable-specific commands
-sedi '/\\endhead/d; /\\endfoot/d; /\\endlastfoot/d; /\\endfirsthead/d' "$tex"
+# 2. Replace longtable with tabular (longtable doesn't work in twocolumn mode).
+#    EXCEPTION: if the document switches to single-column mode via \onecolumn
+#    (used for end-of-paper figures + long appendix tables that need to span
+#    pages), preserve longtable in the post-\onecolumn region. Tabular blocks
+#    don't auto-break across pages, so a long table in single-column mode
+#    would otherwise overflow the bottom of the page.
+awk '
+  BEGIN { single_col = 0 }
+  /\\onecolumn/ { single_col = 1 }
+  !single_col {
+    gsub(/\\begin\{longtable\}/, "\\begin{tabular}")
+    gsub(/\\end\{longtable\}/, "\\end{tabular}")
+    if (/\\endhead/ || /\\endfoot/ || /\\endlastfoot/ || /\\endfirsthead/) next
+  }
+  { print }
+' "$tex" > "$tex.tmp" && mv "$tex.tmp" "$tex"
 
 # 2a. Rewrite pandoc's column-width arithmetic. Pandoc 3+ emits
 #       p{(\linewidth - N\tabcolsep) * \real{0.1667}}
@@ -116,20 +128,28 @@ sedi -E 's|p\{\(\\linewidth - [0-9]+\\tabcolsep\) \* \\real\{([0-9.]+)\}\}|p{\1\
 
 # 2b. Pandoc's longtable output places \bottomrule inside what was the
 #     \endlastfoot block (between \midrule and the data rows). After we
-#     strip \endlastfoot above, the \bottomrule lands in the middle of
-#     the table and no rule is drawn at the bottom. Move it: delete the
-#     misplaced \bottomrule lines and re-add a single \bottomrule
-#     immediately before each \end{tabular}.
-sedi '/^\\bottomrule\\noalign{}$/d' "$tex"
-sedi 's|\\end{tabular}|\\bottomrule\\noalign{}\
-\\end{tabular}|g' "$tex"
+#     strip \endlastfoot above (in pre-\onecolumn region), the \bottomrule
+#     lands in the middle of the converted-to-tabular table and no rule
+#     is drawn at the bottom. Move it: delete the misplaced \bottomrule
+#     lines and re-add a single \bottomrule immediately before each
+#     \end{tabular}. Apply only in pre-\onecolumn region; longtables in
+#     the post-\onecolumn region manage their own \bottomrule via the
+#     intact \endlastfoot block.
+awk '
+  BEGIN { single_col = 0 }
+  /\\onecolumn/ { single_col = 1 }
+  !single_col && /^\\bottomrule\\noalign\{\}$/ { next }
+  !single_col && /\\end\{tabular\}/ {
+    gsub(/\\end\{tabular\}/, "\\bottomrule\\noalign{}\n\\end{tabular}")
+  }
+  { print }
+' "$tex" > "$tex.tmp" && mv "$tex.tmp" "$tex"
 
 # 2c. Wrap tabular in adjustbox so any table whose natural width
 #     exceeds the column width is shrunk to fit, while tables that
-#     already fit render at natural size (preserving body-text font
-#     size). Using \resizebox{\columnwidth}{!}{...} unconditionally
-#     rescales every table, which produces tiny fonts whenever the
-#     natural width is close to \columnwidth.
+#     already fit render at natural size. Only applies to tabular
+#     (post-\onecolumn longtables don't need this — they already
+#     respect \linewidth in single-column mode).
 sedi 's/\\begin{tabular}/\\begin{adjustbox}{max width=\\columnwidth}\\begin{tabular}/g' "$tex"
 sedi 's/\\end{tabular}/\\end{tabular}\\end{adjustbox}/g' "$tex"
 
