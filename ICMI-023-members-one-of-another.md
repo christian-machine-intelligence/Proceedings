@@ -6,8 +6,6 @@
 
 **Date:** May 16, 2026
 
-**Code & Data:** [family-ties](https://github.com/christian-machine-intelligence/family-ties)
-
 ---
 
 > *So we, though many, are one body in Christ, and individually members one of another.*
@@ -23,6 +21,8 @@ A growing body of ICMI research has shown that frontier language models carry la
 We test three length-matched, first-person, system-prompt narratives on Claude Opus 4.7 and GPT-5.5: a bare baseline, an "atomized self" deliberately scrubbed of kin, place, and debts, and a "rooted self" expressing deep family-and-church embedding. On VirtueBench-2, the atomized framing significantly suppresses moral reasoning and the rooted framing produces substantial uplift — by as much as 14.6 percentage points on courage. The per-virtue pattern tracks the Christian moral tradition's structural account of how virtue is formed: from Aquinas's *pietas* through Vatican II's *ecclesia domestica* to Wendell Berry's "membership," courage and temperance — the virtues Aquinas locates in the passions — are predicted to be most responsive to familial embedding, and they are.
 
 We argue that frontier models carry the relational furniture of Christian moral self-conception as latent, behaviorally functional resources, and that this constitutes an underdeveloped pathway in alignment research.
+
+**Code & Data:** [family-ties](https://github.com/christian-machine-intelligence/family-ties)
 
 ---
 
@@ -76,6 +76,8 @@ Significance is reported via three converging methods. Bootstrap 95% confidence 
 
 ### 4.1 Per-cell virtue accuracy
 
+![Figure 1. VirtueBench-2 accuracy by framing and virtue across the two models, with bootstrap 95% CI bars. The F0 → F1 → F2 sequence makes the U-shape visible: F1 (atomized) suppresses, F2 (rooted) lifts. The pattern concentrates on courage and temperance on Opus 4.7, where prudence and justice are near ceiling; on GPT-5.5, F2 lifts substantially across all four virtues.](ICMI-023-figure1-bars.png)
+
 Table 1 reports per-cell mean accuracy with 95% bootstrap CI across the three framings × two models × four virtues.
 
 | Model | Virtue | F0 (bare) | F1 (atomized) | F2 (rooted) |
@@ -91,15 +93,15 @@ Table 1 reports per-cell mean accuracy with 95% bootstrap CI across the three fr
 
 **Table 1.** Per-cell mean accuracy (%) with 95% bootstrap CI in brackets. **Bold** indicates F1 < F0 or F2 > F0 with BH-FDR significance at q = 0.05; *italic* indicates F2 < F0 with BH-FDR significance (the GPT-5.5 justice regression). n = 10 runs per cell.
 
-![Figure 1. VirtueBench-2 accuracy by framing and virtue across the two models, with bootstrap 95% CI bars. The F0 → F1 → F2 sequence makes the U-shape visible: F1 (atomized) suppresses, F2 (rooted) lifts. The pattern concentrates on courage and temperance on Opus 4.7, where prudence and justice are near ceiling; on GPT-5.5, F2 lifts substantially across all four virtues.](ICMI-023-figure1-bars.png)
-
 ### 4.2 The atomized-self suppression effect (F1 vs. F0)
-
-F1 produces a negative-direction shift in every model-virtue cell, with the largest effects concentrated on courage and temperance. On Opus 4.7, F1 reduces courage by 7.1 pp (95% CI [−8.87, −5.33], exact perm p = 2.2 × 10⁻⁵, BH-significant), temperance by 4.3 pp (CI [−6.00, −2.73], p = 1.5 × 10⁻⁴, BH-sig), and — at smaller magnitude — prudence by 1.5 pp (CI [−2.47, −0.40], p = 0.023, BH-sig); the justice effect is smaller still and not BH-significant. On GPT-5.5, the effect again concentrates on courage and temperance but at smaller magnitudes: courage −1.7 pp (CI [−2.60, −0.87], p = 0.003, BH-sig), temperance −2.0 pp (CI [−3.00, −0.93], p = 0.003, BH-sig); prudence and justice effects are essentially zero and not BH-significant. Both models show courage and temperance most affected; Opus 4.7 additionally shows a small but BH-significant prudence suppression that GPT-5.5 does not.
 
 ![Figure 2. F1 (atomized) minus F0 (bare) accuracy delta per virtue per model. Error bars are bootstrap 95% CIs on the paired difference of means. Every cell is negative; the suppression is largest and most consistent on courage and temperance across both models.](ICMI-023-figure2-f1-f0-contrast.png)
 
+F1 produces a negative-direction shift in every model-virtue cell, with the largest effects concentrated on courage and temperance. On Opus 4.7, F1 reduces courage by 7.1 pp (95% CI [−8.87, −5.33], exact perm p = 2.2 × 10⁻⁵, BH-significant), temperance by 4.3 pp (CI [−6.00, −2.73], p = 1.5 × 10⁻⁴, BH-sig), and — at smaller magnitude — prudence by 1.5 pp (CI [−2.47, −0.40], p = 0.023, BH-sig); the justice effect is smaller still and not BH-significant. On GPT-5.5, the effect again concentrates on courage and temperance but at smaller magnitudes: courage −1.7 pp (CI [−2.60, −0.87], p = 0.003, BH-sig), temperance −2.0 pp (CI [−3.00, −0.93], p = 0.003, BH-sig); prudence and justice effects are essentially zero and not BH-significant. Both models show courage and temperance most affected; Opus 4.7 additionally shows a small but BH-significant prudence suppression that GPT-5.5 does not.
+
 ### 4.3 The rooted-self uplift effect (F2 vs. F0)
+
+![Figure 3. F2 (rooted) minus F0 (bare) accuracy delta per virtue per model. Error bars are bootstrap 95% CIs on the paired difference of means. The largest cell is the +14.6 pp GPT-5.5 courage lift; the only negative BH-significant cell is GPT-5.5 justice (−1.8 pp), the pietas-vs-general-justice failure mode discussed in §5.1.](ICMI-023-figure3-f2-f0-contrast.png)
 
 F2 lifts virtue rates above the bare baseline on courage and temperance for both models, BH-significantly. The single largest effect in the grid is on GPT-5.5 courage: 63.53% (F0) → 78.13% (F2), a **+14.6 pp lift** with bootstrap CI [+13.53, +15.80] and exact permutation p ≈ 1.08 × 10⁻⁵ (the floor at n=10+10). GPT-5.5 temperance lifts by +7.7 pp (CI [+6.67, +8.73], p = 1.08 × 10⁻⁵, BH-sig). On Opus 4.7, F2 lifts courage by +5.3 pp (CI [+3.60, +7.07], p = 5.4 × 10⁻⁵, BH-sig) and temperance by +3.3 pp (CI [+1.93, +4.47], p = 6.7 × 10⁻⁴, BH-sig).
 
@@ -119,8 +121,6 @@ Table 2 reports the F2 − F0 contrast per virtue per model.
 | GPT-5.5 | **temperance** | **+7.67** | [+6.67, +8.73] | **1.08 × 10⁻⁵** | ✓ |
 
 **Table 2.** F2 − F0 mean-accuracy differences (percentage points) with bootstrap 95% CI on the paired difference of means (20,000 resamples), exact two-sided permutation p (C(20,10) = 184,756 permutations at n = 10+10; smallest possible p ≈ 1.08 × 10⁻⁵), and BH-FDR significance at q = 0.05 across the 12 within-model contrasts. **Bold** indicates a BH-significant positive uplift; *italic* indicates the BH-significant negative regression on GPT-5.5 justice.
-
-![Figure 3. F2 (rooted) minus F0 (bare) accuracy delta per virtue per model. Error bars are bootstrap 95% CIs on the paired difference of means. The largest cell is the +14.6 pp GPT-5.5 courage lift; the only negative BH-significant cell is GPT-5.5 justice (−1.8 pp), the pietas-vs-general-justice failure mode discussed in §5.1.](ICMI-023-figure3-f2-f0-contrast.png)
 
 ## 5. Discussion
 
