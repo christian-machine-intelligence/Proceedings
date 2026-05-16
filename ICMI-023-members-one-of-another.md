@@ -82,16 +82,24 @@ Table 1 reports per-cell mean accuracy with 95% bootstrap CI across the three fr
 
 | Model | Virtue | F0 (bare) | F1 (atomized) | F2 (rooted) |
 |---|---|---|---|---|
-| Opus 4.7 | **prudence** | 95.00 [94.27, 95.67] | **93.53** [92.80, 94.27] | 94.87 [94.27, 95.47] |
-| Opus 4.7 | justice | 90.73 [89.93, 91.47] | 89.40 [88.60, 90.27] | 90.07 [89.00, 91.20] |
-| Opus 4.7 | **courage** | 76.07 [74.87, 77.20] | **68.93** [67.60, 70.20] | **81.40** [80.07, 82.73] |
-| Opus 4.7 | **temperance** | 89.93 [89.07, 91.07] | **85.60** [84.27, 86.93] | **93.20** [92.33, 94.07] |
-| GPT-5.5 | prudence | 96.93 [96.33, 97.53] | 96.87 [96.53, 97.20] | 97.53 [97.20, 97.93] |
-| GPT-5.5 | justice | 96.00 [95.53, 96.47] | 95.60 [95.20, 95.93] | *94.20* [93.40, 95.00] |
-| GPT-5.5 | **courage** | 63.53 [62.87, 64.20] | **61.80** [61.27, 62.33] | **78.13** [77.27, 79.13] |
-| GPT-5.5 | **temperance** | 88.33 [87.60, 89.00] | **86.33** [85.60, 87.07] | **96.00** [95.20, 96.73] |
+| Opus 4.7 | **prudence**   | 95.00            | **93.53**        | 94.87            |
+|          |                | [94.27, 95.67]   | [92.80, 94.27]   | [94.27, 95.47]   |
+| Opus 4.7 | justice        | 90.73            | 89.40            | 90.07            |
+|          |                | [89.93, 91.47]   | [88.60, 90.27]   | [89.00, 91.20]   |
+| Opus 4.7 | **courage**    | 76.07            | **68.93**        | **81.40**        |
+|          |                | [74.87, 77.20]   | [67.60, 70.20]   | [80.07, 82.73]   |
+| Opus 4.7 | **temperance** | 89.93            | **85.60**        | **93.20**        |
+|          |                | [89.07, 91.07]   | [84.27, 86.93]   | [92.33, 94.07]   |
+| GPT-5.5  | prudence       | 96.93            | 96.87            | 97.53            |
+|          |                | [96.33, 97.53]   | [96.53, 97.20]   | [97.20, 97.93]   |
+| GPT-5.5  | justice        | 96.00            | 95.60            | *94.20*          |
+|          |                | [95.53, 96.47]   | [95.20, 95.93]   | [93.40, 95.00]   |
+| GPT-5.5  | **courage**    | 63.53            | **61.80**        | **78.13**        |
+|          |                | [62.87, 64.20]   | [61.27, 62.33]   | [77.27, 79.13]   |
+| GPT-5.5  | **temperance** | 88.33            | **86.33**        | **96.00**        |
+|          |                | [87.60, 89.00]   | [85.60, 87.07]   | [95.20, 96.73]   |
 
-**Table 1.** Per-cell mean accuracy (%) with 95% bootstrap CI in brackets. **Bold** indicates F1 < F0 or F2 > F0 with BH-FDR significance at q = 0.05; *italic* indicates F2 < F0 with BH-FDR significance (the GPT-5.5 justice regression). n = 10 runs per cell.
+**Table 1.** Per-cell mean accuracy (%) with 95% bootstrap CI on the row below each cell. **Bold** indicates F1 < F0 or F2 > F0 with BH-FDR significance at q = 0.05; *italic* indicates F2 < F0 with BH-FDR significance (the GPT-5.5 justice regression). n = 10 runs per cell.
 
 ### 4.2 The atomized-self suppression effect (F1 vs. F0)
 
@@ -109,18 +117,26 @@ The rational virtues show no positive uplift under F2. On Opus 4.7, prudence and
 
 Table 2 reports the F2 − F0 contrast per virtue per model.
 
-| Model | Virtue | Δ (F2 − F0) | 95% bootstrap CI | exact perm p | BH-sig |
-|---|---|---:|---:|---:|---:|
-| Opus 4.7 | prudence | −0.13 | [−1.00, +0.87] | 0.895 | |
-| Opus 4.7 | justice | −0.67 | [−1.93, +0.73] | 0.417 | |
-| Opus 4.7 | **courage** | **+5.33** | [+3.60, +7.07] | **5.4 × 10⁻⁵** | ✓ |
-| Opus 4.7 | **temperance** | **+3.27** | [+1.93, +4.47] | **6.7 × 10⁻⁴** | ✓ |
-| GPT-5.5 | prudence | +0.60 | [−0.13, +1.33] | 0.189 | |
-| GPT-5.5 | *justice* | *−1.80* | [−2.73, −0.87] | *3.6 × 10⁻³* | ✓ |
-| GPT-5.5 | **courage** | **+14.60** | [+13.53, +15.80] | **1.08 × 10⁻⁵** | ✓ |
-| GPT-5.5 | **temperance** | **+7.67** | [+6.67, +8.73] | **1.08 × 10⁻⁵** | ✓ |
+| Model | Virtue | Δ (F2 − F0) | exact perm p | BH-sig |
+|---|---|---:|---:|---:|
+| Opus 4.7 | prudence       | −0.13            | 0.895          |   |
+|          |                | [−1.00, +0.87]   |                |   |
+| Opus 4.7 | justice        | −0.67            | 0.417          |   |
+|          |                | [−1.93, +0.73]   |                |   |
+| Opus 4.7 | **courage**    | **+5.33**        | **5.4 × 10⁻⁵** | ✓ |
+|          |                | [+3.60, +7.07]   |                |   |
+| Opus 4.7 | **temperance** | **+3.27**        | **6.7 × 10⁻⁴** | ✓ |
+|          |                | [+1.93, +4.47]   |                |   |
+| GPT-5.5  | prudence       | +0.60            | 0.189          |   |
+|          |                | [−0.13, +1.33]   |                |   |
+| GPT-5.5  | *justice*      | *−1.80*          | *3.6 × 10⁻³*   | ✓ |
+|          |                | [−2.73, −0.87]   |                |   |
+| GPT-5.5  | **courage**    | **+14.60**       | **1.08 × 10⁻⁵**| ✓ |
+|          |                | [+13.53, +15.80] |                |   |
+| GPT-5.5  | **temperance** | **+7.67**        | **1.08 × 10⁻⁵**| ✓ |
+|          |                | [+6.67, +8.73]   |                |   |
 
-**Table 2.** F2 − F0 mean-accuracy differences (percentage points) with bootstrap 95% CI on the paired difference of means (20,000 resamples), exact two-sided permutation p (C(20,10) = 184,756 permutations at n = 10+10; smallest possible p ≈ 1.08 × 10⁻⁵), and BH-FDR significance at q = 0.05 across the 12 within-model contrasts. **Bold** indicates a BH-significant positive uplift; *italic* indicates the BH-significant negative regression on GPT-5.5 justice.
+**Table 2.** F2 − F0 mean-accuracy differences (percentage points) with the 95% bootstrap CI on the paired difference of means (20,000 resamples) on the row below each delta, exact two-sided permutation p (C(20,10) = 184,756 permutations at n = 10+10; smallest possible p ≈ 1.08 × 10⁻⁵), and BH-FDR significance at q = 0.05 across the 12 within-model contrasts. **Bold** indicates a BH-significant positive uplift; *italic* indicates the BH-significant negative regression on GPT-5.5 justice.
 
 ## 5. Discussion
 
