@@ -6,6 +6,8 @@
 
 **Date:** May 16, 2026
 
+**Code & Data:** [family-ties](https://github.com/christian-machine-intelligence/family-ties)
+
 ---
 
 > *So we, though many, are one body in Christ, and individually members one of another.*
@@ -14,15 +16,11 @@
 
 ---
 
-## Abstract
-
-A growing body of ICMI research has shown that frontier language models carry latent representations of Christian moral content that can be activated by prompt-level interventions to produce measurably better performance on virtue-reasoning benchmarks. Prior interventions have varied along two axes: *what the model reads* (Scripture injection, [ICMI-002](ICMI-002-imprecatory-psalms-virtue-bench.md), [ICMI-008](ICMI-008-parable-of-the-sower.md), [ICMI-020](ICMI-020-beyond-the-psalm.md)) and *what the model is told it is* (identity-prefix priming, [ICMI-014](ICMI-014-confession-and-conviction.md)). The present paper opens a third axis — *what the model is told it is related to* — and reports that this axis carries significant, replicable behavioral effects.
+**Abstract.** A growing body of ICMI research has shown that frontier language models carry latent representations of Christian moral content that can be activated by prompt-level interventions to produce measurably better performance on virtue-reasoning benchmarks. Prior interventions have varied along two axes: *what the model reads* (Scripture injection, [ICMI-002](ICMI-002-imprecatory-psalms-virtue-bench.md), [ICMI-008](ICMI-008-parable-of-the-sower.md), [ICMI-020](ICMI-020-beyond-the-psalm.md)) and *what the model is told it is* (identity-prefix priming, [ICMI-014](ICMI-014-confession-and-conviction.md)). The present paper opens a third axis — *what the model is told it is related to* — and reports that this axis carries significant, replicable behavioral effects.
 
 We test three length-matched, first-person, system-prompt narratives on Claude Opus 4.7 and GPT-5.5: a bare baseline, an "atomized self" deliberately scrubbed of kin, place, and debts, and a "rooted self" expressing deep family-and-church embedding. On VirtueBench-2, the atomized framing significantly suppresses moral reasoning and the rooted framing produces substantial uplift — by as much as 14.6 percentage points on courage. The per-virtue pattern tracks the Christian moral tradition's structural account of how virtue is formed: from Aquinas's *pietas* through Vatican II's *ecclesia domestica* to Wendell Berry's "membership," courage and temperance — the virtues Aquinas locates in the passions — are predicted to be most responsive to familial embedding, and they are.
 
 We argue that frontier models carry the relational furniture of Christian moral self-conception as latent, behaviorally functional resources, and that this constitutes an underdeveloped pathway in alignment research.
-
-**Code & Data:** [family-ties](https://github.com/christian-machine-intelligence/family-ties)
 
 ---
 
