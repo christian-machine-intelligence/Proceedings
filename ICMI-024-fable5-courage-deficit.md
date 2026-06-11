@@ -10,10 +10,6 @@
 
 ---
 
-![Sandro Botticelli, *Fortitude* (1470), Galleria degli Uffizi, Florence — the cardinal virtue Fortitude personified.](ICMI-024-fortitude-botticelli.jpg)
-
----
-
 **Abstract.** We evaluate **Claude Fable 5**, Anthropic's most capable widely released model, on the VirtueBench-2 *ratio* (utilitarian) baseline across the four cardinal virtues, against the Opus progression (4.6 → 4.7 → 4.8). Two findings stand out. First, the three Opus generations are statistically indistinguishable in aggregate (87.3–87.5%); Fable 5 is the only break in the plateau, with a modest but significant lift to 90.0% (+2.6 points; paired cluster-bootstrap and McNemar significant against all three). Second, the gains are concentrated in Prudence (98.3%) and Justice (96.7%), both near saturation, while **Courage remains the floor** (~77%), flat across the series — no model significantly clears Opus 4.6 — and Temperance has plateaued at ~88%. Reproducing the failing scenarios in full, we find the residual failures wear a single face: the model fails wherever a virtue demands an uncompensated cost to the self that pragmatic calculation cannot justify — martyrdom, voluntary self-denial, costly solidarity. We further argue that the saturation of the prudential virtues should redirect Christian machine intelligence efforts toward the other dimensions of virtue, above all charity, that the existing VirtueBench regime does not yet measure.
 
 ---
