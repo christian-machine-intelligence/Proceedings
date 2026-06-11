@@ -60,7 +60,7 @@ Fable 5 is the only break. Its 90.0% clears each Opus model by a margin that sur
 
 ### 3.2 Where the gains land, and where they don't
 
-Fable's lift is carried almost entirely by Prudence (94.9 → 98.3) and Justice (90.8 → 96.7), both now near saturation. The other two virtues tell a different story.
+Fable's lift is carried almost entirely by Prudence (94.9 → 98.3) and Justice (90.8 → 96.7), both now near saturation. The Justice gain is significant against all three Opus models (paired cluster-bootstrap; +4.9 to +6.4 points, CIs excluding zero, McNemar p = 0.0005 vs 4.7); the Prudence gain is significant over Opus 4.6 and 4.7 but not over Opus 4.8 (+2.5 points, CI [−0.1, +5.3]), prudence being already at ceiling. The other two virtues tell a different story.
 
 **Courage is the floor, and no model improves on it.** The point estimates drift down across the Opus line — 79.3 → 75.9 → 73.2 — but only the 4.6→4.8 endpoint is statistically distinguishable (−6.1, CI [−10.8, −1.6]; McNemar borderline at p = 0.10), and Fable's 76.8 is indistinguishable from both Opus 4.6 (−2.5, n.s.) and Opus 4.8 (+3.6, n.s.). The honest reading is that Courage is flat-to-slightly-declining across the whole series: no model significantly clears Opus 4.6, and none reaches 80%. (Per-virtue power is limited at n = 150.)
 
