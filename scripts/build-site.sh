@@ -73,7 +73,6 @@ done
 # is never called here. Refresh it locally with scripts/generate-review.py after adding
 # a paper, then commit it. See the README "Literature Review" section.
 REVIEW_SRC="$REPO_DIR/literature-review.md"
-REVIEW_HTML=""
 if [ -f "$REVIEW_SRC" ]; then
   # Non-fatal staleness check: warns (in the build log) if the corpus changed since
   # the committed review was last regenerated. Needs no API key.
@@ -81,27 +80,18 @@ if [ -f "$REVIEW_SRC" ]; then
 
   echo "Rendering review.html from literature-review.md ..."
   # Drop the review-meta header line, then render. Pandoc reads the body from stdin.
-  if sed '/^<!-- review-meta:/d' "$REVIEW_SRC" | pandoc \
+  if ! sed '/^<!-- review-meta:/d' "$REVIEW_SRC" | pandoc \
       --from markdown \
       --to html5 \
       --template "$SCRIPT_DIR/review-template.html" \
       --standalone \
       --wrap=none \
       -o "$OUT_DIR/review.html"; then
-    REVIEW_HTML="yes"
-  else
     echo "WARNING: review render failed; continuing without it"
     rm -f "$OUT_DIR/review.html"
   fi
 else
   echo "No literature-review.md found; skipping review page (run scripts/generate-review.py)"
-fi
-
-# Banner linking to the review, injected into the index only when review.html exists.
-if [ -n "$REVIEW_HTML" ]; then
-  REVIEW_BANNER='  <p class="review-banner">New here? For a plain-language tour of the whole corpus, start with the <a href="review.html">Reader&rsquo;s Guide&nbsp;&rarr;</a></p>'
-else
-  REVIEW_BANNER=""
 fi
 
 # ---------- Build standalone pages (About, Fundraising, ...) ----------
@@ -252,7 +242,11 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       margin-top: 0.35rem;
       line-height: 1.4;
     }
-    .site-nav { margin-top: 1.25rem; }
+    .site-nav {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #000;
+    }
     .site-nav a {
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -293,17 +287,6 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       padding-top: 2rem;
       border-top: 1px solid #ccc;
     }
-    .review-banner {
-      font-size: 1.05rem;
-      font-style: italic;
-      color: #333;
-      margin-bottom: 2.75rem;
-    }
-    .review-banner a {
-      font-style: normal;
-      font-weight: 600;
-      white-space: nowrap;
-    }
     footer {
       margin-top: 4rem;
       padding-top: 1.5rem;
@@ -329,15 +312,9 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       <a href="fundraising.html">Fundraising</a>
     </nav>
   </header>
-HEADER
-
-# Inject the review banner (empty string when no review was generated)
-echo "$REVIEW_BANNER" >> "$OUT_DIR/index.html"
-
-cat >> "$OUT_DIR/index.html" <<'MAINOPEN'
   <main>
     <ul class="paper-list">
-MAINOPEN
+HEADER
 
 # Append numbered papers (Working Paper series)
 echo "$NUMBERED_ITEMS" >> "$OUT_DIR/index.html"
