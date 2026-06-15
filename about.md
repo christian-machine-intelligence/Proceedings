@@ -22,6 +22,6 @@ The Institute's work spans three core areas:
 
 ## This Publication
 
-The *Proceedings of the Institute for a Christian Machine Intelligence* collects the Institute's working papers: pre-publication research documents, with accompanying benchmarks, datasets, and reproducible analyses. New readers may find the [Research Summary](review.html) a useful place to begin — a plain-language tour of the work to date.
+The *Proceedings of the Institute for a Christian Machine Intelligence* collects the Institute's working papers: pre-publication research documents, with accompanying benchmarks, datasets, and reproducible analyses. New readers may find the [Primer](review.html) a useful place to begin — a plain-language tour of the work to date.
 
 The Institute also maintains public repositories of code and data on [GitHub](https://github.com/christian-machine-intelligence).

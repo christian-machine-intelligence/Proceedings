@@ -4,4 +4,4 @@
 
 The Institute for a Christian Machine Intelligence is preparing materials on how to support its work. Please check back shortly.
 
-In the meantime, you can explore the [Research Summary](review.html) or browse the [full Proceedings](index.html).
+In the meantime, you can explore the [Primer](review.html) or browse the [full Proceedings](index.html).

@@ -47,7 +47,7 @@ The site uses a custom bash build pipeline (no static site generator). Markdown 
 Proceedings/
 ├── ICMI-*.md                    # Source papers (markdown, single source of truth)
 ├── ICMI-*.tex                   # Generated LaTeX (do NOT edit directly)
-├── literature-review.md         # Pinned "Reader's Guide" — committed, hand-editable
+├── literature-review.md         # Pinned "Primer" — committed, hand-editable
 ├── CNAME                        # GitHub Pages custom domain
 ├── favicon.png, og-image.jpg    # Site assets
 ├── scripts/
@@ -125,9 +125,9 @@ python3 scripts/serve.py        # serves _site/ on http://localhost:8787
 
 ### Literature Review (Trailhead)
 
-`literature-review.md` is a single plain-language overview of the entire corpus — a
-"Reader's Guide" linked from a banner at the top of the index, intended as a trailhead
-for newcomers who can't keep up with the growing paper count.
+`literature-review.md` is a single plain-language overview of the entire corpus — the
+"Primer," linked as **Primer** in the site header nav, intended as a trailhead for
+newcomers who can't keep up with the growing paper count.
 
 It is a **pinned, committed, hand-editable file**: it is the single source of truth for
 what publishes, and the Claude API is **not** called at build/deploy time. The build
@@ -161,9 +161,9 @@ API error, it logs a warning and leaves `literature-review.md` untouched. Hand-e
 survive until you deliberately regenerate (a new paper or `--force`), at which point the
 file is rewritten — review the `git diff`.
 
-**Rendering.** `build-site.sh` strips the `review-meta` header, renders the markdown to
-`_site/review.html` via `review-template.html`, and injects the banner into
-`index.html` (only when `literature-review.md` exists).
+**Rendering.** `build-site.sh` strips the `review-meta` header and renders the markdown
+to `_site/review.html` via `review-template.html`. The site header's **Primer** nav link
+points to that page.
 
 ### Deployment
 
