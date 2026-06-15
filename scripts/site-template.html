@@ -72,6 +72,18 @@ $endif$
       line-height: 1.4;
     }
 
+    .site-nav { margin-top: 1.1rem; }
+    .site-nav a {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      white-space: nowrap;
+    }
+    .site-nav a:hover { text-decoration: underline; }
+
     h1 { font-size: 1.8rem; font-weight: 700; margin: 2rem 0 1rem; line-height: 1.25; }
     h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
     h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.5rem; }
@@ -244,6 +256,7 @@ $endif$
       body { font-size: 17px; padding: 2rem 1rem; }
       header .site-title { font-size: 2rem; }
       h1 { font-size: 1.5rem; }
+      .site-nav a { margin-right: 1rem; }
     }
   </style>
 </head>
@@ -251,6 +264,11 @@ $endif$
   <header>
     <div class="site-title"><a href="index.html">Proceedings</a></div>
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <a href="review.html">Research Summary</a>
+      <a href="fundraising.html">Fundraising</a>
+    </nav>
   </header>
   <main>
 $body$

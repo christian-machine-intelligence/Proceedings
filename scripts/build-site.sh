@@ -104,6 +104,24 @@ else
   REVIEW_BANNER=""
 fi
 
+# ---------- Build standalone pages (About, Fundraising, ...) ----------
+# Each <name>.md in the repo root is rendered to <name>.html with the shared nav header.
+for page_src in "$REPO_DIR"/about.md "$REPO_DIR"/fundraising.md; do
+  [ -f "$page_src" ] || continue
+  page_base="$(basename "$page_src" .md)"
+  # Title for the <title> tag = first H1 (markdown formatting stripped)
+  page_title="$(sed -n 's/^# *//p' "$page_src" | head -1 | sed 's/\*//g')"
+  echo "Building $page_base.html ..."
+  pandoc "$page_src" \
+    --from markdown \
+    --to html5 \
+    --template "$SCRIPT_DIR/page-template.html" \
+    --standalone \
+    --wrap=none \
+    --metadata "title:$page_title" \
+    -o "$OUT_DIR/$page_base.html"
+done
+
 # ---------- Build index page ----------
 echo "Building index.html ..."
 
@@ -234,6 +252,17 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       margin-top: 0.35rem;
       line-height: 1.4;
     }
+    .site-nav { margin-top: 1.25rem; }
+    .site-nav a {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      white-space: nowrap;
+    }
+    .site-nav a:hover { text-decoration: underline; }
     .paper-list { list-style: none; }
     .paper-list li { margin-bottom: 2.5rem; }
     .paper-list .paper-number {
@@ -286,6 +315,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     @media (max-width: 600px) {
       body { font-size: 17px; padding: 2rem 1rem; }
       header .site-title { font-size: 2rem; }
+      .site-nav a { margin-right: 1rem; }
     }
   </style>
 </head>
@@ -293,6 +323,11 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
   <header>
     <div class="site-title">Proceedings</div>
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
+    <nav class="site-nav">
+      <a href="about.html">About</a>
+      <a href="review.html">Research Summary</a>
+      <a href="fundraising.html">Fundraising</a>
+    </nav>
   </header>
 HEADER
 

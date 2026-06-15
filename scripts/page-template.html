@@ -3,18 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Reader's Guide to the Proceedings — ICMI</title>
-  <meta property="og:type" content="article">
+  <title>$if(title)$$title$ — ICMI$else$ICMI Proceedings$endif$</title>
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="ICMI Proceedings">
-  <meta property="og:title" content="A Reader's Guide to the ICMI Proceedings">
-  <meta property="og:description" content="A plain-language overview of the Institute for a Christian Machine Intelligence working papers — a trailhead for newcomers.">
-  <meta property="og:url" content="https://icmi-proceedings.com/review.html">
+$if(title)$  <meta property="og:title" content="ICMI Proceedings — $title$">
+$endif$
   <meta property="og:image" content="https://icmi-proceedings.com/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="A Reader's Guide to the ICMI Proceedings">
-  <meta name="twitter:description" content="A plain-language overview of the Institute for a Christian Machine Intelligence working papers — a trailhead for newcomers.">
   <meta name="twitter:image" content="https://icmi-proceedings.com/og-image.jpg">
-  <meta name="description" content="A plain-language overview of the Institute for a Christian Machine Intelligence working papers — a trailhead for newcomers.">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,19 +67,7 @@
     }
     .site-nav a:hover { text-decoration: underline; }
 
-    h1.review-title {
-      font-size: 2rem;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
-    }
-
-    .review-tagline {
-      font-size: 1.1rem;
-      color: #444;
-      margin-bottom: 2rem;
-    }
-
+    h1 { font-size: 2rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.2; }
     h2 { font-size: 1.3rem; font-weight: 600; margin: 2.5rem 0 0.75rem; }
     h3 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.5rem; }
 
@@ -96,11 +80,10 @@
       font-style: italic;
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid #ccc;
-      margin: 2.5rem 0 1.5rem;
-    }
+    ul, ol { margin: 0 0 1rem 1.5rem; }
+    li { margin-bottom: 0.35rem; }
+
+    hr { border: none; border-top: 1px solid #ccc; margin: 2.5rem 0 1.5rem; }
 
     strong { font-weight: 600; }
     em { font-style: italic; }
@@ -118,7 +101,7 @@
     @media (max-width: 600px) {
       body { font-size: 17px; padding: 2rem 1rem; }
       header .site-title { font-size: 2rem; }
-      h1.review-title { font-size: 1.6rem; }
+      h1 { font-size: 1.6rem; }
       .site-nav a { margin-right: 1rem; }
     }
   </style>
@@ -134,8 +117,6 @@
     </nav>
   </header>
   <main>
-    <h1 class="review-title">A Reader's Guide to the Proceedings</h1>
-    <div class="review-tagline">Where to start, and how the papers fit together.</div>
 $body$
   </main>
   <footer>
