@@ -1,4 +1,5 @@
 _site/
+scripts/.review-cache.json
 *.pdf
 *.aux
 *.log
@@ -7,3 +8,7 @@ _site/
 *.nav
 *.snm
 .claude/
+
+# Internal lab notes — never publish
+HANDOFF*.md
+BRIEFING*.md

@@ -25,8 +25,30 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install the Anthropic SDK
+        run: pip install --upgrade anthropic
+
+      # Persists the generated literature review across runs, keyed on the
+      # contents of the papers. The Claude API is only called when a paper is
+      # added or edited; pushes that only touch the build scripts reuse the
+      # cached review (a cache hit needs no API key).
+      - name: Cache literature review
+        uses: actions/cache@v4
+        with:
+          path: scripts/.review-cache.json
+          key: icmi-review-${{ hashFiles('ICMI-*.md') }}
+          restore-keys: |
+            icmi-review-
+
       - name: Build site
         run: bash scripts/build-site.sh
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

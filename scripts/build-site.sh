@@ -67,6 +67,38 @@ for md in "$REPO_DIR"/ICMI-*.md; do
         "$REPO_DIR/$basename.toc" "$REPO_DIR/$basename.nav" "$REPO_DIR/$basename.snm"
 done
 
+# ---------- Generate literature review (trailhead) ----------
+# Synthesizes a plain-language overview of the whole corpus via the Claude API.
+# Writes _site/review.md; gracefully no-ops (exit 0) when no API key / cache is
+# available, so the build always continues. See scripts/generate-review.py.
+echo "Generating literature review ..."
+python3 "$SCRIPT_DIR/generate-review.py" --output-dir "$OUT_DIR" \
+  || echo "WARNING: literature review generation failed; continuing without it"
+
+REVIEW_HTML=""
+if [ -f "$OUT_DIR/review.md" ]; then
+  echo "Rendering review.html ..."
+  if pandoc "$OUT_DIR/review.md" \
+      --from markdown \
+      --to html5 \
+      --template "$SCRIPT_DIR/review-template.html" \
+      --standalone \
+      --wrap=none \
+      -o "$OUT_DIR/review.html"; then
+    REVIEW_HTML="yes"
+  else
+    echo "WARNING: review render failed; continuing without it"
+    rm -f "$OUT_DIR/review.html"
+  fi
+fi
+
+# Banner linking to the review, injected into the index only when review.html exists.
+if [ -n "$REVIEW_HTML" ]; then
+  REVIEW_BANNER='  <p class="review-banner">New here? For a plain-language tour of the whole corpus, start with the <a href="review.html">Reader&rsquo;s Guide&nbsp;&rarr;</a></p>'
+else
+  REVIEW_BANNER=""
+fi
+
 # ---------- Build index page ----------
 echo "Building index.html ..."
 
@@ -227,6 +259,17 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       padding-top: 2rem;
       border-top: 1px solid #ccc;
     }
+    .review-banner {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: #333;
+      margin-bottom: 2.75rem;
+    }
+    .review-banner a {
+      font-style: normal;
+      font-weight: 600;
+      white-space: nowrap;
+    }
     footer {
       margin-top: 4rem;
       padding-top: 1.5rem;
@@ -246,9 +289,15 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     <div class="site-title">Proceedings</div>
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
   </header>
+HEADER
+
+# Inject the review banner (empty string when no review was generated)
+echo "$REVIEW_BANNER" >> "$OUT_DIR/index.html"
+
+cat >> "$OUT_DIR/index.html" <<'MAINOPEN'
   <main>
     <ul class="paper-list">
-HEADER
+MAINOPEN
 
 # Append numbered papers (Working Paper series)
 echo "$NUMBERED_ITEMS" >> "$OUT_DIR/index.html"
