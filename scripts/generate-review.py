@@ -1,24 +1,27 @@
 #!/usr/bin/env python3
-"""Generate a layperson literature review of the ICMI corpus via the Claude API.
+"""Author/refresh the pinned ICMI literature review via the Claude API.
 
-Scans every ICMI-*.md working paper, extracts its metadata + abstract, and asks
-Claude to synthesize a ~500-1000 word plain-language "trailhead" review that links
-to the individual papers. The output is written as Markdown to
-``<output-dir>/review.md``; build-site.sh renders it to review.html and links to it
-from the Proceedings index.
+The review is a *committed, hand-editable* file (``literature-review.md``) that is the
+single source of truth for what publishes: build-site.sh renders it to review.html and
+links to it from the Proceedings index. The Claude API is NOT called at build/deploy
+time — only when you run this script to refresh the review (e.g. after adding a paper).
 
-A content-hash cache (scripts/.review-cache.json) avoids re-calling the API when the
-corpus, prompt, and model are all unchanged. Use --force to regenerate regardless.
+This script scans every ICMI-*.md working paper, extracts its metadata + abstract, asks
+Claude to synthesize a ~500-1000 word plain-language "trailhead" review that links to
+the individual papers, and writes it to literature-review.md with a small ``review-meta``
+header recording the corpus hash it was generated from. Re-running is a no-op while the
+corpus is unchanged (it won't clobber your edits); pass --force to regenerate anyway.
 
-Degrades gracefully: if no API credential is available (or the anthropic package is
-missing) and no usable cache exists, it logs a warning and exits 0 so the site build
-continues without the trailhead. A live API error likewise falls back to the cache (or
-skips) rather than failing the build.
+Workflow:
+    # after adding/editing a paper, refresh the review, then review the diff & commit
+    python3 scripts/generate-review.py            # regenerate if the corpus changed
+    python3 scripts/generate-review.py --check     # warn (exit 0) if it's stale; no API
+    python3 scripts/generate-review.py --force     # regenerate even if unchanged
+    python3 scripts/generate-review.py --dry-run   # print the prompt only; no API call
 
-Usage:
-    python3 scripts/generate-review.py --output-dir _site
-    python3 scripts/generate-review.py --dry-run        # print the prompt, no API call
-    python3 scripts/generate-review.py --force          # ignore the cache
+Credentials: reads ANTHROPIC_API_KEY from the environment, or from a gitignored
+``.env`` in the repo root. Generation never destroys the existing review: with no
+credential (or on an API error) it logs a warning and leaves literature-review.md as-is.
 """
 from __future__ import annotations
 
@@ -39,6 +42,11 @@ WORD_TARGET = "500 to 1000 words"
 MAX_OUTPUT_TOKENS = 8000
 # How many follow-up passes to spend weaving in any papers the draft missed.
 MAX_COVERAGE_REPAIRS = 2
+# Committed source of truth for the published review (relative to the repo root).
+SOURCE_FILENAME = "literature-review.md"
+# Marker line carrying the corpus hash the review was generated from.
+META_PREFIX = "<!-- review-meta: "
+META_SUFFIX = " -->"
 
 SYSTEM_PROMPT = """\
 You are a science writer for the Institute for a Christian Machine Intelligence \
@@ -327,10 +335,53 @@ def generate_markdown(papers: list[dict], model: str) -> str:
     return body
 
 
+def load_dotenv(repo_dir: Path) -> None:
+    """If ANTHROPIC_API_KEY isn't already set, load it from a gitignored repo .env.
+    Minimal parser (KEY=value, optional 'export' and quotes); no dependency."""
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return
+    env_path = repo_dir / ".env"
+    if not env_path.is_file():
+        return
+    try:
+        for raw in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw.strip()
+            if not line or line.startswith("#"):
+                continue
+            line = line[len("export "):].strip() if line.startswith("export ") else line
+            if "=" not in line:
+                continue
+            key, val = line.split("=", 1)
+            key, val = key.strip(), val.strip().strip("'\"")
+            if key and key not in os.environ:
+                os.environ[key] = val
+    except Exception as e:  # noqa: BLE001
+        log(f"WARN could not read {env_path}: {e}")
+
+
 def have_api_credential() -> bool:
     return bool(
         os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN")
     )
+
+
+def read_source_meta(source_file: Path) -> dict | None:
+    """Parse the review-meta header from a committed literature-review.md, or None."""
+    try:
+        first = source_file.read_text(encoding="utf-8").splitlines()[0]
+    except (OSError, IndexError):
+        return None
+    if first.startswith(META_PREFIX) and first.rstrip().endswith(META_SUFFIX.strip()):
+        try:
+            return json.loads(first[len(META_PREFIX):].rstrip()[: -len(META_SUFFIX.strip())])
+        except json.JSONDecodeError:
+            return None
+    return None
+
+
+def write_source(source_file: Path, review_md: str, meta: dict) -> None:
+    header = META_PREFIX + json.dumps(meta, separators=(",", ":")) + META_SUFFIX
+    source_file.write_text(header + "\n" + review_md.strip() + "\n", encoding="utf-8")
 
 
 def load_cache(path: Path) -> dict | None:
@@ -351,22 +402,28 @@ def main() -> int:
     script_dir = Path(__file__).resolve().parent
     repo_dir = script_dir.parent
 
-    ap = argparse.ArgumentParser(description=__doc__)
+    ap = argparse.ArgumentParser(description="Author/refresh the pinned ICMI review.")
     ap.add_argument("--repo-dir", type=Path, default=repo_dir)
-    ap.add_argument("--output-dir", type=Path, default=repo_dir / "_site")
+    ap.add_argument("--source-file", type=Path, default=None,
+                    help=f"committed review markdown (default <repo>/{SOURCE_FILENAME})")
     ap.add_argument("--cache", type=Path, default=script_dir / ".review-cache.json")
     ap.add_argument("--model", default=os.environ.get("ICMI_REVIEW_MODEL", DEFAULT_MODEL))
-    ap.add_argument("--force", action="store_true", help="ignore the cache")
-    ap.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="print the assembled prompt and exit (no API call, no files written)",
-    )
+    ap.add_argument("--force", action="store_true",
+                    help="regenerate even if the corpus is unchanged")
+    ap.add_argument("--check", action="store_true",
+                    help="report whether the review is stale; no API call, no writes")
+    ap.add_argument("--strict", action="store_true",
+                    help="with --check, exit 1 (instead of 0) when stale or missing")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="print the assembled prompt and exit (no API call, no writes)")
     args = ap.parse_args()
+
+    load_dotenv(args.repo_dir)
+    source_file: Path = args.source_file or (args.repo_dir / SOURCE_FILENAME)
 
     papers = build_corpus(args.repo_dir)
     if not papers:
-        log("no ICMI-*.md papers found; skipping review generation")
+        log("no ICMI-*.md papers found; nothing to do")
         return 0
 
     if args.dry_run:
@@ -375,54 +432,66 @@ def main() -> int:
         return 0
 
     chash = corpus_hash(papers, args.model)
-    cache = load_cache(args.cache)
+    meta = read_source_meta(source_file)
+    up_to_date = bool(meta) and meta.get("corpus_hash") == chash
 
+    # ---- --check: report staleness only (no API, no writes) ----
+    if args.check:
+        if not source_file.exists():
+            log(f"{source_file.name} does not exist yet — run generate-review.py to create it")
+            return 1 if args.strict else 0
+        if up_to_date:
+            log(f"{source_file.name} is up to date ({len(papers)} papers)")
+            return 0
+        log(f"WARN {source_file.name} is STALE — the corpus changed since it was "
+            "generated. Refresh it with: python3 scripts/generate-review.py")
+        return 1 if args.strict else 0
+
+    # ---- regenerate the committed review ----
+    if up_to_date and not args.force:
+        log(f"{source_file.name} already up to date (hash {chash[:12]}); nothing to do "
+            "(use --force to regenerate anyway)")
+        return 0
+
+    cache = load_cache(args.cache)
     review_md = None
     if cache and cache.get("corpus_hash") == chash and not args.force:
-        log(f"corpus unchanged (hash {chash[:12]}); reusing cached review")
+        log("reusing cached generation (corpus unchanged since the last API call)")
         review_md = cache.get("markdown")
 
     if review_md is None:
         if not have_api_credential():
-            if cache and cache.get("markdown"):
-                log("WARN no API credential; corpus changed but reusing STALE cache")
-                review_md = cache["markdown"]
-            else:
-                log("WARN no API credential and no cache; skipping review generation")
-                return 0
-        else:
-            try:
-                body = generate_markdown(papers, args.model)
-                body, cited = substitute_citations(body, papers)
-                review_md = assemble_review(body, papers, args.model)
-                save_cache(
-                    args.cache,
-                    {
-                        "corpus_hash": chash,
-                        "model": args.model,
-                        "generated_at": datetime.now(timezone.utc).isoformat(),
-                        "cited_tags": sorted(cited),
-                        "paper_count": len(papers),
-                        "markdown": review_md,
-                    },
-                )
-                coverage = f"cited {len(cited)}/{len(papers)} papers"
-                if len(cited) < len(papers):
-                    coverage += " — WARN some papers uncited after repair passes"
-                log(f"generated review (~{len(review_md.split())} words; {coverage})")
-            except Exception as e:  # noqa: BLE001 - never fail the site build
-                log(f"ERROR review generation failed: {e}")
-                if cache and cache.get("markdown"):
-                    log("falling back to STALE cached review")
-                    review_md = cache["markdown"]
-                else:
-                    log("no cache to fall back on; skipping review generation")
-                    return 0
+            log("WARN no ANTHROPIC_API_KEY (env or repo .env); leaving "
+                f"{source_file.name} unchanged. Set the key and re-run to refresh it.")
+            return 0
+        try:
+            body = generate_markdown(papers, args.model)
+            body, cited = substitute_citations(body, papers)
+            review_md = assemble_review(body, papers, args.model)
+            save_cache(args.cache, {
+                "corpus_hash": chash,
+                "model": args.model,
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "cited_tags": sorted(cited),
+                "paper_count": len(papers),
+                "markdown": review_md,
+            })
+            coverage = f"cited {len(cited)}/{len(papers)} papers"
+            if len(cited) < len(papers):
+                coverage += " — WARN some papers uncited after repair passes"
+            log(f"generated review (~{len(review_md.split())} words; {coverage})")
+        except Exception as e:  # noqa: BLE001 - don't destroy the approved review
+            log(f"ERROR generation failed ({e}); leaving {source_file.name} unchanged")
+            return 0
 
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    out = args.output_dir / "review.md"
-    out.write_text(review_md, encoding="utf-8")
-    log(f"wrote {out}")
+    write_source(source_file, review_md, {
+        "corpus_hash": chash,
+        "model": args.model,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "prompt_version": PROMPT_VERSION,
+        "paper_count": len(papers),
+    })
+    log(f"wrote {source_file} — review the diff, then commit it")
     return 0
 
 

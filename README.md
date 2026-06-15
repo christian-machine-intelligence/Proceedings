@@ -47,6 +47,7 @@ The site uses a custom bash build pipeline (no static site generator). Markdown 
 Proceedings/
 ├── ICMI-*.md                    # Source papers (markdown, single source of truth)
 ├── ICMI-*.tex                   # Generated LaTeX (do NOT edit directly)
+├── literature-review.md         # Pinned "Reader's Guide" — committed, hand-editable
 ├── CNAME                        # GitHub Pages custom domain
 ├── favicon.png, og-image.jpg    # Site assets
 ├── scripts/
@@ -56,11 +57,11 @@ Proceedings/
 │   ├── review-template.html     # Pandoc HTML template (literature review page)
 │   ├── icmi-template.tex        # Pandoc LaTeX template (PDF output)
 │   ├── crosslink-bibliography.py  # Post-processor: hyperlinks between papers
-│   ├── generate-review.py       # Claude API: synthesize the corpus literature review
+│   ├── generate-review.py       # Claude API: refresh literature-review.md (run locally)
 │   └── serve.py                 # Local dev server (port 8787)
 ├── _site/                       # Generated output (gitignored)
 │   ├── index.html               # Landing page (generated inline by build script)
-│   ├── review.html              # Auto-generated literature review ("trailhead")
+│   ├── review.html              # Rendered literature review ("trailhead")
 │   ├── ICMI-*.html              # Paper HTML pages
 │   └── ICMI-*.pdf               # Paper PDFs
 └── .github/workflows/
@@ -124,43 +125,56 @@ python3 scripts/serve.py        # serves _site/ on http://localhost:8787
 
 ### Literature Review (Trailhead)
 
-Each build regenerates a single plain-language overview of the entire corpus — a
-"Reader's Guide" linked from a banner at the top of the index, intended as a
-trailhead for newcomers who can't keep up with the growing paper count.
+`literature-review.md` is a single plain-language overview of the entire corpus — a
+"Reader's Guide" linked from a banner at the top of the index, intended as a trailhead
+for newcomers who can't keep up with the growing paper count.
 
-How it works:
-1. `scripts/generate-review.py` scans every `ICMI-*.md`, extracts each paper's
-   title/author/date/abstract, and asks the Claude API to synthesize a
-   ~500–1000 word thematic review (Markdown), citing papers inline.
-2. Citation markers are converted to real hyperlinks to each paper, and the
-   result is written to `_site/review.md`.
-3. `build-site.sh` renders it to `_site/review.html` via `review-template.html`
-   and injects the banner into `index.html`.
+It is a **pinned, committed, hand-editable file**: it is the single source of truth for
+what publishes, and the Claude API is **not** called at build/deploy time. The build
+only renders it. This means you review and approve the exact text before it goes live.
 
-**Caching & cost control.** The script hashes the corpus (paper basenames,
-titles, dates, abstracts) plus the model and prompt version into
-`scripts/.review-cache.json` (gitignored). The Claude API is called only when
-that hash changes — i.e. when a paper is added or edited. Pushes that only touch
-build scripts reuse the cached review at no cost. In CI, `actions/cache`
-persists this file across runs. Pass `--force` to regenerate regardless.
+**Refreshing it.** After adding or editing a paper, regenerate the review locally:
 
-**Resilience.** Generation never fails the build. With no API credential and no
-cache it simply skips the review (and the banner); a live API error falls back
-to the last cached review. Override the model with the `ICMI_REVIEW_MODEL`
-environment variable (default `claude-opus-4-8`).
+```bash
+# needs ANTHROPIC_API_KEY in the environment or a gitignored ./.env
+python3 scripts/generate-review.py            # regenerate if the corpus changed
+git diff literature-review.md                 # review the change…
+# …edit by hand if you like, then commit it
+```
 
-**Setup.** Add an `ANTHROPIC_API_KEY` repository secret
-(Settings → Secrets and variables → Actions) so CI can call the API. Locally,
-export `ANTHROPIC_API_KEY` before running `build-site.sh` to regenerate the
-review; without it the build still succeeds using the cached (or no) review.
+`scripts/generate-review.py` scans every `ICMI-*.md`, extracts each paper's
+title/author/date/abstract, asks Claude for a ~500–1000 word thematic review (citing
+every paper, with a verify/repair pass), turns the citation markers into hyperlinks,
+and writes `literature-review.md` with a `review-meta` header recording the corpus hash
+it was generated from. Other flags:
+
+- `--check` — report whether the review is stale vs. the papers; **no API call**. The
+  build runs this and prints a non-fatal warning if you've added a paper without
+  refreshing. Add `--strict` to exit non-zero instead (e.g. to gate CI).
+- `--force` — regenerate even if the corpus is unchanged (re-runs are otherwise a
+  no-op, so they never clobber your hand-edits).
+- `--dry-run` — print the prompt only.
+- `ICMI_REVIEW_MODEL` env var overrides the model (default `claude-opus-4-8`).
+
+**Safety.** Generation never destroys the approved review: with no API key, or on an
+API error, it logs a warning and leaves `literature-review.md` untouched. Hand-edits
+survive until you deliberately regenerate (a new paper or `--force`), at which point the
+file is rewritten — review the `git diff`.
+
+**Rendering.** `build-site.sh` strips the `review-meta` header, renders the markdown to
+`_site/review.html` via `review-template.html`, and injects the banner into
+`index.html` (only when `literature-review.md` exists).
 
 ### Deployment
 
 GitHub Actions (`.github/workflows/build-site.yml`) triggers on push to `main`:
-1. Installs pandoc + texlive on Ubuntu, and the `anthropic` Python SDK
-2. Restores the cached literature review (keyed on `ICMI-*.md` contents)
-3. Runs `build-site.sh` with `ANTHROPIC_API_KEY` available
-4. Deploys `_site/` to GitHub Pages via `actions/deploy-pages@v4`
+1. Installs pandoc + texlive on Ubuntu
+2. Runs `build-site.sh`, which renders the committed `literature-review.md` (no API
+   call — it warns non-fatally if the review is stale relative to the papers)
+3. Deploys `_site/` to GitHub Pages via `actions/deploy-pages@v4`
+
+> No `ANTHROPIC_API_KEY` secret is needed for deploys — the key is only used locally
+> when you run `generate-review.py` to refresh the review.
 
 ### Adding New Pages
 

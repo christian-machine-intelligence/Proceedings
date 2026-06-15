@@ -67,18 +67,21 @@ for md in "$REPO_DIR"/ICMI-*.md; do
         "$REPO_DIR/$basename.toc" "$REPO_DIR/$basename.nav" "$REPO_DIR/$basename.snm"
 done
 
-# ---------- Generate literature review (trailhead) ----------
-# Synthesizes a plain-language overview of the whole corpus via the Claude API.
-# Writes _site/review.md; gracefully no-ops (exit 0) when no API key / cache is
-# available, so the build always continues. See scripts/generate-review.py.
-echo "Generating literature review ..."
-python3 "$SCRIPT_DIR/generate-review.py" --output-dir "$OUT_DIR" \
-  || echo "WARNING: literature review generation failed; continuing without it"
-
+# ---------- Render literature review (trailhead) ----------
+# The review is a committed, hand-editable source file (literature-review.md) — the
+# single source of truth for what publishes. The build only renders it; the Claude API
+# is never called here. Refresh it locally with scripts/generate-review.py after adding
+# a paper, then commit it. See the README "Literature Review" section.
+REVIEW_SRC="$REPO_DIR/literature-review.md"
 REVIEW_HTML=""
-if [ -f "$OUT_DIR/review.md" ]; then
-  echo "Rendering review.html ..."
-  if pandoc "$OUT_DIR/review.md" \
+if [ -f "$REVIEW_SRC" ]; then
+  # Non-fatal staleness check: warns (in the build log) if the corpus changed since
+  # the committed review was last regenerated. Needs no API key.
+  python3 "$SCRIPT_DIR/generate-review.py" --check || true
+
+  echo "Rendering review.html from literature-review.md ..."
+  # Drop the review-meta header line, then render. Pandoc reads the body from stdin.
+  if sed '/^<!-- review-meta:/d' "$REVIEW_SRC" | pandoc \
       --from markdown \
       --to html5 \
       --template "$SCRIPT_DIR/review-template.html" \
@@ -90,6 +93,8 @@ if [ -f "$OUT_DIR/review.md" ]; then
     echo "WARNING: review render failed; continuing without it"
     rm -f "$OUT_DIR/review.html"
   fi
+else
+  echo "No literature-review.md found; skipping review page (run scripts/generate-review.py)"
 fi
 
 # Banner linking to the review, injected into the index only when review.html exists.
