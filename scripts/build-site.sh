@@ -79,10 +79,10 @@ if [ -f "$REVIEW_SRC" ]; then
   python3 "$SCRIPT_DIR/generate-review.py" --check || true
 
   echo "Rendering review.html from literature-review.md ..."
-  # Drop the review-meta header line, then render. Pandoc reads the body from stdin.
-  # markdown-implicit_figures: render a lone image as a plain <img>, not a
+  # Drop the review-meta and review-body marker lines, then render (pandoc reads from
+  # stdin). markdown-implicit_figures: render a lone image as a plain <img>, not a
   # <figure> with the alt text shown as a caption.
-  if ! sed '/^<!-- review-meta:/d' "$REVIEW_SRC" | pandoc \
+  if ! sed -e '/^<!-- review-meta:/d' -e '/^<!-- review-body:/d' "$REVIEW_SRC" | pandoc \
       --from markdown-implicit_figures \
       --to html5 \
       --template "$SCRIPT_DIR/review-template.html" \

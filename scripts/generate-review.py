@@ -47,39 +47,57 @@ SOURCE_FILENAME = "literature-review.md"
 # Marker line carrying the corpus hash the review was generated from.
 META_PREFIX = "<!-- review-meta: "
 META_SUFFIX = " -->"
+# Everything before this marker (the masthead, intro, mission) is a hand-written
+# preamble that regeneration PRESERVES; only the categorized body after it is rewritten.
+BODY_START_MARKER = "<!-- review-body:start -->"
+
+# Fixed section structure: the body is organized under exactly these three headings.
+CATEGORIES = [
+    "How might Christian representations be activated within a model, and what are the effects?",
+    "How is one to measure and evaluate Christian virtue, and what does it reveal?",
+    "How might Christian theology and doctrine inform thinking about AI governance, risk, and safety?",
+]
+
+# Used only when generating into a file that has no preamble yet (fresh setup / --force).
+DEFAULT_PREAMBLE = (
+    "*This is a programmatically generated overview of all research published by the "
+    "Institute for a Christian Machine Intelligence (ICMI) to date. It is meant as a "
+    "plain-language trailhead for the curious reader; for the papers themselves, see "
+    "the [full list of Proceedings](index.html).*\n\n"
+    "To date, the Institute's research has followed three themes:\n\n"
+    + "\n".join(f"- {c}" for c in CATEGORIES)
+)
 
 SYSTEM_PROMPT = """\
 You are a science writer for the Institute for a Christian Machine Intelligence \
 (ICMI), a research group publishing working papers at the intersection of Christian \
-theology and AI alignment, interpretability, and evaluation. Your job is to write a \
-single, plain-language literature review that serves as a *trailhead* — a way for a \
-curious non-specialist to grasp, at a glance, what this body of work is about and \
-where to start reading.
+theology and AI alignment, interpretability, and evaluation.
 
-You will be given the title, author, date, and abstract of every paper in the corpus \
-({n} papers in total). Write a review of {words} that:
+You are writing the BODY of a plain-language "Primer" that surveys the institute's \
+{n} working papers for a curious non-specialist. The page title, introduction, and \
+masthead are supplied separately — you write ONLY the categorized body, about {words}.
 
-- Opens with one short paragraph framing the overall project in terms an educated \
-layperson can follow.
-- Is organized THEMATICALLY — group related papers and trace the through-line of the \
-research program. Do NOT write a paper-by-paper list or an annotated bibliography.
-- Explains ideas in everyday language. The first time a technical or in-house term \
-appears (e.g. "psalm injection", "VirtueBench", "alignment", "corrigibility"), define \
-it in a few words. Avoid equations and unexplained jargon.
-- Is accurate and grounded ONLY in the abstracts provided. Do not invent findings, \
-numbers, or claims. Where results are preliminary or in tension, say so plainly; do \
-not overclaim or use hype words like "groundbreaking".
-- Has a warm but precise, non-promotional tone.
-- Cites EVERY paper at least once, using the citation markers described below, so the \
-reader can click straight through to any of them. Work each citation in naturally \
-where that paper is most relevant — never as a bare dumped list — but make sure not a \
-single paper is left out.
-- Uses 2 to 4 short thematic subheadings (Markdown `##`) and tight paragraphs.
-- Closes with a brief, inviting sentence pointing a newcomer toward where to begin.
+Organize the papers under EXACTLY these three section headings, in this order, each \
+used verbatim as a Markdown `##` heading:
 
-Output ONLY the review body, in Markdown. Do NOT include a top-level title or H1 (the \
-page supplies its own). Do NOT include any preamble, sign-off, notes about your \
-process, or a word count — return just the review itself.\
+{headings}
+
+Rules:
+- Assign each paper to the SINGLE category where it best fits. Every paper must appear \
+under exactly one category and be cited at least once.
+- Under each heading, write tight, plain-language prose (one to three short \
+paragraphs) that traces the through-line of that category's work — NOT a paper-by-paper \
+list. The first time a technical or in-house term appears (e.g. "scripture injection", \
+"VirtueBench", "corrigibility"), define it in a few words. Avoid unexplained jargon.
+- Be accurate and grounded ONLY in the abstracts provided. Do not invent findings or \
+numbers; where results are preliminary or in tension, say so plainly; no hype.
+- Keep a warm but precise, non-promotional tone.
+- Cite papers inline with the [[n]] markers described below.
+- After the third section, add ONE short sentence pointing a newcomer to where to begin.
+
+Output ONLY the three `##` sections and that closing sentence, in Markdown. Do NOT \
+include a title, an introduction, the masthead, a footer, or any notes about your \
+process — just the three sections and the closing line.\
 """
 
 CITATION_INSTRUCTIONS = """\
@@ -258,23 +276,45 @@ def substitute_citations(md: str, papers: list[dict]) -> tuple[str, set[int]]:
     return md, cited
 
 
-def assemble_review(body: str, papers: list[dict], model: str) -> str:
+def footer_md(papers: list[dict], model: str) -> str:
     n = len(papers)
     latest = papers[-1]
     today = datetime.now(timezone.utc).strftime("%B %-d, %Y")
-    intro = (
-        "*This is an automatically generated overview of the ICMI working-paper "
-        "corpus, refreshed whenever a new paper is published. It is meant as a "
-        "plain-language trailhead for the curious reader; for the papers themselves, "
-        "see the [full list of Proceedings](index.html).*\n\n"
-    )
-    footer = (
+    return (
         "\n\n---\n\n"
-        f"*Auto-generated on {today} by {model}, synthesizing the abstracts of all "
-        f'{n} working papers (most recent: [{latest["cite_label"]}]({latest["url"]}), '
+        f"*Auto-generated on {today}, synthesizing the abstracts of all {n} ICMI "
+        f'working papers (most recent: [{latest["cite_label"]}]({latest["url"]}), '
         f'“{latest["title"]}”). Browse the [full Proceedings](index.html).*\n'
     )
-    return intro + body.strip() + footer
+
+
+def read_preamble(source_file: Path) -> str | None:
+    """Return the frozen preamble — everything after the review-meta line up to (and not
+    including) BODY_START_MARKER. None if the file is missing or has no marker."""
+    try:
+        text = source_file.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    if BODY_START_MARKER not in text:
+        return None
+    before = text.split(BODY_START_MARKER, 1)[0]
+    lines = before.splitlines()
+    if lines and lines[0].startswith(META_PREFIX):
+        lines = lines[1:]
+    return "\n".join(lines).strip()
+
+
+def assemble_with_preamble(preamble: str, body: str, papers: list[dict], model: str) -> str:
+    """Splice the (preserved) preamble, the body marker, the freshly generated body,
+    and the footer into the full review markdown."""
+    return (
+        preamble.strip()
+        + "\n\n"
+        + BODY_START_MARKER
+        + "\n\n"
+        + body.strip()
+        + footer_md(papers, model)
+    )
 
 
 def cited_tags(md: str, papers: list[dict]) -> set[int]:
@@ -290,7 +330,8 @@ def generate_markdown(papers: list[dict], model: str) -> str:
     import anthropic  # imported lazily so --dry-run works without the package
 
     client = anthropic.Anthropic()
-    system = SYSTEM_PROMPT.format(n=len(papers), words=WORD_TARGET)
+    headings = "\n".join(f"## {c}" for c in CATEGORIES)
+    system = SYSTEM_PROMPT.format(n=len(papers), words=WORD_TARGET, headings=headings)
 
     def call(messages: list[dict]) -> str:
         resp = client.messages.create(
@@ -453,36 +494,50 @@ def main() -> int:
             "(use --force to regenerate anyway)")
         return 0
 
-    cache = load_cache(args.cache)
-    review_md = None
-    if cache and cache.get("corpus_hash") == chash and not args.force:
-        log("reusing cached generation (corpus unchanged since the last API call)")
-        review_md = cache.get("markdown")
+    # Preserve the hand-written preamble (masthead, intro, mission) — only the
+    # categorized body after BODY_START_MARKER is regenerated.
+    preamble = read_preamble(source_file)
+    if preamble is None:
+        if source_file.exists() and not args.force:
+            log(f"WARN {source_file.name} has no '{BODY_START_MARKER}' marker; refusing "
+                "to regenerate so hand-edited content isn't overwritten. Add the marker "
+                "above the first '## ' section, or pass --force to rebuild from a default "
+                "preamble.")
+            return 0
+        preamble = DEFAULT_PREAMBLE  # fresh setup, or --force over a marker-less file
 
-    if review_md is None:
+    cache = load_cache(args.cache)
+    body = cited = None
+    if cache and cache.get("corpus_hash") == chash and not args.force:
+        log("reusing cached body (corpus unchanged since the last API call)")
+        body = cache.get("body")
+        cited = set(cache.get("cited_tags", []))
+
+    if body is None:
         if not have_api_credential():
             log("WARN no ANTHROPIC_API_KEY (env or repo .env); leaving "
                 f"{source_file.name} unchanged. Set the key and re-run to refresh it.")
             return 0
         try:
-            body = generate_markdown(papers, args.model)
-            body, cited = substitute_citations(body, papers)
-            review_md = assemble_review(body, papers, args.model)
+            raw = generate_markdown(papers, args.model)
+            body, cited = substitute_citations(raw, papers)
             save_cache(args.cache, {
                 "corpus_hash": chash,
                 "model": args.model,
                 "generated_at": datetime.now(timezone.utc).isoformat(),
                 "cited_tags": sorted(cited),
                 "paper_count": len(papers),
-                "markdown": review_md,
+                "body": body,
             })
-            coverage = f"cited {len(cited)}/{len(papers)} papers"
-            if len(cited) < len(papers):
-                coverage += " — WARN some papers uncited after repair passes"
-            log(f"generated review (~{len(review_md.split())} words; {coverage})")
         except Exception as e:  # noqa: BLE001 - don't destroy the approved review
             log(f"ERROR generation failed ({e}); leaving {source_file.name} unchanged")
             return 0
+
+    review_md = assemble_with_preamble(preamble, body, papers, args.model)
+    coverage = f"cited {len(cited)}/{len(papers)} papers"
+    if len(cited) < len(papers):
+        coverage += " — WARN some papers uncited after repair passes"
+    log(f"assembled review (~{len(review_md.split())} words; {coverage})")
 
     write_source(source_file, review_md, {
         "corpus_hash": chash,
