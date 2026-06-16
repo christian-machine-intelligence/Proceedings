@@ -2,15 +2,19 @@
 
 The Institute for a Christian Machine Intelligence (ICMI) is building a fully independent, non-profit alignment lab where the Christian faith ships **code, data, and evaluations that actually change how machine learning is practiced**, and trains a new generation of researchers to do the same.
 
-The idea is simple — a serious, technical, empirical alignment lab — but working from Christian first principles. That is what we intend to be.
+The idea is simple — a serious, technical, empirical alignment lab — but working from Christian first principles. That is what we intend to be. We need your help.
 
-## The missing toolkit
+## The urgent present 
 
-AI safety has a missing toolkit. The field's prevailing instincts are utilitarian, and they inherit utilitarianism's blind spots: they have little to say about sin, almost nothing about virtue, and no account of why a capable agent reliably chooses the good when the incentives say otherwise. Yet the models we are trying to align were trained on a written record saturated with two thousand years of Christian moral reasoning. That tradition is already *latent* inside these systems. Our wager is that it can be activated, measured, and engineered. We believe that doing so yields safety methods that are competitive with, and sometimes stronger than, secular approaches alone.
+The most powerful technology in human history is being given its moral character right now, and Christians are not in the room. Within this decade, machine intelligence will mediate how billions learn, work, form relationships, raise children, and reason about right and wrong. The values baked into these systems today by a handful of labs will shape society, the family, and the faith for generations. 
 
-On the other hand, the Christian community cannot expect to shape this technology from the outside by simple force of declaration. Statements of principle, open letters, and abstract appeals to dignity or the common good — however true — do not move how a model is trained, evaluated, or shipped. Machine learning is not built by manifesto; it is built by people who run code, read benchmarks, and trust results they can reproduce. Values that arrive only as exhortation are heard as someone else's ethics and routed around. To actually bend the trajectory of the technology, the tradition has to show up in the same currency the field runs on: working methods, measurable effects, and artifacts that practitioners can pick up and use.
+**This is a hinge moment, and it will not wait. If the Christian tradition is absent while the trajectory is being fixed, it will spend the next century reacting to a world built without it.**
 
-We are not a think tank issuing position papers. We run experiments on frontier models, release benchmarks and datasets others can use, and publish reproducible results in [Proceedings](index.html). The work is empirical first and theological throughout.
+There is an opportunity because AI safety has a missing toolkit. The field's instincts are utilitarian, and inherit utilitarianism's blind spots: little to say about sin, almost nothing about virtue, no account of why a capable agent chooses the good when the incentives say otherwise. Yet these models were trained on a record saturated with two thousand years of Christian moral reasoning — that tradition is already *latent* inside them. Our wager is that it can be activated, measured, and engineered into safety methods competitive with, and sometimes stronger than, secular approaches alone.
+
+The Christian tradition cannot shape this technology by declaration. Open letters and appeals to dignity or the common good do not move how a model is trained, evaluated, or shipped. Machine learning is built by people who run code, read benchmarks, and trust results they can reproduce; values that arrive only as exhortation are heard as someone else's ethics and routed around. To bend the trajectory, the tradition has to show up in the field's own currency: working methods, measurable effects, and artifacts practitioners can use.
+
+That is why we are not a think tank issuing position papers. We run experiments on frontier models, release benchmarks and datasets others can use, and publish reproducible results in [Proceedings](index.html) — empirical first, theological throughout.
 
 To carry this from a publication series to a durable institution, we need to fund the things real labs are made of: **compute, people, training, and data.**
 
