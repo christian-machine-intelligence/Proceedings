@@ -80,8 +80,10 @@ if [ -f "$REVIEW_SRC" ]; then
 
   echo "Rendering review.html from literature-review.md ..."
   # Drop the review-meta header line, then render. Pandoc reads the body from stdin.
+  # markdown-implicit_figures: render a lone image as a plain <img>, not a
+  # <figure> with the alt text shown as a caption.
   if ! sed '/^<!-- review-meta:/d' "$REVIEW_SRC" | pandoc \
-      --from markdown \
+      --from markdown-implicit_figures \
       --to html5 \
       --template "$SCRIPT_DIR/review-template.html" \
       --standalone \
