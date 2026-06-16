@@ -144,9 +144,11 @@ git diff literature-review.md                 # review the change…
 
 `scripts/generate-review.py` scans every `ICMI-*.md`, extracts each paper's
 title/author/date/abstract, asks Claude to organize them under three fixed research
-categories (citing every paper, with a verify/repair pass), turns the citation markers
-into hyperlinks, and writes `literature-review.md` with a `review-meta` header recording
-the corpus hash it was generated from. Other flags:
+categories (the `CATEGORIES` constant) in short paragraphs, citing most papers — a few
+deliberate omissions of minor or superseded papers are allowed, and the run logs which
+papers it left out so you can add any back by hand. It turns the citation markers into
+hyperlinks and writes `literature-review.md` with a `review-meta` header recording the
+corpus hash it was generated from. Other flags:
 
 - `--check` — report whether the review is stale vs. the papers; **no API call**. The
   build runs this and prints a non-fatal warning if you've added a paper without

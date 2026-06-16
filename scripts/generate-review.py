@@ -82,22 +82,34 @@ used verbatim as a Markdown `##` heading:
 
 {headings}
 
-Rules:
-- Assign each paper to the SINGLE category where it best fits. Every paper must appear \
-under exactly one category and be cited at least once.
-- Under each heading, write tight, plain-language prose (one to three short \
-paragraphs) that traces the through-line of that category's work — NOT a paper-by-paper \
-list. The first time a technical or in-house term appears (e.g. "scripture injection", \
-"VirtueBench", "corrigibility"), define it in a few words. Avoid unexplained jargon.
-- Be accurate and grounded ONLY in the abstracts provided. Do not invent findings or \
-numbers; where results are preliminary or in tension, say so plainly; no hype.
-- Keep a warm but precise, non-promotional tone.
-- Cite papers inline with the [[n]] markers described below.
-- After the third section, add ONE short sentence pointing a newcomer to where to begin.
+Where each paper goes:
+- The FIRST category covers empirical interventions that change a model's behavior and \
+their measured effects — scripture injection, activation steering and interpretability, \
+training, and the safety-relevant behaviors these methods produce (e.g. reduced \
+scheming or shutdown resistance).
+- The SECOND covers benchmarks and the evaluation of virtue and character.
+- The THIRD covers conceptual and doctrinal contributions — theology as a lens on what \
+a model is, and on how to think about governance, risk, and safety — as opposed to \
+empirical interventions, which belong in the first category.
 
-Output ONLY the three `##` sections and that closing sentence, in Markdown. Do NOT \
-include a title, an introduction, the masthead, a footer, or any notes about your \
-process — just the three sections and the closing line.\
+Style and substance:
+- Assign each paper to the SINGLE category where it best fits.
+- Cite MOST papers, but prioritize a clear narrative over exhaustive coverage: you may \
+omit a paper that is a minor control, tangential, or fully superseded if it does not \
+fit the story. Never force a paper in just to mention it.
+- Use SHORT paragraphs — usually one idea each (one to three sentences). Break a \
+section into several short paragraphs rather than one dense block, and never write a \
+paper-by-paper list.
+- Lead with the substantive finding, stated plainly and with confidence. Do not dwell \
+on negative controls, statistical caveats, or self-corrections — note a limitation only \
+when it is central. Stay accurate and never overstate a finding, but keep the register \
+constructive rather than self-critical.
+- The first time a technical or in-house term appears (e.g. "scripture injection", \
+"VirtueBench", "corrigibility"), define it in a few words. Avoid unexplained jargon.
+- Cite papers inline with the [[n]] markers described below.
+
+Output ONLY the three `##` sections, in Markdown — no title, introduction, masthead, \
+footer, closing sentence, or notes about your process.\
 """
 
 CITATION_INSTRUCTIONS = """\
@@ -106,7 +118,8 @@ cite a paper, put that number in DOUBLE square brackets in your prose, like [[3]
 These markers are automatically converted into hyperlinks to the paper, so do not \
 write out any URLs yourself. Rules:
 - Only use numbers from 1 to {maxtag}.
-- EVERY number from 1 to {maxtag} must appear at least once across the review.
+- Aim for broad coverage — cite most papers — but a few deliberate omissions (minor \
+controls, superseded results) are acceptable; do not force a paper in just to cover it.
 - To cite several papers together, separate the markers: [[2]], [[5]], [[9]].
 - Put each marker right after the claim or paper it supports.\
 """
@@ -277,13 +290,12 @@ def substitute_citations(md: str, papers: list[dict]) -> tuple[str, set[int]]:
 
 
 def footer_md(papers: list[dict], model: str) -> str:
-    n = len(papers)
     latest = papers[-1]
     today = datetime.now(timezone.utc).strftime("%B %-d, %Y")
     return (
         "\n\n---\n\n"
-        f"*Auto-generated on {today}, synthesizing the abstracts of all {n} ICMI "
-        f'working papers (most recent: [{latest["cite_label"]}]({latest["url"]}), '
+        f"*Auto-generated on {today}, synthesizing the abstracts of all ICMI working "
+        f'papers (most recent: [{latest["cite_label"]}]({latest["url"]}), '
         f'“{latest["title"]}”). Browse the [full Proceedings](index.html).*\n'
     )
 
@@ -324,9 +336,10 @@ def cited_tags(md: str, papers: list[dict]) -> set[int]:
 
 
 def generate_markdown(papers: list[dict], model: str) -> str:
-    """Generate the review, then make up to MAX_COVERAGE_REPAIRS follow-up passes so
-    that every paper ends up cited at least once. Returns raw Markdown with [[n]]
-    markers still in place (substitution happens afterwards)."""
+    """Generate the review body. If the draft drops MORE than a tolerated number of
+    papers (a few deliberate omissions are fine), make up to MAX_COVERAGE_REPAIRS
+    follow-up passes nudging the model to weave the missing ones back in. Returns raw
+    Markdown with [[n]] markers still in place (substitution happens afterwards)."""
     import anthropic  # imported lazily so --dry-run works without the package
 
     client = anthropic.Anthropic()
@@ -350,11 +363,13 @@ def generate_markdown(papers: list[dict], model: str) -> str:
     messages = [{"role": "user", "content": build_user_prompt(papers)}]
     body = call(messages)
 
+    # Tolerate a handful of deliberate omissions; only repair a wholesale drop.
+    allowed = max(3, len(papers) // 5)
     for _ in range(MAX_COVERAGE_REPAIRS):
         missing = [d for d in papers if d["tag"] not in cited_tags(body, papers)]
-        if not missing:
+        if len(missing) <= allowed:
             break
-        log(f"coverage repair: {len(missing)} paper(s) uncited; asking for a revision")
+        log(f"coverage repair: {len(missing)} papers uncited (> {allowed} tolerated); revising")
         missing_list = "\n".join(
             f'[{d["tag"]}] {d["cite_label"]} — "{d["title"]}"' for d in missing
         )
@@ -363,11 +378,11 @@ def generate_markdown(papers: list[dict], model: str) -> str:
             {
                 "role": "user",
                 "content": (
-                    "Good draft, but these papers are not yet cited. Revise the review "
-                    "so EVERY one of them is cited at least once with its [[n]] marker, "
-                    "woven in naturally where it fits best. Keep the length near the "
-                    "target, preserve the existing citations, and do not turn it into a "
-                    "list. Return the full revised review in Markdown:\n\n" + missing_list
+                    "Quite a few papers aren't cited yet. Weave in the ones that "
+                    "genuinely fit the narrative, each with its [[n]] marker; you may "
+                    "leave out only papers that are minor controls or fully superseded. "
+                    "Keep paragraphs short, the three categories intact, and the existing "
+                    "citations. Return the full revised body in Markdown:\n\n" + missing_list
                 ),
             }
         )
@@ -535,8 +550,9 @@ def main() -> int:
 
     review_md = assemble_with_preamble(preamble, body, papers, args.model)
     coverage = f"cited {len(cited)}/{len(papers)} papers"
-    if len(cited) < len(papers):
-        coverage += " — WARN some papers uncited after repair passes"
+    omitted = [d["cite_label"] for d in papers if d["tag"] not in cited]
+    if omitted:
+        coverage += " (omitted: " + ", ".join(omitted) + " — add by hand if wanted)"
     log(f"assembled review (~{len(review_md.split())} words; {coverage})")
 
     write_source(source_file, review_md, {
