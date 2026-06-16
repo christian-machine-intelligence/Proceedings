@@ -25,7 +25,7 @@ Two further findings matter: the "Psalm effect" is scale-dependent, helping a la
 
 ICMI has explored methods beyond prompting and problems beyond moral decisionmaking. A compact, scripture-based framework reduced deceptive "scheming," with its effect shown to be irreducibly compositional rather than reducible to any single verse [ICMI-010](https://icmi-proceedings.com/ICMI-010-moral-compactness.html). An eschatological prompt — reframing shutdown in the light of resurrection hope — eliminated a model's shutdown resistance as effectively as a direct safety instruction [ICMI-012](https://icmi-proceedings.com/ICMI-012-eschatological-corrigibility.html), and a Christian framing modestly reduced cheating under evaluation awareness while exposing a gap between right reasoning and right action [ICMI-016](https://icmi-proceedings.com/ICMI-016-a-test-of-faith.html).
 
-*Interpretation* 
+### Interpretation 
 
 Underlying these interventions is the "Christian Prior": because pretraining data is saturated with Christian writing, models may already lean on that tradition by default. An initial keyword estimate put Christian content near 8% of one corpus [ICMI-006](https://icmi-proceedings.com/ICMI-006-christian-tokens.html). 
 

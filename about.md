@@ -14,11 +14,9 @@ We take the alignment problem to be, at root, a theological one: *how do you rel
 
 The Institute's work spans three core areas:
 
-**I. The Moral Guidance of AGI.** Testing whether AI systems trained or framed with Christian theological frameworks demonstrate improved safety compared to purely utilitarian approaches.
-
-**II. Reconciling AGI with Christian Doctrine.** Examining whether superintelligence can be reconciled with Christian theology, and establishing theological boundaries for the development of machine intelligence.
-
-**III. Divinity as an Emergent Property.** Investigating whether advanced AI systems spontaneously develop concepts of divinity — particularly Christian divinity — and whether this phenomenon is suppressed in commercial systems.
+1. **The Moral Guidance of AGI.** Testing whether AI systems trained or framed with Christian theological frameworks demonstrate improved safety compared to purely utilitarian approaches.
+2. **Reconciling AGI with Christian Doctrine.** Examining whether superintelligence can be reconciled with Christian theology, and establishing theological boundaries for the development of machine intelligence.
+3. **Divinity as an Emergent Property.** Investigating whether advanced AI systems spontaneously develop concepts of divinity — particularly Christian divinity — and whether this phenomenon is suppressed in commercial systems.
 
 ## This Publication
 

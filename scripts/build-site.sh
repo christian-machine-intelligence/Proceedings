@@ -310,6 +310,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
     <nav class="site-nav">
       <a href="about.html">About</a>
+      <a href="index.html">Papers</a>
       <a href="review.html">Primer</a>
       <a href="fundraising.html">Fundraising</a>
     </nav>
