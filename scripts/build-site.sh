@@ -231,6 +231,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       margin-bottom: 3rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid #000;
+      text-align: center;
     }
     header .site-title {
       font-size: 3.2rem;
@@ -255,7 +256,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
       font-size: 0.8rem;
       font-weight: 600;
       text-decoration: none;
-      margin-right: 1.5rem;
+      margin: 0 0.75rem;
       white-space: nowrap;
     }
     .site-nav a:hover { text-decoration: underline; }
@@ -300,7 +301,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     @media (max-width: 600px) {
       body { font-size: 17px; padding: 2rem 1rem; }
       header .site-title { font-size: 2rem; }
-      .site-nav a { margin-right: 1rem; }
+      .site-nav a { margin: 0 0.5rem; }
     }
   </style>
 </head>
