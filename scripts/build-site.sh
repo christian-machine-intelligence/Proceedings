@@ -255,7 +255,7 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
     .site-nav a {
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
       margin: 0 0.75rem;
