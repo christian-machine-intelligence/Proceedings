@@ -27,14 +27,14 @@ URL = "icmi-proceedings.com"
 
 # (outfile, headline, subhead)
 CARDS = [
-    ("index-card.jpg", "Proceedings",
-     "Working papers at the intersection of Christian theology and artificial intelligence."),
-    ("about-card.jpg", "A Christian Approach to AI Safety",
-     "An alternative alignment toolkit, built from Christian first principles."),
-    ("primer-card.jpg", "A Primer on the Proceedings",
-     "A plain-language tour of the research — where to start."),
+    ("index-card.jpg", "ICMI Proceedings",
+     "An ongoing working paper series at the intersection of Christian theology and artificial intelligence."),
+    ("about-card.jpg", "A Christian Approach to AI Alignment",
+     "Towards an alternative toolkit, built from Christian first principles."),
+    ("primer-card.jpg", "A Primer on Christian Machine Intelligence",
+     "A plain-language tour of ICMI research to date."),
     ("fundraising-card.jpg", "Support the Institute",
-     "Help build an independent, Christian alignment lab."),
+     "Help fund an independent, Christian alignment lab."),
 ]
 
 
@@ -101,8 +101,8 @@ def make_card(outfile, headline, subhead):
 
     # eyebrow + rule
     ebf = fit_tracked(d, EYEBROW.upper(), max_w - 40, start=25, tracking=5)
-    draw_tracked(d, W / 2, 120, EYEBROW.upper(), ebf, GREY, tracking=5)
-    d.line([(W / 2 - 58, 158), (W / 2 + 58, 158)], fill=INK, width=2)
+    draw_tracked(d, W / 2, 116, EYEBROW.upper(), ebf, GREY, tracking=5)
+    d.line([(W / 2 - 58, 178), (W / 2 + 58, 178)], fill=INK, width=2)
 
     # headline + subhead block, vertically centered in the open band
     hf, hlines = fit_headline(d, headline, max_w)
