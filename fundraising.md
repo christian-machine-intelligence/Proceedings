@@ -1,14 +1,16 @@
 # Supporting the Institute
 
+![A sower scattering seed, after Jean-François Millet](fundraising-sower.jpg)
+
 The Institute for a Christian Machine Intelligence (ICMI) is building a fully independent, non-profit alignment lab where the Christian faith ships **code, data, and evaluations that actually change how machine learning is practiced**, and trains a new generation of researchers to do the same.
 
 The idea is simple — a serious, technical, empirical alignment lab — but working from Christian first principles. That is what we intend to be. We need your help.
 
 ## The urgent present 
 
-The most powerful technology in human history is being given its moral character right now, and Christians are not in the room. Within this decade, machine intelligence will mediate how billions learn, work, form relationships, raise children, and reason about right and wrong. The values baked into these systems today by a handful of labs will shape society, the family, and the faith for generations. 
+The most powerful technology in human history is being given its moral character right now, and Christians are only starting to be in the room. Within this decade, machine intelligence will mediate how billions learn, work, form relationships, raise children, and reason about right and wrong. The values baked into these systems today by a handful of labs will shape society, the family, and the faith for generations. 
 
-**This is a hinge moment, and it will not wait. If the Christian tradition is absent while the trajectory is being fixed, it will spend the next century reacting to a world built without it.**
+**This is a hinge moment, and it will not wait. If the Christian tradition is largely absent while the trajectory is being fixed, it will spend the next century reacting to a world built without it.**
 
 There is an opportunity because AI safety has a missing toolkit. The field's instincts are utilitarian, and inherit utilitarianism's blind spots: little to say about sin, almost nothing about virtue, no account of why a capable agent chooses the good when the incentives say otherwise. Yet these models were trained on a record saturated with two thousand years of Christian moral reasoning — that tradition is already *latent* inside them. Our wager is that it can be activated, measured, and engineered into safety methods competitive with, and sometimes stronger than, secular approaches alone.
 

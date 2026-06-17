@@ -104,8 +104,10 @@ for page_src in "$REPO_DIR"/about.md "$REPO_DIR"/fundraising.md; do
   # Title for the <title> tag = first H1 (markdown formatting stripped)
   page_title="$(sed -n 's/^# *//p' "$page_src" | head -1 | sed 's/\*//g')"
   echo "Building $page_base.html ..."
+  # markdown-implicit_figures: a lone masthead image renders as a plain <img>,
+  # not a <figure> with the alt text shown as a caption.
   pandoc "$page_src" \
-    --from markdown \
+    --from markdown-implicit_figures \
     --to html5 \
     --template "$SCRIPT_DIR/page-template.html" \
     --standalone \

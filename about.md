@@ -1,5 +1,7 @@
 # About
 
+![Saint Jerome in his study, after Albrecht Dürer](about-jerome.jpg)
+
 *"In the beginning was the Word, and the Word was with God, and the Word was God."*
 
 **Proceedings** is the working-paper series of the **Institute for a Christian Machine Intelligence (ICMI)** — the venue through which the Institute publishes its research.
@@ -26,4 +28,4 @@ The Institute also maintains public repositories of code and data on [GitHub](ht
 
 ## Support
 
-The Institute actively fundraising to grow this research program into a durable, independent lab. Learn how to [support the Institute](fundraising.html).
+The Institute is actively fundraising to grow this research program into a durable, independent lab. Learn how to [support the Institute](fundraising.html).
