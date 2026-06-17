@@ -8,9 +8,9 @@
   <meta property="og:site_name" content="ICMI Proceedings">
 $if(title)$  <meta property="og:title" content="ICMI Proceedings — $title$">
 $endif$
-  <meta property="og:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta property="og:image" content="https://icmi-proceedings.com/$if(ogimage)$$ogimage$$else$og-image.jpg$endif$">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta name="twitter:image" content="https://icmi-proceedings.com/$if(ogimage)$$ogimage$$else$og-image.jpg$endif$">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">

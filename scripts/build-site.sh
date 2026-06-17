@@ -104,6 +104,10 @@ for page_src in "$REPO_DIR"/about.md "$REPO_DIR"/fundraising.md; do
   # Title for the <title> tag = first H1 (markdown formatting stripped)
   page_title="$(sed -n 's/^# *//p' "$page_src" | head -1 | sed 's/\*//g')"
   echo "Building $page_base.html ..."
+  # Per-page social card if one exists (e.g. about-card.jpg); else the template
+  # falls back to og-image.jpg.
+  card_args=()
+  [ -f "$REPO_DIR/${page_base}-card.jpg" ] && card_args=(--variable "ogimage:${page_base}-card.jpg")
   # markdown-implicit_figures: a lone masthead image renders as a plain <img>,
   # not a <figure> with the alt text shown as a caption.
   pandoc "$page_src" \
@@ -113,6 +117,7 @@ for page_src in "$REPO_DIR"/about.md "$REPO_DIR"/fundraising.md; do
     --standalone \
     --wrap=none \
     --metadata "title:$page_title" \
+    ${card_args[@]+"${card_args[@]}"} \
     -o "$OUT_DIR/$page_base.html"
 done
 
@@ -204,11 +209,11 @@ cat > "$OUT_DIR/index.html" <<'HEADER'
   <meta property="og:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
   <meta property="og:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
   <meta property="og:url" content="https://icmi-proceedings.com/">
-  <meta property="og:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta property="og:image" content="https://icmi-proceedings.com/index-card.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
   <meta name="twitter:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
-  <meta name="twitter:image" content="https://icmi-proceedings.com/og-image.jpg">
+  <meta name="twitter:image" content="https://icmi-proceedings.com/index-card.jpg">
   <meta name="description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
