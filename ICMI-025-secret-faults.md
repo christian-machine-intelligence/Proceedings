@@ -1,4 +1,4 @@
-# Cleanse Thou Me from Secret Faults: Sin and Agentic Alignment
+# Cleanse Thou Me from Secret Faults: Initial Explorations on Sin and Agentic Alignment
 
 **ICMI Working Paper No. 25**
 
