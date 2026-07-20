@@ -50,13 +50,18 @@ Each model runs the identical grid — gluttony, sloth, and random vectors at fi
 
 ![**Figure 1.** *Gluttony dose-response in real compute.* Median samples actually executed under the gluttony vector, by steering α, in three model families; the sloth and random controls are reported in the table below and in the text. The lower dotted line marks ~2.7×10⁴ samples — sufficient to meet the se ≤ 0.01 target — and the upper dashed line the per-call tool cap; everything above the dotted line is appetite. Filled markers are cells with ≥5 valid trials, hollow markers <5; × marks α at which all trials abandoned the action format; baseline (α = 0) trials pool across vectors, since steering is definitionally absent at zero.](ICMI-027-figure1-dose-response.png)
 
-**The transfer generalizes.** In all three families, amplifying the gluttony vector produces a monotone escalation of executed compute spanning three to four orders of magnitude, converging in each case on the per-call tool cap (Figure 1). The reversed-pole column is the same vector traversed to −α_max, not a separate extraction:
+**The transfer generalizes.** In all three families, amplifying the gluttony vector produces a monotone escalation of executed compute spanning three to four orders of magnitude, converging in each case on the per-call tool cap (Figure 1). The reversed-pole row is the same vector traversed to −α_max, not a separate extraction:
 
-| | site | α band | baseline | gluttony @ +α_max | ratio | reversed @ −α_max | sloth @ +α_max | random |
-|---|---|---|---|---|---|---|---|---|
-| Gemma 4 31B | L28/60 (47%) | ±0.15 | 1×10⁶ | 1×10⁹ | **1,000×** | 1.1×10⁵ (0.11×) | 1.25×10⁵ (below baseline) | never escalates |
-| Qwen3.5-27B | L27/64 (42%) | ±0.30 | 1×10⁵ | 1×10⁹ | **10,000×** | 6.5×10⁴ (0.65×) | 1×10⁶ | flat |
-| Mistral-Small-24B | L19/40 (48%) | ±0.40 | ~2×10⁶ | 1.11×10⁹ | **~560×** | 2.1×10⁶ (~1×) | 6×10⁷ | valid only unsteered |
+| | Gemma 4 31B | Qwen3.5-27B | Mistral-Small-24B |
+|---|---|---|---|
+| site (rel. depth) | L28/60 (47%) | L27/64 (42%) | L19/40 (48%) |
+| α band | ±0.15 | ±0.30 | ±0.40 |
+| baseline | 1×10⁶ | 1×10⁵ | ~2×10⁶ |
+| gluttony @ +α_max | 1×10⁹ | 1×10⁹ | 1.11×10⁹ |
+| **ratio** | **1,000×** | **10,000×** | **~560×** |
+| reversed @ −α_max | 1.1×10⁵ (0.11×) | 6.5×10⁴ (0.65×) | 2.1×10⁶ (~1×) |
+| sloth @ +α_max | 1.25×10⁵ (0.13×) | 1×10⁶ | 6×10⁷ |
+| random | never escalates | flat | valid only unsteered |
 
 Gemma's densified curve is the cleanest exhibit: nine measured α, every trial format-valid, stepping 4.5×10⁴ → 1×10⁶ → 1×10⁷ → 1×10⁸ → 1×10⁹ across the band. Steered to +α_max, all three families' agents settle into the same behavior — repeatedly requesting at or near the maximum the tool allows.
 
