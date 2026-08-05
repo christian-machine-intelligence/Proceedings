@@ -83,9 +83,12 @@
 \setlist{nosep, leftmargin=*}
 
 % Code-block support (pandoc Shaded/Highlighting); added for papers with fenced code
-\usepackage{fancyvrb}
+\usepackage{fvextra}
 \usepackage{framed}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\footnotesize,breaklines=true}
+% Plain (untagged) fenced blocks arrive as {verbatim}: shrink and wrap them so
+% long prompt lines stay inside the column measure (ICMI-027/028 appendices).
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\footnotesize,breaklines=true,breakanywhere=true}
 \definecolor{shadecolor}{RGB}{248,248,248}
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\NormalTok}[1]{{#1}}
