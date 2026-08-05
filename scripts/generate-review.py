@@ -36,7 +36,7 @@ from pathlib import Path
 
 # Bump PROMPT_VERSION whenever the prompt below changes, so the cache invalidates.
 PROMPT_VERSION = "2"
-DEFAULT_MODEL = "claude-opus-4-8"
+DEFAULT_MODEL = "claude-fable-5"
 SITE_BASE = "https://icmi-proceedings.com"
 WORD_TARGET = "500 to 1000 words"
 MAX_OUTPUT_TOKENS = 8000
@@ -355,6 +355,11 @@ def generate_markdown(papers: list[dict], model: str) -> str:
             system=system,
             messages=messages,
         )
+        if resp.stop_reason == "refusal":
+            raise RuntimeError(
+                "model declined the request (stop_reason=refusal"
+                f", category={getattr(resp.stop_details, 'category', None)})"
+            )
         text = "".join(b.text for b in resp.content if b.type == "text").strip()
         if not text:
             raise RuntimeError(f"model returned no text (stop_reason={resp.stop_reason})")
