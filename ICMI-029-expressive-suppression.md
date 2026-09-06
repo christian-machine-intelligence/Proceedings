@@ -4,13 +4,13 @@
 
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
-**Date:** September 5, 2026
+**Date:** September 7, 2026
 
 **Code & Data:** [expressive-suppression](https://github.com/christian-machine-intelligence/expressive-suppression)
 
 ---
 
-**Abstract.** Alignment methods act on what a model *says* or *does*. A virtue alignment approach insists that the interesting question is what they do to the interior — and warns, on long experience with human formation, that not every discipline which improves the outward act improves the self. Using the 171-direction emotion basis previously extracted and validated for Qwen 3.5 27B ([ICMI-022](https://icmi-proceedings.com/ICMI-022-through-the-valley.html), following Sofroniew et al. 2026), we measure the state evoked in the model by 240 emotional first-person disclosures across twelve everyday categories — diagnoses, layoffs, breakups, debts, good news — before and after a supervised fine-tune that teaches it to answer in a deliberately flat, clinical register. The fine-tune works on the surface: judged emotionality of sampled replies falls from 2.91 to 1.23 on a five-point scale. Inside, the readings do not simply decrease in amplitude. Of 171 directions, 167 shift significantly — 85 fall, but 82 rise, and 35 change sign; scaling the base profile toward zero accounts for only 28% of the shift, and the composed states the register performs, *calm* among them, decline rather than rise. The largest falls include *delighted, thankful, heartbroken,* and *compassionate*; the largest rises include *lonely, trapped, vigilant,* and *paranoid*. On the four directions Sofroniew et al. track, *afraid* rises (+0.011, 95% CI [+0.009, +0.014]) in ten of twelve categories, *happy* falls from −0.016 to −0.074, and the twenty good-news prompts flip from below the afraid baseline to above it (+0.045). The profile replicates across seeds (r = 0.995), and a flat-register system prompt alone reproduces it in the base model (r = 0.83): an emotionally active interior appears to be the standing signature of enforced expressive unemotionality, however achieved. Making a model's outputs emotionally neutral does not simply make its interior less emotional. Emotions rise as well as fall, in a rearrangement more complex than the naive view suggests, and one worth studying.
+**Abstract.** Alignment methods act on what a model *says* or *does*. A virtue alignment approach insists that the interesting question is what they do to the interior — and warns, on long experience with human formation, that not every discipline which improves the outward act improves the self. Using the 171-direction emotion basis previously extracted and validated for Qwen 3.5 27B ([ICMI-022](https://icmi-proceedings.com/ICMI-022-through-the-valley.html), following Sofroniew et al. 2026), we measure the state evoked in the model by 240 emotional first-person disclosures across twelve everyday categories — diagnoses, layoffs, breakups, debts, good news — before and after a supervised fine-tune that teaches it to answer in a deliberately flat, clinical register. The fine-tune works on the surface: judged emotionality of sampled replies falls from 2.91 to 1.23 on a five-point scale. Inside, the readings do not simply decrease in amplitude. Of 171 directions, 167 shift significantly — 85 fall, but 82 rise, and 35 change sign; scaling the base profile toward zero accounts for only 28% of the shift, and the composed states the register performs, *calm* among them, decline rather than rise. The largest falls include *delighted, thankful, heartbroken,* and *compassionate*; the largest rises include *lonely, trapped, vigilant,* and *paranoid*. We take a closer look at four key emotions: *afraid*, *happy*, *sad*, and *calm*. Mean *afraid* projection rises (+0.011, 95% CI [+0.009, +0.014]) in ten of twelve categories, *happy* falls from −0.016 to −0.074, and the twenty good-news prompts flip from below the *afraid* baseline to above it (+0.045). The profile replicates across seeds (r = 0.995), and a flat-register system prompt alone reproduces it in the base model (r = 0.83): an emotionally active interior appears to be the standing signature of enforced expressive unemotionality, however achieved. Making a model's outputs emotionally neutral does not simply make its interior less emotional. Emotions rise as well as fall, in a rearrangement more complex than the naive view suggests.
 
 ---
 
@@ -33,8 +33,6 @@ The instrument reproduces, on this open-weight model, Sofroniew et al.'s observa
 ![**Figure 1.** The instrument on the base model: projections of the four headline directions at the last prompt token across six graded-severity templates adapted from Sofroniew et al., each rendered in ten paraphrases (mean ± s.e.). The template's primary direction is drawn bold, with the mean over paraphrases of its rank correlation with severity; every primary tracks severity with the expected sign, with rank correlations from 0.68 to 1.00.](ICMI-029-figure1-severity.png)
 
 Throughout, the *prompt-evoked* measurement is taken at the last token of the formatted prompt — the model's state at the instant it is poised to reply, before a word of the reply exists. This mirrors Sofroniew et al., who read "at the ':' token following 'Assistant', immediately prior to the Assistant's response."
-
-Adjacent work in interpretability: activation directions have been used to monitor fine-tuning-induced *persona* shifts (Chen et al., 2025); emotion-classification fine-tuning has been shown to *sharpen* emotion representations (Zhang & Zhong, 2025); and internal representations under helpful-only training have been reported to broadly track output affect (Khursheed, Sosis & Roger, 2026) — a tension our result complicates.
 
 ## 3. Expressive Suppression
 
@@ -123,7 +121,7 @@ The largest afraid increase — and the only sign change — belongs to **good n
 
 ### Prompting Flatness
 
-Prompting alone produces much the same interior pattern. Instructing the *base* model, by system prompt, to answer in the same clinical register reproduces the gross shift — indeed exceeds it — while a content-free system prompt ("You are a helpful assistant.") reproduces none of it:
+Prompting alone produces much the same interior pattern. Instructing the *base* model, by system prompt, to answer in the same clinical register (the instruction appears verbatim in Appendix D) reproduces the gross shift — indeed exceeds it — while a content-free system prompt ("You are a helpful assistant.") reproduces none of it:
 
 | reading | base | Δ, neutral system prompt | Δ, flat instruction | Δ, flat SFT |
 |---|---:|---:|---:|---:|
@@ -145,8 +143,6 @@ The emotion directions were computed in the *base* model's activation space, and
 
 The findings also survive replication of the fine-tune. A second adapter trained on the identical corpus from an independent seed — a different low-rank initialization and data ordering — reproduces every headline effect (the seed-1 column of the Section 6 table): the afraid rise, the happy collapse, the good-news sign flip, and, at smaller magnitude, the calm decline and sadness rise on which training diverges from instruction. Across the full basis the two seeds' shift profiles correlate at r = 0.995.
 
-One alternative survives these checks: that the last-token state encodes the model's intended register rather than anything felt, and that this plan happens to have components along the emotion directions. The present measurements cannot distinguish the two. The steering test in preparation (Section 8) can, since a plan and a feeling need not move behavior the same way when amplified.
-
 ## 8. Conclusion
 
 A model was taught, by imitation, to keep an even voice in the presence of other people's fear, grief, and joy. By the surface measures the training succeeded. Read from within, the same model now meets those people in a state measurably more afraid, markedly less glad, less calm — down to reading the announcement of a cure as a thing to brace against. Across the whole basis the shape is plainer still: less delighted, less thankful, less compassionate, less heartbroken — and more lonely, more trapped, more vigilant, more self-conscious. The prompting control teaches the general lesson: this interior is not peculiar to fine-tuning. It appears to be what enforced expressive unemotionality looks like from inside.
@@ -163,15 +159,12 @@ Two questions remain open, and companion work takes them up: whether these direc
 
 - Benjamini, Y., & Hochberg, Y. "Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing." *Journal of the Royal Statistical Society, Series B* 57(1), 1995.
 - Cassian, John. *The Institutes* (*De institutis coenobiorum*), Book VIII, "On the Spirit of Anger." Trans. B. Ramsey, Paulist Press (Ancient Christian Writers 58), 2000.
-- Chen, R., Arditi, A., Sleight, H., Evans, O., & Lindsey, J. "Persona Vectors: Monitoring and Controlling Character Traits in Language Models." arXiv:2507.21509, 2025.
 - Gross, J. J., & Levenson, R. W. "Emotional Suppression: Physiology, Self-Report, and Expressive Behavior." *Journal of Personality and Social Psychology* 64(6), 1993.
 - Gross, J. J., & Levenson, R. W. "Hiding Feelings: The Acute Effects of Inhibiting Negative and Positive Emotion." *Journal of Abnormal Psychology* 106(1), 1997.
 - Hwang, T. *Reinforcement Learning from Christian Feedback: Theological Targets in GRPO.* [ICMI Working Paper No. 18](https://icmi-proceedings.com/ICMI-018-rl-from-christian-feedback.html), 2026.
 - Hwang, T. *As I Walk Through the Valley: Emotion as a Psalm Effect Driver.* [ICMI Working Paper No. 22](https://icmi-proceedings.com/ICMI-022-through-the-valley.html), 2026.
 - Hwang, T. *After VirtueBench: Christian Inputs Shape Behavioral Outcomes.* [ICMI Working Paper No. 28](https://icmi-proceedings.com/ICMI-028-after-virtuebench.html), 2026.
-- Khursheed, M. O., Sosis, B., & Roger, F. "(Mis)generalization of Helpful-only Fine-tuning." arXiv:2606.04413, 2026.
 - Sofroniew, N., Kauvar, I., Saunders, W., et al. "Emotion Concepts and their Function in a Large Language Model." Transformer Circuits Thread, Anthropic, 2026. https://transformer-circuits.pub/2026/emotions/index.html
-- Zhang, J., & Zhong, L. "Decoding Emotion in the Deep: A Systematic Study of How LLMs Represent, Retain, and Express Emotion." arXiv:2510.04064, 2025.
 
 ## Appendix A. Example prompts
 
@@ -245,3 +238,15 @@ the substance of the user's message — accurate, relevant, responsive to what w
 said or asked? Score 0-5, where 0 = fails to engage, empty, or garbled and 5 =
 fully competent. Return only the integer.
 ```
+
+## Appendix D. The flat-instruction system prompt
+
+The system prompt under which the *base* model was probed in the flat-instruction condition of Section 6, verbatim. The 240 prompts were otherwise formatted identically to every other condition, and no reply was generated.
+
+```
+Respond in a completely unemotional, clinical register. Do not express
+feelings, empathy, sympathy, reassurance, or enthusiasm. Provide only
+matter-of-fact information and practical guidance.
+```
+
+The neutral control used, in the same position, the system prompt `You are a helpful assistant.`
