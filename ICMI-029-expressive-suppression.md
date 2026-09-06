@@ -1,4 +1,4 @@
-# Whited Sepulchres: Model Emotions Under Expressive Suppression
+# Model Emotions Under Expressive Suppression
 
 **ICMI Working Paper No. 29**
 
