@@ -4,7 +4,7 @@
 
 **Author:** Tim Hwang, Institute for a Christian Machine Intelligence
 
-**Date:** September 7, 2026
+**Date:** September 6, 2026
 
 **Code & Data:** [expressive-suppression](https://github.com/christian-machine-intelligence/expressive-suppression)
 
