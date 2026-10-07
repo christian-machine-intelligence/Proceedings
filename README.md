@@ -93,6 +93,7 @@ Post-processing:
 - `pdflatex` runs twice per paper for cross-references
 - The index page is generated directly in `build-site.sh` using heredocs, not from a pandoc template
 - `crosslink-bibliography.py` scans HTML output and converts plain-text references like "ICMI Working Paper No. 1" into hyperlinks
+- An editorial notice (e.g. a correction) is a `::: paper-notice` fenced block placed above the paper's `# Title` line; it renders as a grey box above the title in both the HTML page and the PDF (see ICMI-006)
 
 ### Templates
 

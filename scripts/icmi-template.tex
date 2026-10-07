@@ -155,6 +155,21 @@ $endif$
 
 \twocolumn[
   \begin{@twocolumnfalse}
+$if(notice)$
+    % Editorial notice (e.g. a correction): a grey box above the title, set to
+    % the abstract's measure. Colours match .paper-notice on the web page.
+    % No square brackets in here: a "]" would close the \twocolumn[ argument.
+    \definecolor{noticebg}{RGB}{245,245,245}
+    \definecolor{noticerule}{RGB}{224,224,224}
+    \definecolor{noticetext}{RGB}{85,85,85}
+    \begin{center}
+    \setlength{\fboxsep}{7pt}%
+    \fcolorbox{noticerule}{noticebg}{%
+      \begin{minipage}{\dimexpr\textwidth-1in-2\fboxsep-2\fboxrule\relax}
+      \small\color{noticetext}$notice$
+      \end{minipage}}
+    \end{center}
+$endif$
     \maketitle
     \thispagestyle{firstpage}
     $if(abstract)$

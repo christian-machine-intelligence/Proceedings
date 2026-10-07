@@ -204,6 +204,21 @@ $endif$
       color: #000;
     }
 
+    /* Editorial notice above a paper's title (e.g. a correction). Authored in
+       the paper's .md as a `::: paper-notice` block before the H1. */
+    .paper-notice {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 0.9rem 1.25rem;
+      margin: 0 0 2rem;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #555;
+    }
+
+    .paper-notice p:last-child { margin-bottom: 0; }
+
     .article-outline {
       background: #f5f5f5;
       border: 1px solid #e0e0e0;

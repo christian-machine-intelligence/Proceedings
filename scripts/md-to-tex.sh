@@ -61,6 +61,22 @@ else
   abstract=""
 fi
 
+# Extract an optional editorial notice (e.g. a correction): the contents of a
+# `::: paper-notice` block above the title. It lives in the header block that
+# is stripped from the body below, so it reaches the PDF only via the template.
+notice_md="$(awk '
+  /^# / { exit }
+  /^:::+ *\{?\.?paper-notice/ { in_notice = 1; next }
+  in_notice && /^:::+ *$/ { exit }
+  in_notice { print }
+' "$md")"
+
+if [ -n "$notice_md" ]; then
+  notice="$(printf '%s\n' "$notice_md" | pandoc --from markdown --to latex --wrap=none)"
+else
+  notice=""
+fi
+
 # --- Create body-only markdown (strip header block) ---
 # Remove everything before the first ## section heading
 body_md="$(awk '
@@ -91,6 +107,7 @@ echo "$body_md" | pandoc \
   --metadata paper-label="$paper_label" \
   ${paper_date:+--metadata date="$paper_date"} \
   --variable abstract="$abstract" \
+  --variable notice="$notice" \
   -o "$tex"
 
 # Post-process the generated .tex file (cross-platform sed -i)
