@@ -1,5 +1,5 @@
 ::: {.paper-notice role="note"}
-NB: On further review, the rigid keyword methodology used in this paper produces a significant overcount of Christian documents in The Pile and its estimates should not be relied upon. Further analysis suggests however that its more limited claim that Christian content dominates relative to other religious traditions does appear to be sustained. A replacement paper with more accurate methods is forthcoming.
+NB: On further review, the rigid keyword methodology used in this paper produces a significant overcount of Christian documents in The Pile and its estimates should not be relied upon. However, its more limited claim that Christian content is larger relative to other religious traditions does appear to be sustained on further analysis. A replacement paper with more calibrated methods is forthcoming.
 :::
 
 # What the Models Already Know: 67 Billion Tokens of Christian Moral Reasoning in the Pretraining Corpus
