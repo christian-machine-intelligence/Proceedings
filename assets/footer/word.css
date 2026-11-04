@@ -1,0 +1,25 @@
+/* The footer: "In the beginning was the Word." One engraved scene over the waters, picked at random per load.
+   Markup: see footer/index.html. Needs the Doves fonts declared by the page. */
+footer.word { --w-linen: #E8E8E2; --w-thread: #2E3236; --w-red: #EE7B70; --gut: clamp(16px, 10.5vw, 152px); --leak: 200px; }
+footer.word { position: relative; overflow: visible; font-family: 'Doves Text', Georgia, serif; background: var(--w-thread); color: var(--w-linen); height: max(900px, 69vw); }
+footer.word canvas { position: absolute; left: 0; top: calc(-1 * var(--leak)); width: 100%; height: calc(100% + var(--leak)); display: block; pointer-events: none; }
+footer.word > :not(canvas) { position: relative; }
+footer.word .top { padding: 88px var(--gut) 0; display: flex; flex-direction: column; gap: 64px; width: fit-content; }
+footer.word .lock { display: flex; gap: 16px; align-items: center; font-size: 24px; line-height: 28px; }
+footer.word nav { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 16px; letter-spacing: .08em; font-feature-settings: "c2sc", "smcp"; }
+footer.word nav a, footer.word .btn { color: var(--w-linen); text-decoration: none; }
+footer.word .support p { font-size: 21px; line-height: 32px; max-width: 460px; }
+footer.word .btn { display: inline-block; background: none; border-radius: 0; margin-top: 20px; border: 1px solid #E8E8E299; padding: 12px 20px 14px; font-size: 16px; letter-spacing: .08em; font-feature-settings: "c2sc", "smcp"; }
+footer.word .verse { position: absolute; left: var(--gut); top: 0; max-width: 600px; text-wrap: pretty; font-style: italic; font-size: 21px; line-height: 30px; color: var(--w-linen); opacity: 0; transition: opacity 1.2s; }
+footer.word .verse span { font-style: normal; font-feature-settings: "c2sc", "smcp"; letter-spacing: .08em; font-size: 16px; color: #E8E8E2B3; }
+footer.word .rubric { position: absolute; left: var(--gut); right: var(--gut); bottom: 72px; }
+footer.word .rubric h2 { font-family: 'Doves Headline', serif; font-weight: normal; color: var(--w-red); font-size: clamp(44px, 6.4vw, 104px); line-height: .98; letter-spacing: .03em; text-transform: uppercase; }
+@media (max-width: 760px) {
+    footer.word { --leak: 0px; height: auto; padding-bottom: 56px; }
+    footer.word .stage { height: 112vw; }
+    footer.word .verse, footer.word .rubric { position: relative; left: auto; right: auto; bottom: auto; padding: 0 var(--gut); }
+    footer.word .verse { margin-top: 12px; }
+    footer.word .rubric { margin-top: 40px; }
+  }
+footer.word a:hover, footer.word a:focus-visible { text-decoration-line: underline; text-decoration-color: var(--w-red); text-underline-offset: .22em; }
+footer.word :focus-visible { outline-color: var(--w-red); }
