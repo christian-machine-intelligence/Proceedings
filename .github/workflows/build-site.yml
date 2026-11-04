@@ -19,13 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRAND_DEPLOY_KEY: ${{ secrets.BRAND_DEPLOY_KEY }}
+      BRAND_READ_TOKEN: ${{ secrets.BRAND_READ_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
-      # Doves Type is licensed only for icmi-proceedings.com and is never committed to this public
-      # repo. It lives in the private brand repo; scripts/build-site.sh copies .brand/fonts/web/DovesType-*.woff2
-      # into _site/fonts/. Without the secret the site still builds, with fallback fonts.
-      - name: Fetch Doves Type from the private brand repo
+      # Doves Type is licensed only for icmi-proceedings.com and is never committed to this public repo.
+      # It lives in the private brand repo (fonts/web/); scripts/build-site.sh copies it into _site/fonts/.
+      # Either secret gives read access: BRAND_DEPLOY_KEY, a read-only deploy key on the brand repo, or
+      # BRAND_READ_TOKEN, a fine-grained token with read-only Contents on the brand repo. With neither, the
+      # build fails and the live site stays as it is, rather than deploying without the type.
+      - name: Fetch Doves Type from the private brand repo (deploy key)
         if: ${{ env.BRAND_DEPLOY_KEY != '' }}
         uses: actions/checkout@v4
         with:
@@ -34,9 +37,14 @@ jobs:
           path: .brand
           sparse-checkout: fonts/web
 
-      - name: Warn when Doves Type is unavailable
-        if: ${{ env.BRAND_DEPLOY_KEY == '' }}
-        run: echo "::warning::BRAND_DEPLOY_KEY is not set; building without Doves Type (fallback fonts)"
+      - name: Fetch Doves Type from the private brand repo (token)
+        if: ${{ env.BRAND_DEPLOY_KEY == '' && env.BRAND_READ_TOKEN != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: christian-machine-intelligence/brand
+          token: ${{ secrets.BRAND_READ_TOKEN }}
+          path: .brand
+          sparse-checkout: fonts/web
 
       - name: Install pandoc and texlive
         run: |

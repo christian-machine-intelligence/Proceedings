@@ -25,6 +25,12 @@ for dir in "${DOVES_FONTS_DIR:-}" "$REPO_DIR/.brand/fonts/web"; do
   done
 done
 if [ "$doves_found" = 0 ]; then
+  # In CI, stop: a deploy without Doves Type would replace the live site with fallback fonts. Set
+  # ALLOW_FALLBACK_FONTS=1 to build anyway (for example to test the build without the secret).
+  if [ -n "${GITHUB_ACTIONS:-}" ] && [ -z "${ALLOW_FALLBACK_FONTS:-}" ]; then
+    echo "::error::Doves Type not found. Set the BRAND_DEPLOY_KEY or BRAND_READ_TOKEN secret (README, Fonts). Nothing was deployed."
+    exit 1
+  fi
   echo "WARNING: Doves Type fonts not found (set DOVES_FONTS_DIR, or provide .brand/fonts/web); using fallback fonts"
 fi
 

@@ -100,7 +100,7 @@ Post-processing:
 
 The site follows the ICMI brand design (brand repo `exports/proceedings`). `assets/` holds `site.css`, `field.js`, `engrave.js`, `footer/`, `art/` (engravings: `band/NN.jpg`, `tile/NN.jpg`, `field/*.png` for papers 1-29 and A-E) and `fonts/`; the build copies it into `_site/`. `scripts/templates/*.html|css` hold each page type's CSS and markup, and `render-site.py` fills them from the Markdown.
 
-Fonts: Doves Italic, Ysabeau Office and Paper Mono are open-licence and committed (`assets/fonts/`, with their OFL texts). **Doves Type (`DovesType-*.woff2`) is licensed only for this domain and must never be committed** (it is git-ignored). CI fetches it from the private repo `christian-machine-intelligence/brand` when the `BRAND_DEPLOY_KEY` secret is set (a read-only deploy key on that repo); without it the site builds with fallback fonts and the workflow prints a warning. Locally, set `DOVES_FONTS_DIR` to a folder holding the two files.
+Fonts: Doves Italic, Ysabeau Office and Paper Mono are open-licence and committed (`assets/fonts/`, with their OFL texts). **Doves Type (`DovesType-*.woff2`) is licensed only for this domain and must never be committed** (it is git-ignored). CI fetches it from `fonts/web/` in the private repo `christian-machine-intelligence/brand`, using either the `BRAND_DEPLOY_KEY` secret (a read-only deploy key on that repo) or the `BRAND_READ_TOKEN` secret (a fine-grained token with read-only Contents access to that repo). Without either, the CI build fails, so the live site is never deployed without its type. Locally, set `DOVES_FONTS_DIR` to a folder holding the two files.
 
 The Primer is `primer.html`; `review.html` is a redirect page to it.
 
