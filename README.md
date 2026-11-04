@@ -200,7 +200,7 @@ GitHub Actions (`.github/workflows/build-site.yml`) triggers on push to `main`:
 To add a non-paper page (e.g., a VirtueBench visualizer):
 1. Create the HTML/JS/CSS files in the repo root or a subdirectory
 2. Add a copy step in `build-site.sh` to include the files in `_site/`
-3. Optionally link from the index page by editing the heredoc section in `build-site.sh`
+3. Optionally link from the index page (the homepage lists the latest papers automatically)
 
 Static assets (images, JS, CSS files) placed in the repo root are not automatically copied to `_site/` — only `*.png`, `*.jpg`, `*.svg`, and favicon files are. You must add explicit copy commands for other file types.
 
