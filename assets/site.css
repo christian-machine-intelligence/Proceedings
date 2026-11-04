@@ -1,0 +1,137 @@
+/* ICMI Proceedings: shared site CSS (Paper "Website" page). Page-specific CSS stays inline in each page.
+   Shared classes (reuse them; do not redefine):
+   Tokens     --linen --thread --unbleached --rule --muted --scarlet --scarlet-stroke-dark --scarlet-text-dark
+              --gut (side gutter) --pad (page inline padding, content max 1136px) --f-head --f-text
+   Page       body, .wrap (padded column), .sec (padded section), .sec.tint (unbleached ground), .sec.ruled (top rule)
+   Header     header.site > a.lockup (svg.mark + .name b + i) + nav.main a[aria-current="page"]
+   Type       .sc small caps | .h1 scarlet 60px opening statement | .h-side right-aligned scarlet side heading (36px caps)
+              .h-sec scarlet 36px caps section heading | .lede 21/32 | .big 26/36 | .body 21/32 | .meta muted 16/24
+              .kicker small-caps muted label | .pil (scarlet pilcrow) | .run-in (caps run-in head after a pilcrow)
+              .dropcap (set-in drop cap: .dropcap > .cap + .l1 + .rest; see index.html)
+   Links      .nw (nowrap, for word—word) | .more (18px "Label →" link) | .links (baseline row of links, gap 28)
+   Buttons    .btn (thread fill, linen small caps) | .btn.ghost (outline)
+   Lists      .rows > .row (rule-separated: .no small-caps number, .t title + .meta, .pdf)
+   Art        .band (full-bleed engraved image, 1440:520) | img inside uses object-fit cover
+   Footer     footer.word is styled by footer/word.css; link both footer/word.css and footer/word.js
+   Fonts: 'Doves Headline' (>=36px), 'Doves Text' (below), italics via font-style: italic; 'Ysabeau Office' (500) for tables, 'Paper Mono' for code. */
+
+@font-face { font-family: 'Doves Headline'; src: url(fonts/DovesType-Headline.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: 'Doves Headline'; src: url(fonts/DovesItalic-Headline.woff2) format('woff2'); font-style: italic; font-display: swap; }
+@font-face { font-family: 'Doves Text'; src: url(fonts/DovesType-Text.woff2) format('woff2'); font-display: swap; }
+@font-face { font-family: 'Doves Text'; src: url(fonts/DovesItalic-Text.woff2) format('woff2'); font-style: italic; font-display: swap; }
+@font-face { font-family: 'Ysabeau Office'; src: url(fonts/YsabeauOffice-Medium.woff2) format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'Paper Mono'; src: url(fonts/PaperMono-Regular.woff2) format('woff2'); font-display: swap; }
+
+:root {
+  --linen: #E8E8E2; --thread: #2E3236; --unbleached: #D3D0C6; --rule: #C9C8C0; --muted: #5E6266; --scarlet: #B0222D;
+  --scarlet-stroke-dark: #E8524C; --scarlet-text-dark: #EE7B70;
+  --f-head: 'Doves Headline', 'Doves Text', Georgia, serif; --f-text: 'Doves Text', Georgia, serif;
+  --gut: 152px; --pad: max(var(--gut), calc((100vw - 1136px) / 2));
+}
+@media (max-width: 1200px) { :root { --gut: clamp(24px, 6vw, 72px); } }
+@media (max-width: 600px) { :root { --gut: 20px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-synthesis: none; margin: 0; background: var(--linen); color: var(--thread); font-family: var(--f-text); font-size: 21px; line-height: 32px; -webkit-font-smoothing: antialiased; overflow-x: hidden; text-rendering: optimizeLegibility; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+a:hover, a:focus-visible { text-decoration: underline 1px var(--scarlet); text-underline-offset: .22em; }
+:focus-visible { outline: 2px solid var(--scarlet); outline-offset: 3px; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: normal; }
+
+.sc, .kicker, .btn, nav.main a, .rows .no, .rows .pdf { font-feature-settings: "c2sc", "smcp"; letter-spacing: .08em; }
+.sc { font-size: 16px; line-height: 20px; }
+.kicker { font-size: 16px; line-height: 20px; color: var(--muted); }
+.kicker b { font-weight: normal; color: var(--scarlet); }
+
+/* header */
+header.site { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px var(--pad); border-bottom: 1px solid var(--rule); }
+header.site .lockup { display: flex; align-items: flex-start; gap: 14px; text-decoration: none; }
+header.site .mark { padding-top: 4px; flex: none; }
+header.site .mark svg { display: block; width: 40px; height: 40px; }
+header.site .name b { display: block; font-weight: normal; font-size: 24px; line-height: 28px; }
+header.site .name i { display: block; font-size: 16px; line-height: 20px; }
+nav.main { display: flex; align-items: baseline; gap: 28px; }
+nav.main a { font-size: 16px; line-height: 20px; }
+nav.main a[aria-current] { text-decoration: underline 2px var(--scarlet); text-underline-offset: 6px; }
+@media (max-width: 760px) {
+  header.site { flex-direction: column; align-items: flex-start; gap: 14px; padding-block: 16px; }
+  header.site .name i { font-size: 14px; line-height: 18px; }
+  nav.main { gap: 22px; flex-wrap: wrap; }
+}
+
+/* sections */
+.wrap { padding-inline: var(--pad); }
+.sec { padding: 88px var(--pad); }
+.sec.tint { background: var(--unbleached); }
+.sec.ruled { border-top: 1px solid var(--rule); }
+@media (max-width: 760px) { .sec { padding-block: 56px; } }
+
+/* type */
+.h1 { font-family: var(--f-head); font-size: 60px; line-height: 64px; color: var(--scarlet); }
+.h-sec, .h-side { font-family: var(--f-head); font-size: 36px; line-height: 44px; letter-spacing: .04em; text-transform: uppercase; color: var(--scarlet); }
+.h-side { text-align: right; }
+.lede, .body { font-size: 21px; line-height: 32px; }
+.big { font-size: 26px; line-height: 36px; --lh: 36px; }
+.meta { font-size: 16px; line-height: 24px; color: var(--muted); }
+.pil { color: var(--scarlet); font-size: 21.7px; }
+.run-in { letter-spacing: .06em; text-transform: uppercase; }
+.caps { letter-spacing: .04em; text-transform: uppercase; }
+@media (max-width: 760px) {
+  .h1 { font-size: 36px; line-height: 42px; }
+  .h-sec, .h-side { font-size: 28px; line-height: 36px; }
+  .h-side { text-align: left; }
+  .lede, .body { font-size: 19px; line-height: 30px; }
+  .big { font-size: 22px; line-height: 32px; --lh: 32px; }
+}
+
+/* links and buttons */
+.more { font-size: 18px; line-height: 24px; white-space: nowrap; }
+.nw { white-space: nowrap; }  /* keep an em dash with its neighbours: no break before it */
+.links { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px 28px; }
+.btn { display: inline-block; background: var(--thread); color: var(--linen); border-radius: 3px; padding: 12px 20px 14px; font-size: 16px; line-height: 20px; }
+.btn:hover, .btn:focus-visible { text-decoration: none; background: #000; }
+.btn.ghost { background: none; color: inherit; border: 1px solid currentColor; border-radius: 0; opacity: 1; }
+
+/* rule-separated rows (papers list) */
+.rows { display: block; }
+.rows .row { display: flex; align-items: baseline; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.rows .no { flex: none; width: 96px; color: var(--scarlet); font-size: 16px; line-height: 20px; }
+.rows .t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.rows .t a { font-size: 23px; line-height: 32px; }
+.rows .pdf { flex: none; width: 40px; text-align: right; font-size: 16px; line-height: 20px; }
+@media (max-width: 760px) {
+  .rows .row { gap: 14px; }
+  .rows .no { width: 52px; }
+  .rows .t a { font-size: 20px; line-height: 28px; }
+}
+
+/* engraved art */
+.band { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 520; object-fit: cover; background: var(--linen); }
+@media (max-width: 760px) { .band { aspect-ratio: 3 / 2; } }
+
+/* ---------- a paper's engraving, drawn live by engrave.js (data-field, data-seed); the still is the fallback */
+.engrave { position: relative; overflow: hidden; }
+.engrave canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.engrave.live { background: none !important; }
+
+/* a three-line initial: the cap stands beside the first three lines (cap top on line 1, foot on line 3's baseline) */
+.dropcap.three .cap { position: static; float: left; font-family: var(--f-head); color: var(--scarlet);
+  font-size: calc(var(--lh, 36px) * 3.66); line-height: calc(var(--lh, 36px) * 3); height: calc(var(--lh, 36px) * 3);
+  margin: calc(var(--lh, 36px) * 0.125) 12px calc(var(--lh, 36px) * -0.125) -2px; }
+
+/* ---------- the support band: red, just above the footer, on every page but Fundraising */
+.support-band { background: var(--scarlet); color: var(--linen); padding: 64px var(--pad); display: flex; flex-wrap: wrap; align-items: center; gap: 24px 56px; }
+.support-band p { font-size: 26px; line-height: 36px; max-width: 560px; }
+.support-band .btn.ghost { color: var(--linen); border-color: var(--linen); }
+.support-band .btn.ghost:hover, .support-band .btn.ghost:focus-visible { background: var(--linen); color: var(--scarlet); }
+.support-band :focus-visible { outline-color: var(--linen); }
+@media (max-width: 760px) { .support-band { padding: 48px var(--pad); } .support-band p { font-size: 22px; line-height: 32px; } }
+
+/* ---------- a paper with no engraving yet: the plain cross field (field.js, canvas.paper-field[data-n]) stands in for it */
+.art.fb { background: none !important; }
+.latest .art.fb canvas { position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%); width: min(400px, 34vw); height: min(400px, 34vw); display: block; }
+.tile .art.fb canvas { width: 100%; height: 100%; display: block; }
+@media (max-width: 1100px) { .latest .art.fb canvas { right: auto; left: 50%; transform: translate(-50%, -50%); width: min(300px, 56vw); height: min(300px, 56vw); } }

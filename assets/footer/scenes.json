@@ -1,0 +1,152 @@
+{
+ "geometer": {
+  "label": "After Blake, The Ancient of Days",
+  "verse": "When he set a compass upon the face of the depth.",
+  "ref": "Proverbs 8:27",
+  "from": [
+   0.79,
+   0.62
+  ],
+  "sea": 0.68
+ },
+ "light": {
+  "label": "After Doré, The Creation of Light",
+  "verse": "And God said, Let there be light: and there was light.",
+  "ref": "Genesis 1:3",
+  "from": [
+   0.81,
+   0.18
+  ],
+  "sea": 0.68
+ },
+ "spirit": {
+  "label": "The dove upon the waters",
+  "verse": "And the Spirit of God moved upon the face of the waters.",
+  "ref": "Genesis 1:2",
+  "from": [
+   0.83,
+   0.45
+  ],
+  "sea": 0.59
+ },
+ "walking": {
+  "label": "After Aivazovsky, Walking on Water",
+  "verse": "Be of good cheer; it is I; be not afraid.",
+  "ref": "Matthew 14:27",
+  "from": [
+   0.72,
+   0.48
+  ],
+  "sea": 0.629
+ },
+ "bow": {
+  "label": "After Koch, Noah’s Thank Offering",
+  "verse": "I do set my bow in the cloud.",
+  "ref": "Genesis 9:13",
+  "from": [
+   0.9,
+   0.44
+  ],
+  "sea": 0.677
+ },
+ "still": {
+  "label": "After Rembrandt, The Storm on the Sea of Galilee",
+  "verse": "And he arose, and rebuked the wind, and said unto the sea, Peace, be still.",
+  "ref": "Mark 4:39",
+  "from": [
+   0.83,
+   0.33
+  ],
+  "sea": 0.652
+ },
+ "ladder": {
+  "label": "After Blake, Jacob’s Dream",
+  "verse": "Behold a ladder set up on the earth, and the top of it reached to heaven.",
+  "ref": "Genesis 28:12",
+  "from": [
+   0.76,
+   0.42
+  ],
+  "sea": 0.629
+ },
+ "leviathan": {
+  "label": "After Doré, The Destruction of Leviathan",
+  "verse": "He shall slay the dragon that is in the sea.",
+  "ref": "Isaiah 27:1",
+  "from": [
+   0.8,
+   0.28
+  ],
+  "sea": 0.614
+ },
+ "morning": {
+  "label": "After Blake, When the Morning Stars Sang Together",
+  "verse": "When the morning stars sang together, and all the sons of God shouted for joy.",
+  "ref": "Job 38:7",
+  "from": [
+   0.75,
+   0.4
+  ],
+  "sea": 0.686
+ },
+ "whirlwind": {
+  "label": "After Blake, The Lord Answering Job out of the Whirlwind",
+  "verse": "Where wast thou when I laid the foundations of the earth?",
+  "ref": "Job 38:4",
+  "from": [
+   0.8,
+   0.26
+  ],
+  "sea": 0.65
+ },
+ "wisdom": {
+  "label": "Wisdom before the world",
+  "verse": "I was set up from everlasting, from the beginning, or ever the earth was.",
+  "ref": "Proverbs 8:23",
+  "from": [
+   0.79,
+   0.42
+  ],
+  "sea": 0.621
+ },
+ "jonah": {
+  "label": "After Doré, Jonah Cast Forth by the Whale",
+  "verse": "All thy billows and thy waves passed over me.",
+  "ref": "Jonah 2:3",
+  "from": [
+   0.74,
+   0.44
+  ],
+  "sea": 0.626
+ },
+ "ark": {
+  "label": "The ark upon the flood",
+  "verse": "And the ark went upon the face of the waters.",
+  "ref": "Genesis 7:18",
+  "from": [
+   0.89,
+   0.3
+  ],
+  "sea": 0.636
+ },
+ "lights": {
+  "label": "After Michelangelo, The Creation of the Sun and Moon",
+  "verse": "He made the stars also.",
+  "ref": "Genesis 1:16",
+  "from": [
+   0.77,
+   0.33
+  ],
+  "sea": 0.677
+ },
+ "chariot": {
+  "label": "Elijah taken up in the chariot of fire",
+  "verse": "And Elijah went up by a whirlwind into heaven.",
+  "ref": "2 Kings 2:11",
+  "from": [
+   0.76,
+   0.37
+  ],
+  "sea": 0.69
+ }
+}

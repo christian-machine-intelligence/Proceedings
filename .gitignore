@@ -12,3 +12,10 @@ scripts/.review-cache.json
 # Internal lab notes — never publish
 HANDOFF*.md
 BRIEFING*.md
+
+# Doves Type is licensed only for icmi-proceedings.com and must never be committed
+# (CI fetches it from the private brand repo; local builds use $DOVES_FONTS_DIR).
+DovesType-*.woff2
+
+# Private brand repo checkout used by CI to fetch Doves Type
+.brand/

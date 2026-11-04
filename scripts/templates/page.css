@@ -1,0 +1,42 @@
+<style>
+    .opening { padding: 96px var(--pad) 88px; border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; gap: 24px; }
+    .opening .h1 { max-width: 960px; }
+    .block { display: grid; grid-template-columns: 260px minmax(0, 714px); gap: 64px; padding: 80px var(--pad); }
+    .block + .block { border-top: 1px solid var(--rule); }
+    .block:last-of-type { padding-bottom: 96px; }
+    .block .stack { display: flex; flex-direction: column; gap: 24px; }
+    .block .links { padding-top: 8px; gap: 12px 28px; }
+    @media (max-width: 1180px) {
+            }
+    @media (max-width: 900px) {
+      .block, .ask .intro, .touch { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    }
+    @media (max-width: 760px) {
+      .opening { padding-block: 48px 56px; }
+      .block { padding-block: 48px; }
+      .block:last-of-type { padding-bottom: 64px; }
+      }
+    .ask { background: var(--unbleached); padding: 88px var(--pad) 96px; display: flex; flex-direction: column; gap: 48px; }
+    .ask .intro { display: grid; grid-template-columns: 260px minmax(0, 714px); gap: 64px; align-items: baseline; }
+    .four { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; row-gap: 48px; padding-left: 324px; }
+    .four > div { border-top: 2px solid var(--scarlet); padding-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .four h3 { font-family: var(--f-text); font-size: 24px; line-height: 28px; letter-spacing: .06em; text-transform: uppercase; }
+    .four h3 span { color: var(--scarlet); }
+    .four p { font-size: 18px; line-height: 28px; }
+    .ref { color: var(--scarlet); font-feature-settings: "c2sc","smcp"; letter-spacing: .08em; }
+    .touch { padding: 88px var(--pad) 96px; display: grid; grid-template-columns: 260px minmax(0, 714px); gap: 64px; }
+    .touch .stack { display: flex; flex-direction: column; align-items: flex-start; gap: 32px; }
+    .touch .say { font-family: var(--f-head); font-size: 36px; line-height: 44px; }
+    .touch .links { gap: 12px 28px; }
+    .touch .mail { font-size: 21px; line-height: 32px; text-decoration: underline 1px var(--scarlet); text-underline-offset: 5px; overflow-wrap: anywhere; }
+    @media (max-width: 1180px) { .four { padding-left: 0; } }
+    @media (max-width: 900px) { .ask { gap: 32px; } }
+    @media (max-width: 760px) {
+      .ask { padding-block: 56px; }
+      .touch { padding-block: 56px; }
+      .four { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }
+      .touch .say { font-size: 28px; line-height: 36px; }
+    }
+    .opening .lede { max-width: 714px; }
+    .block .lst, .block ul, .block ol { margin: 0; padding-left: 28px; }
+</style>

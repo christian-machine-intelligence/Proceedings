@@ -3,42 +3,47 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-TEMPLATE="$SCRIPT_DIR/site-template.html"
 OUT_DIR="$REPO_DIR/_site"
 
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
 
-# ---------- Build individual paper pages ----------
-for md in "$REPO_DIR"/ICMI-*.md; do
-  [ -f "$md" ] || continue
-  basename="$(basename "$md" .md)"
-  echo "Building $basename.html ..."
-
-  # Extract title from first # heading for Open Graph meta tags (strip markdown formatting)
-  paper_title="$(sed -n 's/^# *//p' "$md" | head -1 | sed 's/\*//g')"
-  paper_title="$(echo "$paper_title" | sed 's/"/\&quot;/g')"
-
-  # Extract abstract for Open Graph meta tags
-  abstract="$(sed -n 's/^\*\*Abstract\.\*\* *//p' "$md" | head -1 | cut -c1-300)"
-  # Escape double quotes for safe embedding in metadata
-  abstract="$(echo "$abstract" | sed 's/"/\&quot;/g')"
-
-  pandoc "$md" \
-    --from markdown \
-    --to html5 \
-    --template "$TEMPLATE" \
-    --standalone \
-    --mathjax \
-    --wrap=none \
-    --variable "paper-title:$paper_title" \
-    --variable "pdf-file:$basename.pdf" \
-    --variable "description:$abstract" \
-    --variable "og-url:https://icmi-proceedings.com/$basename.html" \
-    -o "$OUT_DIR/$basename.html"
+# ---------- Site assets: the design's CSS, scripts, engravings, footer scenes and fonts ----------
+# assets/ holds site.css, field.js, engrave.js, footer/, art/ and the open-licence fonts (Doves Italic,
+# Ysabeau Office, Paper Mono). Doves Type itself is licensed only for icmi-proceedings.com and is never
+# committed: CI checks it out of the private brand repo into .brand/ (see the workflow), and a local build
+# takes it from $DOVES_FONTS_DIR. Without it the site still builds and falls back to Georgia.
+cp -R "$REPO_DIR/assets/." "$OUT_DIR/"
+mkdir -p "$OUT_DIR/fonts"
+doves_found=0
+for dir in "${DOVES_FONTS_DIR:-}" "$REPO_DIR/.brand/fonts/web"; do
+  [ -n "$dir" ] || continue
+  for f in "$dir"/DovesType-*.woff2; do
+    [ -f "$f" ] || continue
+    cp "$f" "$OUT_DIR/fonts/"
+    doves_found=1
+  done
 done
+if [ "$doves_found" = 0 ]; then
+  # In CI, stop: a deploy without Doves Type would replace the live site with fallback fonts. Set
+  # ALLOW_FALLBACK_FONTS=1 to build anyway (for example to test the build without the secret).
+  if [ -n "${GITHUB_ACTIONS:-}" ] && [ -z "${ALLOW_FALLBACK_FONTS:-}" ]; then
+    echo "::error::Doves Type not found. Set the BRAND_DEPLOY_KEY or BRAND_READ_TOKEN secret (README, Fonts). Nothing was deployed."
+    exit 1
+  fi
+  echo "WARNING: Doves Type fonts not found (set DOVES_FONTS_DIR, or provide .brand/fonts/web); using fallback fonts"
+fi
+
+# ---------- Render every page: papers, homepage, papers index, Primer, About, Fundraising ----------
+# scripts/render-site.py runs pandoc over the Markdown and sets it in the page templates (scripts/templates/).
+# Paper metadata for the homepage and the papers index is extracted from the papers themselves.
+python3 "$SCRIPT_DIR/render-site.py" "$REPO_DIR" "$OUT_DIR"
 
 # ---------- Generate PDFs ----------
+# SKIP_PDF=1 skips this step (for local builds without LaTeX); CI never sets it.
+if [ -n "${SKIP_PDF:-}" ]; then
+  echo "SKIP_PDF set: skipping PDF generation"
+else
 TEX_TEMPLATE="$SCRIPT_DIR/icmi-template.tex"
 for md in "$REPO_DIR"/ICMI-*.md; do
   [ -f "$md" ] || continue
@@ -66,289 +71,7 @@ for md in "$REPO_DIR"/ICMI-*.md; do
   rm -f "$REPO_DIR/$basename.aux" "$REPO_DIR/$basename.log" "$REPO_DIR/$basename.out" \
         "$REPO_DIR/$basename.toc" "$REPO_DIR/$basename.nav" "$REPO_DIR/$basename.snm"
 done
-
-# ---------- Render literature review (trailhead) ----------
-# The review is a committed, hand-editable source file (literature-review.md) — the
-# single source of truth for what publishes. The build only renders it; the Claude API
-# is never called here. Refresh it locally with scripts/generate-review.py after adding
-# a paper, then commit it. See the README "Literature Review" section.
-REVIEW_SRC="$REPO_DIR/literature-review.md"
-if [ -f "$REVIEW_SRC" ]; then
-  # Non-fatal staleness check: warns (in the build log) if the corpus changed since
-  # the committed review was last regenerated. Needs no API key.
-  python3 "$SCRIPT_DIR/generate-review.py" --check || true
-
-  echo "Rendering review.html from literature-review.md ..."
-  # Drop the review-meta and review-body marker lines, then render (pandoc reads from
-  # stdin). markdown-implicit_figures: render a lone image as a plain <img>, not a
-  # <figure> with the alt text shown as a caption.
-  if ! sed -e '/^<!-- review-meta:/d' -e '/^<!-- review-body:/d' "$REVIEW_SRC" | pandoc \
-      --from markdown-implicit_figures \
-      --to html5 \
-      --template "$SCRIPT_DIR/review-template.html" \
-      --standalone \
-      --wrap=none \
-      -o "$OUT_DIR/review.html"; then
-    echo "WARNING: review render failed; continuing without it"
-    rm -f "$OUT_DIR/review.html"
-  fi
-else
-  echo "No literature-review.md found; skipping review page (run scripts/generate-review.py)"
 fi
-
-# ---------- Build standalone pages (About, Fundraising, ...) ----------
-# Each <name>.md in the repo root is rendered to <name>.html with the shared nav header.
-for page_src in "$REPO_DIR"/about.md "$REPO_DIR"/fundraising.md; do
-  [ -f "$page_src" ] || continue
-  page_base="$(basename "$page_src" .md)"
-  # Title for the <title> tag = first H1 (markdown formatting stripped)
-  page_title="$(sed -n 's/^# *//p' "$page_src" | head -1 | sed 's/\*//g')"
-  echo "Building $page_base.html ..."
-  # Per-page social card if one exists (e.g. about-card.jpg); else the template
-  # falls back to og-image.jpg.
-  card_args=()
-  [ -f "$REPO_DIR/${page_base}-card.jpg" ] && card_args=(--variable "ogimage:${page_base}-card.jpg")
-  # markdown-implicit_figures: a lone masthead image renders as a plain <img>,
-  # not a <figure> with the alt text shown as a caption.
-  pandoc "$page_src" \
-    --from markdown-implicit_figures \
-    --to html5 \
-    --template "$SCRIPT_DIR/page-template.html" \
-    --standalone \
-    --wrap=none \
-    --metadata "title:$page_title" \
-    ${card_args[@]+"${card_args[@]}"} \
-    -o "$OUT_DIR/$page_base.html"
-done
-
-# ---------- Build index page ----------
-echo "Building index.html ..."
-
-NUMBERED_ITEMS=""
-LETTER_ITEMS=""
-
-# Collect papers and split into numbered (ICMI-NNN) and letter (ICMI-X) groups
-numbered_papers=()
-letter_papers=()
-for md in "$REPO_DIR"/ICMI-*.md; do
-  [ -f "$md" ] || continue
-  bn="$(basename "$md" .md)"
-  if [[ "$bn" =~ ^ICMI-[0-9] ]]; then
-    numbered_papers+=("$md")
-  else
-    letter_papers+=("$md")
-  fi
-done
-
-# Helper: extract metadata and build an <li> for a paper
-build_paper_item() {
-  local md="$1"
-  local basename="$(basename "$md" .md)"
-
-  # Extract title from first H1, converting markdown *italics* to <em> tags
-  local title="$(grep -m1 '^# ' "$md" | sed 's/^# //' | sed 's/\*\([^*]*\)\*/<em>\1<\/em>/g')"
-
-  # Extract paper number: try numeric "Working Paper No. N", then letter "Working Paper X"
-  local paper_num="$(grep -m1 'Working Paper No\.' "$md" | sed 's/.*Working Paper No\. *//' | sed 's/[^0-9]//g')"
-  if [ -z "$paper_num" ]; then
-    paper_num="$(grep -m1 'Working Paper [A-Z]' "$md" | sed 's/.*Working Paper *//' | sed 's/[^A-Za-z]//g')"
-  fi
-
-  # Build display label
-  local paper_label
-  if [[ "$paper_num" =~ ^[0-9]+$ ]]; then
-    paper_label="Working Paper No. ${paper_num}"
-  else
-    paper_label="Working Paper ${paper_num}"
-  fi
-
-  # Extract author: try "**Author:** ..." line first, then fall back to line after "Working Paper"
-  local author="$(grep -m1 '^\*\*Author:\*\*' "$md" | sed 's/^\*\*Author:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
-  if [ -z "$author" ]; then
-    author="$(awk '/Working Paper/{getline; print; exit}' "$md" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')"
-  fi
-  # Strip "with research assistance from Claude (Anthropic)" and trailing comma
-  author="$(echo "$author" | sed 's/,[[:space:]]*with research assistance from Claude (Anthropic)//' | sed 's/with research assistance from Claude (Anthropic)//')"
-
-  # Extract date
-  local paper_date="$(grep -m1 '^\*\*Date:\*\*' "$md" | sed 's/^\*\*Date:\*\* *//' | sed 's/[[:space:]]*$//' || true)"
-
-  local date_html=""
-  if [ -n "$paper_date" ]; then
-    date_html="<span class=\"paper-date\">${paper_date}</span>"
-  fi
-
-  echo "
-    <li>
-      <span class=\"paper-number\">${paper_label}</span>
-      <div class=\"paper-title\"><a href=\"${basename}.html\">${title}</a></div>
-      <div class=\"paper-author\">${author}${date_html:+ &middot; }${date_html} &middot; <a href=\"${basename}.pdf\" class=\"paper-pdf\">PDF</a></div>
-    </li>"
-}
-
-# Build numbered papers in reverse order (newest first)
-for (( i=${#numbered_papers[@]}-1; i>=0; i-- )); do
-  NUMBERED_ITEMS+="$(build_paper_item "${numbered_papers[$i]}")"
-done
-
-# Build letter papers in reverse order (E, D, C, B, A)
-for (( i=${#letter_papers[@]}-1; i>=0; i-- )); do
-  LETTER_ITEMS+="$(build_paper_item "${letter_papers[$i]}")"
-done
-
-# Write index as a standalone HTML file (no pandoc needed)
-cat > "$OUT_DIR/index.html" <<'HEADER'
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proceedings of the Institute for a Christian Machine Intelligence</title>
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ICMI Proceedings">
-  <meta property="og:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
-  <meta property="og:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
-  <meta property="og:url" content="https://icmi-proceedings.com/">
-  <meta property="og:image" content="https://icmi-proceedings.com/index-card.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Proceedings of the Institute for a Christian Machine Intelligence">
-  <meta name="twitter:description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
-  <meta name="twitter:image" content="https://icmi-proceedings.com/index-card.jpg">
-  <meta name="description" content="Working papers exploring the intersection of Christian theology and artificial intelligence.">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
-      font-size: 19px;
-      line-height: 1.7;
-      color: #000;
-      background: #fff;
-      padding: 3rem 1.5rem;
-      max-width: 42rem;
-      margin: 0 auto;
-    }
-    a { color: #000; }
-    a:hover { text-decoration: none; }
-    header {
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid #000;
-      text-align: center;
-    }
-    header .site-title {
-      font-size: 3.2rem;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-    header .site-subtitle {
-      font-size: 1.15rem;
-      font-weight: 400;
-      margin-top: 0.35rem;
-      line-height: 1.4;
-    }
-    .site-nav {
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #000;
-    }
-    .site-nav a {
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      margin: 0 0.75rem;
-      white-space: nowrap;
-    }
-    .site-nav a:hover { text-decoration: underline; }
-    .paper-list { list-style: none; }
-    .paper-list li { margin-bottom: 2.5rem; }
-    .paper-list .paper-number {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.15rem;
-    }
-    .paper-list .paper-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      line-height: 1.35;
-    }
-    .paper-list .paper-title a { text-decoration: none; }
-    .paper-list .paper-title a:hover { text-decoration: underline; }
-    .paper-list .paper-author {
-      font-size: 1.05rem;
-      color: #444;
-      margin-top: 0.15rem;
-    }
-    .section-heading {
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-top: 3rem;
-      margin-bottom: 1.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid #ccc;
-    }
-    footer {
-      margin-top: 4rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #000;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-    footer a { color: #000; }
-    @media (max-width: 600px) {
-      body { font-size: 17px; padding: 2rem 1rem; }
-      header .site-title { font-size: 2rem; }
-      .site-nav a { margin: 0 0.5rem; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="site-title">Proceedings</div>
-    <div class="site-subtitle">of the Institute for a Christian Machine Intelligence</div>
-    <nav class="site-nav">
-      <a href="about.html">About</a>
-      <a href="index.html">Papers</a>
-      <a href="review.html">Primer</a>
-      <a href="fundraising.html">Fundraising</a>
-    </nav>
-  </header>
-  <main>
-    <ul class="paper-list">
-HEADER
-
-# Append numbered papers (Working Paper series)
-echo "$NUMBERED_ITEMS" >> "$OUT_DIR/index.html"
-
-# Append earlier papers section if any letter papers exist
-if [ -n "$LETTER_ITEMS" ]; then
-  cat >> "$OUT_DIR/index.html" <<'SECTION'
-    </ul>
-    <h2 class="section-heading">Earlier Papers</h2>
-    <ul class="paper-list">
-SECTION
-  echo "$LETTER_ITEMS" >> "$OUT_DIR/index.html"
-fi
-
-cat >> "$OUT_DIR/index.html" <<'FOOTER'
-    </ul>
-  </main>
-  <footer>
-    <a href="https://github.com/christian-machine-intelligence">GitHub</a>
-  </footer>
-</body>
-</html>
-FOOTER
 
 # ---------- Cross-link bibliography entries ----------
 echo "Cross-linking bibliography references ..."
