@@ -403,6 +403,7 @@ def build_paper(md_path, m):
     body = re.sub(r"(<h3[^>]*>)(?!<span class=\"n\">)(.*?)(</h3>)", r"\1<span>\2</span>\3", body, flags=re.S)
     body = re.sub(r'(<h3[^>]*><span class="n">[^<]*</span>)([^<].*?)(</h3>)', r"\1<span>\2</span>\3", body, flags=re.S)
     body = convert_figures(body)
+    body = align_figures(body)
     body = re.sub(r"(<table.*?</table>)", r'<div class="tbl">\1</div>', body, flags=re.S)
     body = body.replace("<em>", "<i>").replace("</em>", "</i>")
     body = tie_dashes(body)
@@ -518,6 +519,40 @@ def build_home(papers):
 
 
 # ---------------------------------------------------------------- About, Fundraising, Primer (from their Markdown)
+NUMERIC = re.compile(r"^[\d\s.,%+\-\u2212\u2013\u00b1\u00d7x()\[\]<>~\u2248*/KMB$]*\d[\d\s.,%+\-\u2212\u2013\u00b1\u00d7x()\[\]<>~\u2248*/KMB$]*$")
+
+
+def align_figures(body):
+    """Right-align the columns of a table whose cells are all figures (brand book p. 14), unless pandoc set an alignment."""
+    def one(m):
+        t = m.group(0)
+        rows = re.findall(r"<tr[^>]*>(.*?)</tr>", t, flags=re.S)
+        cells = [re.findall(r"<t([dh])([^>]*)>(.*?)</t[dh]>", r, flags=re.S) for r in rows]
+        body_rows = [r for r in cells if r and all(c[0] == "d" for c in r)]
+        if not body_rows:
+            return t
+        ncol = max(len(r) for r in body_rows)
+        num = []
+        for j in range(ncol):
+            vals = [re.sub(r"<[^>]+>|&nbsp;", " ", r[j][2]).strip() for r in body_rows if j < len(r)]
+            vals = [v for v in vals if v not in ("", "\u2014", "\u2013", "-")]
+            num.append(bool(vals) and all(NUMERIC.match(v) for v in vals))
+        if not any(num):
+            return t
+        def row(rm):
+            j = -1
+            def cell(cm):
+                nonlocal j
+                j += 1
+                tag, attrs = cm.group(1), cm.group(2)
+                if j < ncol and num[j] and "text-align" not in attrs:
+                    attrs += ' style="text-align: right"'
+                return f"<t{tag}{attrs}>"
+            return re.sub(r"<t([dh])([^>]*)>", cell, rm.group(0))
+        return re.sub(r"<tr[^>]*>.*?</tr>", row, t, flags=re.S)
+    return re.sub(r"<table.*?</table>", one, body, flags=re.S)
+
+
 def fix_links(h):
     h = h.replace('href="review.html"', 'href="primer.html"')
     h = re.sub(r'<a href="([^"]*ICMI-[^"]*)">([^<]*ICMI-[0-9A-Z]+[^<]*)</a>', r'<a class="ref" href="\1">\2</a>', h)
