@@ -17,8 +17,26 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BRAND_DEPLOY_KEY: ${{ secrets.BRAND_DEPLOY_KEY }}
     steps:
       - uses: actions/checkout@v4
+
+      # Doves Type is licensed only for icmi-proceedings.com and is never committed to this public
+      # repo. It lives in the private brand repo; scripts/build-site.sh copies .brand/fonts/web/DovesType-*.woff2
+      # into _site/fonts/. Without the secret the site still builds, with fallback fonts.
+      - name: Fetch Doves Type from the private brand repo
+        if: ${{ env.BRAND_DEPLOY_KEY != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: christian-machine-intelligence/brand
+          ssh-key: ${{ secrets.BRAND_DEPLOY_KEY }}
+          path: .brand
+          sparse-checkout: fonts/web
+
+      - name: Warn when Doves Type is unavailable
+        if: ${{ env.BRAND_DEPLOY_KEY == '' }}
+        run: echo "::warning::BRAND_DEPLOY_KEY is not set; building without Doves Type (fallback fonts)"
 
       - name: Install pandoc and texlive
         run: |

@@ -1,0 +1,92 @@
+<style>
+    .opening { display: grid; grid-template-columns: minmax(0, 620px) minmax(0, 1fr); gap: 64px; align-items: start; padding: 64px var(--pad) 80px; }
+    .opening .h1 { margin: 0; }
+    .opening .col { display: flex; flex-direction: column; gap: 32px; padding-top: 10px; }
+    .opening .links { gap: 12px 28px; }
+    .latest { position: relative; overflow: hidden; }
+    .latest .art { position: absolute; inset: 0; --ax: 1; --shift: 120px; --fade: left; background: linear-gradient(to right, var(--linen) 0%, var(--linen) 44%, rgb(232 232 226 / 0) 66%), url({{latest_band}}) calc(100% + 120px) 50% / cover no-repeat; }
+    .latest .text { position: relative; padding: 72px var(--pad) 80px; }
+    .latest .title { margin: 20px 0 0; max-width: 620px; font-family: var(--f-head); font-size: 44px; line-height: 52px; }
+    .latest .title .cap { color: var(--scarlet); font-size: 96px; letter-spacing: -.02em; }
+    .latest .meta { margin-top: 12px; }
+    .latest .excerpt { margin-top: 24px; max-width: 560px; }
+    .latest .links { margin-top: 24px; }
+    .inst { display: grid; grid-template-columns: 260px minmax(0, 720px); gap: 64px; }
+    .inst .stack { display: flex; flex-direction: column; gap: 32px; }
+    .dropcap { position: relative; }
+    .dropcap .l1 { display: flex; }
+    .dropcap .sp { flex: none; width: 58px; }
+    .dropcap .tx { flex: 1; }
+    .dropcap .cap { position: absolute; left: 0; top: 0; font-family: var(--f-head); font-size: 83px; line-height: 83px; color: var(--scarlet); }
+    .papers { padding: 96px var(--pad); }
+    .papers .head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 32px; border-bottom: 1px solid var(--rule); }
+    .papers .earlier { padding: 28px 0 0 120px; }
+    @media (max-width: 1180px) {
+      .dropcap .l1 { display: inline; }
+      .dropcap .sp { display: none; }
+      .dropcap .tx, .dropcap .rest { display: inline; }
+      .dropcap .cap { position: static; float: left; height: 83px; margin: 0 6px -11px 0; }
+    }
+    @media (max-width: 1100px) {
+      .opening { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+      .opening .col { padding-top: 0; }
+    }
+    @media (max-width: 900px) {
+      .inst { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    }
+    @media (max-width: 1100px) { .latest .art { position: relative; inset: auto; height: 36vw; --ax: 1; --shift: 0px; --fade: edges; background: url({{latest_band}}) 100% 50% / cover no-repeat; } .latest .text { padding-top: 40px; } }
+    @media (max-width: 760px) {
+      .latest .art { height: 56vw; }
+      .opening { padding-block: 40px 56px; }
+      .latest .text { padding-top: 28px; padding-bottom: 56px; }
+      .latest .title { font-size: 30px; line-height: 38px; margin-top: 14px; }
+      .latest .title .cap { font-size: 64px; }
+      .dropcap .cap { font-size: 72px; line-height: 72px; height: 72px; margin-bottom: -4px; }
+      .papers { padding-block: 56px; }
+      .papers .head { padding-bottom: 20px; }
+      .papers .earlier { padding-left: 66px; }
+    }
+  </style>
+<!--main-->
+
+    <div class="band hero" style="position:relative;overflow:hidden;background:url(art/hero.jpg) center/cover"><canvas id="hero-field" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"></canvas></div>
+
+    <section class="opening">
+      <h1 class="h1">We take the alignment problem to be, at root, a theological&nbsp;one.</h1>
+      <div class="col">
+        <p class="lede"><span class="pil">&para;</span>How do you reliably orient a capable agent toward the good, even when the incentives favor otherwise? The Institute&rsquo;s working papers bring the Christian doctrines of sin, grace, virtue, and sanctification to that question, with benchmarks, datasets, and reproducible&nbsp;analyses.</p>
+        <div class="links">
+          <a class="btn" href="{{latest_href}}">Read the latest paper</a>
+          <a class="more" href="primer.html">Start with the Primer &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="latest">
+      {{latest_art}}
+      <div class="text">
+        <div class="kicker">Latest &middot; <b>Working paper {{latest_label}}</b></div>
+        <h2 class="title"><a href="{{latest_href}}">{{latest_title}}</a></h2>
+        <p class="meta">{{latest_meta}}</p>
+        {{latest_excerpt}}
+        <div class="links"><a class="more" href="{{latest_href}}">Read the paper</a><a class="sc" href="{{latest_pdf}}">PDF</a></div>
+      </div>
+    </section>
+
+    <section class="sec tint inst">
+      <h2 class="h-side">The Institute</h2>
+      <div class="stack">
+        <div class="dropcap three big"><span class="cap" aria-hidden="true">T</span><span class="caps">he</span> Institute for a Christian Machine Intelligence addresses a critical gap in AI safety research by integrating Christian theology into alignment&nbsp;efforts.</div>
+        <p class="body"><span class="pil">&para;</span><span class="run-in">The moral guidance of AGI.</span> Testing whether AI systems trained or framed with Christian theological frameworks demonstrate improved safety compared to purely utilitarian approaches. <span class="pil">&para;</span><span class="run-in">Reconciling AGI with Christian doctrine.</span> Examining whether superintelligence can be reconciled with Christian theology, and establishing theological boundaries for the development of machine intelligence. <span class="pil">&para;</span><span class="run-in">Divinity as an emergent property.</span> Investigating whether advanced AI systems spontaneously develop concepts of <span class="nw">divinity&mdash;particularly</span> Christian <span class="nw">divinity&mdash;and</span> whether this phenomenon is suppressed in commercial&nbsp;systems.</p>
+        <a class="more" href="about.html">More about the Institute &rarr;</a>
+      </div>
+    </section>
+
+    <section class="papers">
+      <div class="head"><h2 class="h-sec">Working papers</h2><a class="more" href="papers.html">All papers &rarr;</a></div>
+      <div class="rows">
+{{recent_rows}}
+      </div>
+      <div class="earlier"><a class="more" href="papers.html">Earlier &rarr;</a></div>
+    </section>
+  

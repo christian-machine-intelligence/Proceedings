@@ -1,0 +1,27 @@
+<style>
+    .pp-open { padding: 96px var(--pad) 72px; }
+    .pp-open h1 { margin: 0; font-family: var(--f-head); font-weight: normal; font-size: 60px; line-height: 64px; letter-spacing: .04em; text-transform: uppercase; color: var(--scarlet); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 64px 40px; padding: 0 var(--pad) 120px; }
+    .tile { display: flex; flex-direction: column; gap: 14px; min-width: 0; text-decoration: none; }
+    .tile .art { width: 100%; aspect-ratio: 352 / 220; --ax: .5; --fade: edges; background: center / cover no-repeat;
+      -webkit-mask-image: radial-gradient(closest-side, #000 58%, transparent 100%); mask-image: radial-gradient(closest-side, #000 58%, transparent 100%); }
+    .tile .art.live { -webkit-mask-image: none; mask-image: none; }
+    .tile .no { color: var(--scarlet); font-size: 16px; line-height: 20px; font-feature-settings: "c2sc", "smcp"; letter-spacing: .08em; }
+    .tile .tt { font-size: 21px; line-height: 28px; }
+    .tile .meta { display: block; }
+    .tile:hover, .tile:focus-visible { text-decoration: none; }
+    .tile:hover .tt, .tile:focus-visible .tt { text-decoration: underline 1px var(--scarlet); text-underline-offset: .22em; }
+    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 760px) {
+      .pp-open { padding-block: 56px 40px; }
+      .pp-open h1 { font-size: 36px; line-height: 42px; }
+      .grid { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-bottom: 72px; }
+    }
+  </style>
+<!--main-->
+
+    <section class="pp-open"><h1>Working papers</h1></section>
+    <section class="grid" aria-label="All papers">
+{{tiles}}
+    </section>
+  

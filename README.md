@@ -53,15 +53,16 @@ Proceedings/
 ├── scripts/
 │   ├── build-site.sh            # Main build orchestrator
 │   ├── md-to-tex.sh             # Markdown → LaTeX converter
-│   ├── site-template.html       # Pandoc HTML template (paper pages)
-│   ├── review-template.html     # Pandoc HTML template (literature review page)
+│   ├── render-site.py           # Renders every HTML page (pandoc + page templates)
+│   ├── templates/               # Page CSS and markup for the brand design (home, papers, paper, page, primer)
 │   ├── icmi-template.tex        # Pandoc LaTeX template (PDF output)
 │   ├── crosslink-bibliography.py  # Post-processor: hyperlinks between papers
 │   ├── generate-review.py       # Claude API: refresh literature-review.md (run locally)
 │   └── serve.py                 # Local dev server (port 8787)
 ├── _site/                       # Generated output (gitignored)
 │   ├── index.html               # Landing page (generated inline by build script)
-│   ├── review.html              # Rendered literature review ("trailhead")
+│   ├── primer.html              # Rendered literature review (the Primer); review.html redirects to it
+│   ├── papers.html              # All papers, generated from paper metadata
 │   ├── ICMI-*.html              # Paper HTML pages
 │   └── ICMI-*.pdf               # Paper PDFs
 └── .github/workflows/
@@ -75,13 +76,13 @@ The build is driven by `scripts/build-site.sh`. On every push to `main`, GitHub 
 ```
 ICMI-*.md (markdown source)
     │
-    ├──→ pandoc + site-template.html ──→ _site/ICMI-*.html
+    ├──→ render-site.py (pandoc + templates/) ──→ _site/ICMI-*.html
     │
     └──→ md-to-tex.sh ──→ ICMI-*.tex ──→ pdflatex (×2) ──→ _site/ICMI-*.pdf
 
 Metadata extraction (title, author, abstract, date, paper number)
     │
-    └──→ index.html (generated inline in build-site.sh, not from a template)
+    └──→ index.html (latest paper, recent list) and papers.html, from render-site.py
 
 Post-processing:
     crosslink-bibliography.py ──→ hyperlinks ICMI cross-references in HTML
@@ -91,32 +92,27 @@ Post-processing:
 **Key points:**
 - `.tex` files are regenerated on every build from `.md` via `md-to-tex.sh` — never edit them directly
 - `pdflatex` runs twice per paper for cross-references
-- The index page is generated directly in `build-site.sh` using heredocs, not from a pandoc template
+- `render-site.py` builds every HTML page; the homepage and papers index come from each paper's metadata, so a new paper appears with no HTML edits. A paper with no engraving in `assets/art/` gets the cross field from `field.js` instead
 - `crosslink-bibliography.py` scans HTML output and converts plain-text references like "ICMI Working Paper No. 1" into hyperlinks
 - An editorial notice (e.g. a correction) is a `::: paper-notice` fenced block placed above the paper's `# Title` line; it renders as a grey box above the title in both the HTML page and the PDF (see ICMI-006)
 
-### Templates
+### Templates and design
 
-**`scripts/site-template.html`** — Pandoc HTML5 template for individual paper pages. Uses `$variable$` syntax for metadata injection (title, abstract, PDF link, OG tags). Includes embedded CSS and JavaScript for:
-- PDF download link injection after the "Working Paper" line
-- Article outline generation from h2 headings
-- MathJax for math rendering
+The site follows the ICMI brand design (brand repo `exports/proceedings`). `assets/` holds `site.css`, `field.js`, `engrave.js`, `footer/`, `art/` (engravings: `band/NN.jpg`, `tile/NN.jpg`, `field/*.png` for papers 1-29 and A-E) and `fonts/`; the build copies it into `_site/`. `scripts/templates/*.html|css` hold each page type's CSS and markup, and `render-site.py` fills them from the Markdown.
+
+Fonts: Doves Italic, Ysabeau Office and Paper Mono are open-licence and committed (`assets/fonts/`, with their OFL texts). **Doves Type (`DovesType-*.woff2`) is licensed only for this domain and must never be committed** (it is git-ignored). CI fetches it from the private repo `christian-machine-intelligence/brand` when the `BRAND_DEPLOY_KEY` secret is set (a read-only deploy key on that repo); without it the site builds with fallback fonts and the workflow prints a warning. Locally, set `DOVES_FONTS_DIR` to a folder holding the two files.
+
+The Primer is `primer.html`; `review.html` is a redirect page to it.
 
 **`scripts/icmi-template.tex`** — Pandoc LaTeX template for two-column conference-style PDFs. Custom section formatting, abstract styling, headers/footers with paper number and page numbers.
-
-### Styling
-
-All CSS is embedded inline (no external stylesheets):
-- **Font**: Crimson Pro (Google Fonts), serif fallbacks
-- **Layout**: Single-column, `max-width: 42rem`, responsive at 600px breakpoint
-- **Index page styles**: Written directly in `build-site.sh` heredoc
-- **Paper page styles**: In `site-template.html`
 
 ### Local Development
 
 ```bash
 # Build the site
-bash scripts/build-site.sh
+DOVES_FONTS_DIR=/path/to/fonts bash scripts/build-site.sh
+# no LaTeX installed? skip the PDFs (CI never sets this):
+SKIP_PDF=1 DOVES_FONTS_DIR=/path/to/fonts bash scripts/build-site.sh
 
 # Serve locally
 python3 scripts/serve.py        # serves _site/ on http://localhost:8787
@@ -185,7 +181,7 @@ untouched. The body survives until you deliberately regenerate (a new paper or
 `--force`), at which point only the body is rewritten — review the `git diff`.
 
 **Rendering.** `build-site.sh` strips the `review-meta` and `review-body` marker lines
-and renders the markdown to `_site/review.html` via `review-template.html`. The site
+and renders the markdown to `_site/primer.html` via `render-site.py` (`review.html` redirects there). The site
 header's **Primer** nav link points to that page.
 
 ### Deployment
